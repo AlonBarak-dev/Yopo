@@ -33,9 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(RegisterActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
-                //TODO register functionalities
-
-                //TODO add validation
+                //TODO add register functionalities and validation
 
                 // change to next page if successful
                 Toast.makeText(RegisterActivity.this, "Registered Successful!ly", Toast.LENGTH_SHORT).show();

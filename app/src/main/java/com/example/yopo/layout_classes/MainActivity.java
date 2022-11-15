@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Going to register page!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(i);
             }

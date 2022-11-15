@@ -13,7 +13,6 @@ import com.example.yopo.R;
 public class MainActivity extends AppCompatActivity {
     // field variables
     private Button register;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -9,4 +9,9 @@
     <string name="register_button">Register</string>
     <string name="password">Password</string>
     <string name="home_success">Success!</string>
+    <string name="city_field">City</string>
+    <string name="street_field">Street</string>
+    <string name="birth_date">Birth date dd/mm/yy</string>
+    <string name="home_number">Home Number</string>
+    <string name="floor_number">Floor Number</string>
 </resources>

@@ -32,7 +32,13 @@ public class RegisterActivity extends AppCompatActivity {
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RegisterActivity.this, "Going to home page!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
+                //TODO register functionalities
+
+                //TODO add validation
+
+                // change to next page if successful
+                Toast.makeText(RegisterActivity.this, "Registered Successful!ly", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(RegisterActivity.this, HomeActivity.class);
                 String first_name_str = first_name.getText().toString();
                 i.putExtra("first_name", first_name_str);

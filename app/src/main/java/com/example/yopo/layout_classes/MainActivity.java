@@ -28,4 +28,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void login_onClick(View v){
+        setContentView(R.layout.login_layout);
+    }
 }

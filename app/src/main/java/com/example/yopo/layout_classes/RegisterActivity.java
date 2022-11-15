@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
-import com.example.yopo.data_classes.UserRegisterParser;
+import com.example.yopo.data_classes.UserRegisterValidator;
 
 public class RegisterActivity extends AppCompatActivity {
     // variables for the fields
@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(RegisterActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
                 //TODO add register functionalities and validation
-                UserRegisterParser parser = new UserRegisterParser(username.getText().toString(), password.getText().toString(), first_name.getText().toString(), last_name.getText().toString(), email.getText().toString(), birth_date.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString());
+                UserRegisterValidator parser = new UserRegisterValidator(username.getText().toString(), password.getText().toString(), first_name.getText().toString(), last_name.getText().toString(), email.getText().toString(), birth_date.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString());
 
                 // change to next page if successful
                 if (parser.is_valid()) {

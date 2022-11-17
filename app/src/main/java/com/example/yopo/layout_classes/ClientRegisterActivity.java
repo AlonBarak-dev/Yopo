@@ -14,7 +14,7 @@ import com.example.yopo.data_classes.UserRegisterValidator;
 
 public class ClientRegisterActivity extends AppCompatActivity {
     // variables for the fields
-    private EditText username, first_name, last_name, password, email, city, street, home_num, floor, birth_date;
+    private EditText username, first_name, last_name, password, email, city, street, home_num, floor, birth_date, phone_number;
     private Button register_button;
 
     @Override
@@ -33,6 +33,7 @@ public class ClientRegisterActivity extends AppCompatActivity {
         home_num = findViewById(R.id.home_number);
         floor = findViewById(R.id.floor_number);
         birth_date = findViewById(R.id.birth_date_field);
+        phone_number = findViewById(R.id.phone_number);
         register_button = findViewById(R.id.register_button);
 
         // set event to button click
@@ -41,14 +42,14 @@ public class ClientRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(ClientRegisterActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
                 //TODO add register functionalities and validation
-                UserRegisterValidator parser = new UserRegisterValidator(username.getText().toString(), password.getText().toString(), first_name.getText().toString(), last_name.getText().toString(), email.getText().toString(), birth_date.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString());
+                UserRegisterValidator parser = new UserRegisterValidator(username.getText().toString(), password.getText().toString(), first_name.getText().toString(), last_name.getText().toString(), email.getText().toString(), birth_date.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString(), phone_number.getText().toString());
 
                 // change to next page if successful
                 if (parser.is_valid()) {
-                    Toast.makeText(ClientRegisterActivity.this, "Registered Successful!ly", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(ClientRegisterActivity.this, HomeActivity.class);
-                    String first_name_str = first_name.getText().toString();
-                    i.putExtra("first_name", first_name_str);
+//                    String first_name_str = first_name.getText().toString();
+//                    i.putExtra("first_name", first_name_str);
                     startActivity(i);
                 } else {
                     Toast.makeText(ClientRegisterActivity.this, "Register Failed!", Toast.LENGTH_SHORT).show();

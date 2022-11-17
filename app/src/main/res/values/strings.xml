@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Yopo</string>
 
-    <!--> these are strings for the register page <!-->
+    <!--> these are strings for the user register page <!-->
     <string name="username">Username</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -15,5 +15,19 @@
     <string name="birth_date">Birth date dd/mm/yy</string>
     <string name="home_number">Home Number</string>
     <string name="floor_number">Floor Number</string>
-    <string name="Logout"></string>
+    <string name="phone">Phone Number</string>
+
+    <!--> these are strings for user home page <!-->
+    <string name="search_button">Search</string>
+    <string name="calender_button">Calender</string>
+    <string name="profile_button">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="image_description">User Image Profile</string>
+
+    <!--> these are strings for user search page <!-->
+    <string name="search_button_user_search">Search Title</string>
+    <string name="search_bar">Search</string>
+
+    <!--> these are strings for general use <!-->
+    <string name="logo_name">YOPO</string>
 </resources>

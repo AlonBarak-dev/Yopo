@@ -44,16 +44,15 @@ public class LoginActivity extends AppCompatActivity{
                     Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
 
                     if (business_box.isChecked()){
-                        // business profile - TODO validate using firebase
-//                        Intent i = new Intent(LoginActivity.this, )
-
+                        // Business profile - TODO validate using firebase
+                        Intent i = new Intent(LoginActivity.this, BusinessHome.class);
+                        startActivity(i);
                     }
                     else{
+                        // User profile - TODO validate using firebase
                         Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(i);
                     }
-
-
 
                 } else {
                     Toast.makeText(LoginActivity.this, parser.get_error_string(), Toast.LENGTH_SHORT).show();

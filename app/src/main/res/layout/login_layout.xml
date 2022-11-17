@@ -87,7 +87,11 @@
         android:textColor="@color/title_color"
         android:textSize="16sp"
         android:textStyle="bold|italic"
-        tools:layout_editor_absoluteX="154dp"
-        tools:layout_editor_absoluteY="659dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_button"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

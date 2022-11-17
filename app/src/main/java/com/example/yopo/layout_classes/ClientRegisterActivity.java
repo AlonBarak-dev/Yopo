@@ -47,7 +47,7 @@ public class ClientRegisterActivity extends AppCompatActivity {
                 // change to next page if successful
                 if (parser.is_valid()) {
                     Toast.makeText(ClientRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(ClientRegisterActivity.this, HomeActivity.class);
+                    Intent i = new Intent(ClientRegisterActivity.this, ClientHomeActivity.class);
 //                    String first_name_str = first_name.getText().toString();
 //                    i.putExtra("first_name", first_name_str);
                     startActivity(i);

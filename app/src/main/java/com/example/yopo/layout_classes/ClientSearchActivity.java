@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.yopo.R;
 
-public class UserSearchActivity extends AppCompatActivity {
+public class ClientSearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_search);
+        setContentView(R.layout.client_search_layout);
     }
 }

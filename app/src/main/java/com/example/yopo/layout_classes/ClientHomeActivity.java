@@ -6,20 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.yopo.R;
-import com.example.yopo.data_classes.UserRegisterValidator;
 
-public class HomeActivity extends AppCompatActivity {
+public class ClientHomeActivity extends AppCompatActivity {
     // field variables
     private Button search_button, calender_button, profile_button, logout_button;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_home);
+        setContentView(R.layout.client_home_layout);
 
         // get fields
         search_button = findViewById(R.id.search);
@@ -32,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, UserSearchActivity.class));
+                startActivity(new Intent(ClientHomeActivity.this, ClientSearchActivity.class));
             }
         });
     }

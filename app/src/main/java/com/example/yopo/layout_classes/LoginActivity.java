@@ -1,5 +1,4 @@
 package com.example.yopo.layout_classes;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity{
                     }
                     else{
                         // User profile - TODO validate using firebase
-                        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                        Intent i = new Intent(LoginActivity.this, ClientHomeActivity.class);
                         startActivity(i);
                     }
 

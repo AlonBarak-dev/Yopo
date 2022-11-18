@@ -30,4 +30,13 @@
 
     <!--> these are strings for general use <!-->
     <string name="logo_name">YOPO</string>
+
+    <!-- this array is used for business registration -->
+    <string-array name="category_array">
+        <item>Select Business Category</item>
+        <item>Food</item>
+        <item>Electronics</item>
+        <item>Sports</item>
+        <item>Other</item>
+    </string-array>
 </resources>

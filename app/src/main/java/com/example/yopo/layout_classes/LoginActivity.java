@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity{
 
                     if (business_box.isChecked()){
                         // Business profile - TODO validate using firebase
-                        Intent i = new Intent(LoginActivity.this, BusinessHome.class);
+                        Intent i = new Intent(LoginActivity.this, BusinessHomeActivity.class);
                         startActivity(i);
                     }
                     else{

@@ -28,7 +28,6 @@
     <string name="search_button_user_search">Search Title</string>
     <string name="search_bar">Search</string>
 
-
     <!--> this array is used for business registration <!-->
     <string-array name="category_array">
         <item>Select Business Category</item>
@@ -37,6 +36,19 @@
         <item>Sports</item>
         <item>Other</item>
     </string-array>
+
+    <!-- these are for the business schedule page -->
+    <string name="choose_day">Choose a day to view and edit schedule</string>
+    <string-array name="days_of_the_week">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
     <!--> this array is used for business registration <!-->
     <string name="edit_profile">Edit Profile</string>
 

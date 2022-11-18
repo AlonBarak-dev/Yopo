@@ -48,6 +48,7 @@
         <item>Friday</item>
         <item>Saturday</item>
     </string-array>
+    <string name="day">Day:</string>
 
     <!--> this array is used for business registration <!-->
     <string name="edit_profile">Edit Profile</string>

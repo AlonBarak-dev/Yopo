@@ -3,18 +3,13 @@ package com.example.yopo.layout_classes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
 
-public class BusinessHome extends AppCompatActivity {
+public class BusinessHomeActivity extends AppCompatActivity {
 
     private ImageButton logout;
 
@@ -29,7 +24,7 @@ public class BusinessHome extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Logout from the profile -> back to Main page
-                Intent i = new Intent(BusinessHome.this, MainActivity.class);
+                Intent i = new Intent(BusinessHomeActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });

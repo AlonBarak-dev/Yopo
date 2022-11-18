@@ -1,11 +1,11 @@
 package com.example.yopo.data_classes;
 
-public class UserRegisterValidator {
+public class ClientRegisterValidator {
     private String username, password, first_name, last_name, email, birth_date, city, street, home_num, floor, phone_number;
     private boolean error;
     private String error_string;
 
-    public UserRegisterValidator(String username, String password, String first_name, String last_name, String email, String birth_date, String city, String street, String home_num, String floor, String phone_num) {
+    public ClientRegisterValidator(String username, String password, String first_name, String last_name, String email, String birth_date, String city, String street, String home_num, String floor, String phone_num) {
         // values to check
         this.username = username;
         this.password = password;

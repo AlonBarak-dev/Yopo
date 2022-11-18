@@ -13,7 +13,21 @@
         android:theme="@style/Theme.Yopo"
         tools:targetApi="31">
         <activity
-            android:name=".BusinessRegisterActivity"
+            android:name=".layout_classes.ClientProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".layout_classes.BusinessProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".layout_classes.BusinessRegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

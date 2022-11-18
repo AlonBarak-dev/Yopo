@@ -1,4 +1,4 @@
-package com.example.yopo;
+package com.example.yopo.layout_classes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,8 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-import com.example.yopo.data_classes.ClientRegisterValidator;
-import com.example.yopo.layout_classes.BusinessHomeActivity;
+import com.example.yopo.R;
 
 public class BusinessRegisterActivity extends AppCompatActivity {
 
@@ -90,9 +89,7 @@ public class BusinessRegisterActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                return;
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
         register_button.setOnClickListener(new View.OnClickListener() {

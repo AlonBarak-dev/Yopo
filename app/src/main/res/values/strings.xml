@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Yopo</string>
 
-    <!--> these are strings for the user register page <!-->
+    <!--> these are strings for the client register page <!-->
     <string name="username">Username</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -17,21 +17,19 @@
     <string name="floor_number">Floor Number</string>
     <string name="phone">Phone Number</string>
 
-    <!--> these are strings for user home page <!-->
+    <!--> these are strings for client home page <!-->
     <string name="search_button">Search</string>
     <string name="calender_button">Calender</string>
     <string name="profile_button">Profile</string>
     <string name="logout">Logout</string>
     <string name="image_description">User Image Profile</string>
 
-    <!--> these are strings for user search page <!-->
+    <!--> these are strings for client search page <!-->
     <string name="search_button_user_search">Search Title</string>
     <string name="search_bar">Search</string>
 
-    <!--> these are strings for general use <!-->
-    <string name="logo_name">YOPO</string>
 
-    <!-- this array is used for business registration -->
+    <!--> this array is used for business registration <!-->
     <string-array name="category_array">
         <item>Select Business Category</item>
         <item>Food</item>
@@ -39,4 +37,9 @@
         <item>Sports</item>
         <item>Other</item>
     </string-array>
+    <!--> this array is used for business registration <!-->
+    <string name="edit_profile">Edit Profile</string>
+
+    <!--> these are strings for general use <!-->
+    <string name="logo_name">YOPO</string>
 </resources>

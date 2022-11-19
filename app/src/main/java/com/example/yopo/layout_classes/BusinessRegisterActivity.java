@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.example.yopo.R;
+import com.example.yopo.data_classes.BusinessRegisterValidator;
 
 public class BusinessRegisterActivity extends AppCompatActivity {
 
@@ -93,13 +94,21 @@ public class BusinessRegisterActivity extends AppCompatActivity {
         });
 
         register_button.setOnClickListener(new View.OnClickListener() {
-            // TODO implement input validation
             @Override
             public void onClick(View v) {
                 Toast.makeText(BusinessRegisterActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
-                Toast.makeText(BusinessRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(BusinessRegisterActivity.this, BusinessHomeActivity.class);
-                startActivity(i);
+                BusinessRegisterValidator parser = new BusinessRegisterValidator(username.getText().toString(), password.getText().toString(), email.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString(), phone_number.getText().toString());
+
+                // change to next page if successful
+                if (parser.is_valid()) {
+                    Toast.makeText(BusinessRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(BusinessRegisterActivity.this, BusinessHomeActivity.class);
+//                    String first_name_str = first_name.getText().toString();
+//                    i.putExtra("first_name", first_name_str);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(BusinessRegisterActivity.this, "Register Failed!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -1,18 +1,18 @@
 package com.example.yopo.data_classes;
 
-public class ClientRegisterValidator {
-    private String username, password, first_name, last_name, email, birth_date, city, street, home_num, floor, phone_number;
+import android.widget.EditText;
+
+public class BusinessRegisterValidator {
+    private String username, password, email, city, street, home_num, floor, phone_number, business_description;
+    private String category, sub_category;
     private boolean error;
     private String error_string;
 
-    public ClientRegisterValidator(String username, String password, String first_name, String last_name, String email, String birth_date, String city, String street, String home_num, String floor, String phone_num) {
+    public BusinessRegisterValidator(String username, String password, String email, String city, String street, String home_num, String floor, String phone_num) {
         // values to check
         this.username = username;
         this.password = password;
-        this.first_name = first_name;
-        this.last_name = last_name;
         this.email = email;
-        this.birth_date = birth_date;
         this.city = city;
         this.street = street;
         this.home_num = home_num;
@@ -34,21 +34,6 @@ public class ClientRegisterValidator {
         if (this.password.isEmpty()) {
             this.error = true;
             this.error_string = "Must enter password!";
-            return false;
-        }
-        if (this.first_name.isEmpty()) {
-            this.error = true;
-            this.error_string = "Must enter first name!";
-            return false;
-        }
-        if (this.last_name.isEmpty()) {
-            this.error = true;
-            this.error_string = "Must enter last name!";
-            return false;
-        }
-        if (this.birth_date.isEmpty()) {
-            this.error = true;
-            this.error_string = "Must enter valid birth date!";
             return false;
         }
         if (this.email.isEmpty()) {

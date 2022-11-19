@@ -21,7 +21,7 @@ public class BusinessScheduleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_business_schedule);
+        setContentView(R.layout.business_schedule_layout);
 
         // get field variables
         day_chooser = findViewById(R.id.day_chooser);

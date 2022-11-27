@@ -11,6 +11,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
+import io.grpc.util.TransmitStatusRuntimeExceptionInterceptor;
+
 /**
  * A Singleton class for interfacing with the database
  */
@@ -27,7 +29,7 @@ public class Database {
      *
      * @return A Database object
      */
-    public Database getInstance() {
+    public static Database getInstance() {
         if (database == null) {
             database = new Database();
         }
@@ -39,8 +41,9 @@ public class Database {
      * where keys are attributes and values are attribute values
      *
      * @param client_data A HashMap object
+     * @return True if successfully added the new user to the database, else False
      */
-    public void add_new_client(HashMap<String, Object> client_data) {
+    public boolean add_new_client(HashMap<String, Object> client_data) {
         // Add a new document with a generated ID
         db.collection("clients")
                 .add(client_data)
@@ -56,5 +59,7 @@ public class Database {
                         Log.w("DB", "Error adding document", e);
                     }
                 });
+
+        return true;
     }
 }

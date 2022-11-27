@@ -71,11 +71,6 @@ public class ClientRegisterValidator {
             this.error_string = "Must enter home number!";
             return false;
         }
-        if (this.floor.isEmpty()) {
-            this.error = true;
-            this.error_string = "Must enter floor!";
-            return false;
-        }
         if (this.phone_number.isEmpty()) {
             this.error = true;
             this.error_string = "Must enter phone number!";

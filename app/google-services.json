@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "77963178190",
+    "firebase_url": "https://yopo-6aaec-default-rtdb.firebaseio.com",
+    "project_id": "yopo-6aaec",
+    "storage_bucket": "yopo-6aaec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77963178190:android:3c46fec98a7478e9a1609f",
+        "android_client_info": {
+          "package_name": "com.example.yopo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77963178190-tilim63mo78bj1bqs3gpvo3v6vagc2f9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAec4Ir0hQrCTqjQ90ut2GST_qmhEWOcBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77963178190-tilim63mo78bj1bqs3gpvo3v6vagc2f9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

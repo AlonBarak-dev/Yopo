@@ -66,10 +66,10 @@ public class ClientRegisterActivity extends AppCompatActivity {
                     client_data.put("email", email.getText().toString());
                     client_data.put("city", city.getText().toString());
                     client_data.put("street", street.getText().toString());
-                    client_data.put("home_num", home_num.getText().toString());
-                    client_data.put("floor", floor.getText().toString());
+                    client_data.put("home_num", Integer.parseInt(home_num.getText().toString()));
+                    client_data.put("floor", Integer.parseInt(floor.getText().toString()));
                     client_data.put("birthdate", birth_date.getText().toString());
-                    client_data.put("phone_number", phone_number.getText().toString());
+                    client_data.put("phone_number", Integer.parseInt(phone_number.getText().toString()));
 
                     // add to the database
                     boolean success = database.add_new_client(client_data);
@@ -79,9 +79,9 @@ public class ClientRegisterActivity extends AppCompatActivity {
                         // go to home page
                         Toast.makeText(ClientRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(ClientRegisterActivity.this, ClientHomeActivity.class);
+                        i.putExtra("username", username.getText().toString());
                         startActivity(i);
-                    }
-                    else {
+                    } else {
                         Log.w("ClientReg", "Registration Failed");
                         Toast.makeText(ClientRegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                     }

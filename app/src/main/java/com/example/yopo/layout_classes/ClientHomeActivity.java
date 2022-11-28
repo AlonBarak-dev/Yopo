@@ -53,5 +53,13 @@ public class ClientHomeActivity extends AppCompatActivity {
                 startActivity(new Intent(ClientHomeActivity.this, ClientSearchActivity.class));
             }
         });
+
+        calender_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ClientHomeActivity.this, ClientCalendarActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

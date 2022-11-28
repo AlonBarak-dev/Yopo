@@ -41,15 +41,26 @@
 
     <TextView
         android:id="@+id/date_info_business_home"
-        android:layout_width="141dp"
-        android:layout_height="66dp"
-        android:layout_marginBottom="196dp"
-        android:text="INFO"
+        android:layout_width="145dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="268dp"
+        android:text="DATE"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/edit_schedule_business_button"
+        android:layout_width="63dp"
+        android:layout_height="61dp"
+        android:contentDescription="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/logout_button_business"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

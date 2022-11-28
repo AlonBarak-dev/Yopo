@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Intent i = new Intent(MainActivity.this, LoginActivity.class);
 //                startActivity(i);
-                Intent i = new Intent(MainActivity.this, BusinessScheduleActivity.class);
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
             }
         });

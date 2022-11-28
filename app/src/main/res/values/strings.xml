@@ -55,4 +55,10 @@
 
     <!--> these are strings for general use <!-->
     <string name="logo_name">YOPO</string>
+
+    <!--> these are strings for the Business Home Page <!-->
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
+    <string name="edit">edit</string>
+
 </resources>

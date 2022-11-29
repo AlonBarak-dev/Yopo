@@ -42,9 +42,7 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this, "Login...", Toast.LENGTH_SHORT).show();
-                //TODO add register functionalities and validation
                 LoginValidation parser = new LoginValidation(username.getText().toString(), password.getText().toString());
-                // TODO add login functionalities and use validation from database
                 if (parser.is_valid()){
                     if (business_box.isChecked()){
                         // make sure the user exists in the database -> username to password

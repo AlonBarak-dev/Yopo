@@ -45,6 +45,7 @@ public class BusinessRegisterActivity extends AppCompatActivity {
         register_button = findViewById(R.id.register_button);
         business_description = findViewById(R.id.business_description);
 
+
         database = Database.getInstance();
 
 

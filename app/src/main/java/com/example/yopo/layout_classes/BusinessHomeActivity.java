@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
+import com.example.yopo.data_classes.Database;
 
 public class BusinessHomeActivity extends AppCompatActivity {
 
@@ -22,6 +23,8 @@ public class BusinessHomeActivity extends AppCompatActivity {
     private ImageButton edit_schedule;
     private CalendarView calendar;
     private TextView date_view;
+
+    private Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class BusinessHomeActivity extends AppCompatActivity {
         edit_schedule = findViewById(R.id.edit_schedule_business_button);
         calendar = findViewById(R.id.Calendar_business_home_layout);
         date_view = findViewById(R.id.date_info_business_home);
+        // extract the database object which is a singleton
+        database = Database.getInstance();
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

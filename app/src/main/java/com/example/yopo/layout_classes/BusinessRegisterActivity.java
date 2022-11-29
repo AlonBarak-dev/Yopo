@@ -103,6 +103,7 @@ public class BusinessRegisterActivity extends AppCompatActivity {
                 if (parser.is_valid()) {
                     Toast.makeText(BusinessRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(BusinessRegisterActivity.this, BusinessHomeActivity.class);
+                    i.putExtra("username", username.getText().toString());
 //                    String first_name_str = first_name.getText().toString();
 //                    i.putExtra("first_name", first_name_str);
                     startActivity(i);

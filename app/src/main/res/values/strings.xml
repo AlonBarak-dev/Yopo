@@ -50,6 +50,10 @@
     </string-array>
     <string name="day">Day:</string>
 
+    <!-- these are strings for the business landing page -->
+    <string name="business_name">Name</string>
+    <string name="business_description">Description: some text that describes the business </string>
+
     <!--> this array is used for business registration <!-->
     <string name="edit_profile">Edit Profile</string>
 

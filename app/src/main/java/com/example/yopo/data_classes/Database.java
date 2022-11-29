@@ -49,7 +49,7 @@ public class Database {
      */
     public boolean add_new_client(HashMap<String, Object> client_data) {
         // Add a new document with a generated ID
-        db.collection("clients")
+        Task<DocumentReference> task = db.collection("clients")
                 .add(client_data)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -64,7 +64,11 @@ public class Database {
                     }
                 });
 
-        return true;
+
+        while (!task.isComplete() && !task.isCanceled()) {
+        }
+
+        return !task.isCanceled();
     }
 
     /**
@@ -94,9 +98,12 @@ public class Database {
 
         while (!task.isComplete() && !task.isCanceled()) {
         }
+
         if (task.isComplete()) {
-            client_data = (HashMap<String, Object>) task.getResult().getDocuments().get(0).getData();
-            Log.d("ClientData", "" + client_data);
+            if (!task.getResult().isEmpty()) {
+                client_data = (HashMap<String, Object>) task.getResult().getDocuments().get(0).getData();
+                Log.d("ClientData", "" + client_data);
+            }
         }
         return client_data;
     }
@@ -155,8 +162,10 @@ public class Database {
         while (!task.isComplete() && !task.isCanceled()) {
         }
         if (task.isComplete()) {
-            business_data = (HashMap<String, Object>) task.getResult().getDocuments().get(0).getData();
-            Log.d("ClientData", "" + business_data);
+            if (!task.getResult().isEmpty()) {
+                business_data = (HashMap<String, Object>) task.getResult().getDocuments().get(0).getData();
+                Log.d("ClientData", "" + business_data);
+            }
         }
         return business_data;
     }

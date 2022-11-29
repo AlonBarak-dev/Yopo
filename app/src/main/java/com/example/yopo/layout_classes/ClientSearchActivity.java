@@ -14,11 +14,13 @@ import android.widget.Toast;
 import com.example.yopo.R;
 import com.example.yopo.data_classes.ClientRegisterValidator;
 import com.example.yopo.data_classes.Database;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
 
 public class ClientSearchActivity extends AppCompatActivity {
-    private EditText search_bar;
+    private TextInputLayout search_bar;
     private ImageButton search_button;
     private Database database;
 
@@ -34,8 +36,6 @@ public class ClientSearchActivity extends AppCompatActivity {
         search_button = findViewById(R.id.search_button);
         search_bar = findViewById(R.id.search_bar);
 
-        // TODO use business name instead of username
-
         // set event to button click
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,12 +43,19 @@ public class ClientSearchActivity extends AppCompatActivity {
                 Toast.makeText(ClientSearchActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
 
                 // get business by the given name
-                String search_query_name = search_bar.getText().toString();
+                // TODO use business name instead of username
+                String search_query_name = search_bar.getEditText().getText().toString();
                 HashMap<String, Object> business_info = database.get_business_info(search_query_name);
 
                 // validate
                 if (business_info != null) {
-
+                    Intent i = new Intent(ClientSearchActivity.this, BusinessLandingPageActivity.class);
+                    Toast.makeText(ClientSearchActivity.this, "Business Found!", Toast.LENGTH_SHORT).show();
+                    i.putExtra("business_username", (String) business_info.get("username"));
+                    startActivity(i);
+                }
+                else {
+                    Toast.makeText(ClientSearchActivity.this, "Business Not Found!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

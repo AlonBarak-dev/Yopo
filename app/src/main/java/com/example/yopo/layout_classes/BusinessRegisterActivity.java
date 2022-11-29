@@ -43,24 +43,25 @@ public class BusinessRegisterActivity extends AppCompatActivity {
         categories = findViewById(R.id.categories);
         sub_categories = findViewById(R.id.sub_categories);
         register_button = findViewById(R.id.register_button);
+        business_description = findViewById(R.id.business_description);
 
         database = Database.getInstance();
 
 
         // Create a static (XML) ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this,
-                                                                                    R.array.category_array,
-                                                                                    android.R.layout.simple_spinner_item);
+                R.array.category_array,
+                android.R.layout.simple_spinner_item);
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         categories.setAdapter(staticAdapter);
 
         // Create dynamic ArrayAdapters for each category
-        String[] defaults = new String[] {"Choose Category"};
-        String[] foods = new String[] {"Market", "Restaurant", "Grocery"};
-        String[] electronics = new String[] {"Repair Lab", "Retailer"};
-        String[] sports = new String[] {"Sports wears", "Equipment"};
-        String[] other = new String[] {"Barber", "Cosmetics", "Handyman", "Private Teacher"};
+        String[] defaults = new String[]{"Choose Category"};
+        String[] foods = new String[]{"Market", "Restaurant", "Grocery"};
+        String[] electronics = new String[]{"Repair Lab", "Retailer"};
+        String[] sports = new String[]{"Sports wears", "Equipment"};
+        String[] other = new String[]{"Barber", "Cosmetics", "Handyman", "Private Teacher"};
 
         ArrayAdapter<String> default_adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, defaults);
@@ -79,7 +80,7 @@ public class BusinessRegisterActivity extends AppCompatActivity {
         categories.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                switch(i) {
+                switch (i) {
                     case 1:
                         sub_categories.setAdapter(foods_adapter);
                         break;
@@ -96,8 +97,10 @@ public class BusinessRegisterActivity extends AppCompatActivity {
                         sub_categories.setAdapter(default_adapter);
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
         });
 
         register_button.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +111,6 @@ public class BusinessRegisterActivity extends AppCompatActivity {
 
                 // change to next page if successful
                 if (parser.is_valid()) {
-
                     // Create a new Hashmap for the new business user
                     HashMap<String, Object> business_data = new HashMap<>();
                     business_data.put("username", username.getText().toString());
@@ -119,20 +121,20 @@ public class BusinessRegisterActivity extends AppCompatActivity {
                     business_data.put("home_num", home_num.getText().toString());
                     business_data.put("floor", floor.getText().toString());
                     business_data.put("phone", phone_number.getText().toString());
+                    business_data.put("description", business_description.getText().toString());
 
                     // add to the database
                     boolean success = database.add_new_business(business_data);
                     Log.d("ClientReg", "Success Status: " + success);
 
-                    if (success){
+                    if (success) {
                         Toast.makeText(BusinessRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(BusinessRegisterActivity.this, BusinessHomeActivity.class);
                         i.putExtra("username", username.getText().toString());
 //                    String first_name_str = first_name.getText().toString();
 //                    i.putExtra("first_name", first_name_str);
                         startActivity(i);
-                    }
-                    else {
+                    } else {
                         Log.w("ClientReg", "Registration Failed");
                         Toast.makeText(BusinessRegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                     }

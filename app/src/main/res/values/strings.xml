@@ -53,6 +53,9 @@
     <!-- these are strings for the business landing page -->
     <string name="business_name">Name</string>
     <string name="business_description">Description: some text that describes the business </string>
+    <string name="schedule_appointment_button_text">Schedule Appointment</string>
+    <string name="service_list_button_text">Services and Prices</string>
+
 
     <!--> this array is used for business registration <!-->
     <string name="edit_profile">Edit Profile</string>

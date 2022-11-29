@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".layout_classes.BusinessLandingPageLayout">
+    tools:context=".layout_classes.BusinessLandingPageActivity">
 
     <TextView
         android:id="@+id/business_name"

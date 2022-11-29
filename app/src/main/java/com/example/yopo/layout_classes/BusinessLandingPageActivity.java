@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.yopo.R;
 
-public class BusinessLandingPageLayout extends AppCompatActivity {
+public class BusinessLandingPageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

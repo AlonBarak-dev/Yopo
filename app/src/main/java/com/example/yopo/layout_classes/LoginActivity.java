@@ -47,10 +47,9 @@ public class LoginActivity extends AppCompatActivity{
                 // TODO add login functionalities and use validation from database
                 if (parser.is_valid()){
                     if (business_box.isChecked()){
-
                         // make sure the user exists in the database -> username to password
                         HashMap<String, Object> user = database.get_business_info(username.getText().toString());
-                        if (user.get("password").toString().equals(password.getText().toString())){
+                        if (user != null && user.get("password").toString().equals(password.getText().toString())){
                             Intent i = new Intent(LoginActivity.this, BusinessHomeActivity.class);
                             i.putExtra("username", username.getText().toString());
                             // the input values are good
@@ -64,7 +63,7 @@ public class LoginActivity extends AppCompatActivity{
                     else{
                         // User profile
                         HashMap<String, Object> user = database.get_client_info(username.getText().toString());
-                        if (user.get("password").toString().equals(password.getText().toString())){
+                        if (user != null && user.get("password").toString().equals(password.getText().toString())){
                             Intent i = new Intent(LoginActivity.this, ClientHomeActivity.class);
                             i.putExtra("username", username.getText().toString());
                             // the input values are good

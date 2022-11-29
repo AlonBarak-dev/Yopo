@@ -18,17 +18,74 @@ import com.example.yopo.R;
 import com.example.yopo.data_classes.BusinessRegisterValidator;
 import com.example.yopo.data_classes.Database;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.List;
+
+
 public class ClientAppointmentScheduleActivity extends AppCompatActivity{
 
     private CalendarView calendar;
     private Spinner hours;
+    private Button save;
+    private Database database;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.appointment_schedule_layout);
+
+        calendar = findViewById(R.id.calendar_dates_schedule);
+        hours = findViewById(R.id.avaliable_hours_spinner);
+        database = Database.getInstance();
+
+        String[] list_of_hours = new String[24];
+
+
+        // Add Listener in calendar
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            // In this Listener have one method
+            // and in this method we will
+            // get the value of DAYS, MONTH, YEARS
+            public void onSelectedDayChange(
+                    CalendarView view,
+                    int year,
+                    int month,
+                    int dayOfMonth)
+            {
+
+                // this will serve as a key in the future
+                // in order to extract the appointments from the database.
+                String Date = dayOfMonth + "/" + (month + 1) + "/" + year;
+
+                for(int i = 0; i < 24; i++){
+                    String start_time = i + ":00";
+                    String end_time = ((i+1) % 24) + ":00";
+                    String full_time = start_time + "--" + end_time;
+                    list_of_hours[i] = full_time;
+                }
+
+                ArrayAdapter<String> hours_adapter = new ArrayAdapter<String>(ClientAppointmentScheduleActivity.this,
+                        android.R.layout.simple_spinner_item, list_of_hours);
+
+
+                hours.setAdapter(hours_adapter);
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                HashMap<String, Object> new_appointment = new HashMap<>();
+
+
+            }
+        });
+
+
 
 
 

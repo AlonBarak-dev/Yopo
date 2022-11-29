@@ -70,5 +70,17 @@
         app:layout_constraintTop_toTopOf="@+id/calendar_dates_schedule"
         app:layout_constraintVertical_bias="0.612" />
 
+    <Button
+        android:id="@+id/save_appointment_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avaliable_hours_spinner"
+        app:layout_constraintVertical_bias="0.808" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,11 +12,13 @@ import android.widget.Toast;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Session;
 
 import java.util.HashMap;
 
 public class BusinessLandingPageActivity extends AppCompatActivity {
     private Database database;
+    private Session session;
 
     private TextView business_name, business_description;
     private Button schedule_button;
@@ -31,6 +33,8 @@ public class BusinessLandingPageActivity extends AppCompatActivity {
 
         // get intent info
         String business_username = getIntent().getStringExtra("business_username");
+        session = Session.getInstance();
+        session.add_session_attribute("business_username", business_username);
 
         // get data from database about business
         HashMap<String, Object> business_data = database.get_business_info(business_username);

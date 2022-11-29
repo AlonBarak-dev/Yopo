@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.example.yopo.R;
 import com.example.yopo.data_classes.BusinessRegisterValidator;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Session;
 
 import java.lang.reflect.Array;
 import java.util.HashMap;
@@ -28,6 +29,8 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
     private CalendarView calendar;
     private Spinner hours;
     private Button save;
+
+    private Session session;
     private Database database;
 
 
@@ -42,6 +45,10 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
 
         String[] list_of_hours = new String[24];
 
+        // get data from session
+        session = Session.getInstance();
+        String client_username = (String) session.get_session_attribute("username");
+        String business_username = (String) session.get_session_attribute("business_username");
 
         // Add Listener in calendar
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {

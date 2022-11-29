@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Session;
 
 import java.util.HashMap;
 
@@ -17,6 +18,7 @@ public class ClientHomeActivity extends AppCompatActivity {
     // field variables
     private Button search_button, calender_button, profile_button, logout_button;
     private Database database;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,10 @@ public class ClientHomeActivity extends AppCompatActivity {
 
         // get user info to use in database
         String username = getIntent().getStringExtra("username");
+
+        // init session
+        session = Session.getInstance();
+        session.add_session_attribute("username", username);
 
         // load user data
         HashMap<String, Object> client_data = null;

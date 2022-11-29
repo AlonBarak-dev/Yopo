@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Session;
 
 public class BusinessHomeActivity extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
     private TextView date_view;
 
     private Database database;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,11 @@ public class BusinessHomeActivity extends AppCompatActivity {
         date_view = findViewById(R.id.date_info_business_home);
         // extract the database object which is a singleton
         database = Database.getInstance();
+
         // get user info to use in database
         String username = getIntent().getStringExtra("username");
+        session = Session.getInstance();
+        session.add_session_attribute("username", username);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,27 +61,26 @@ public class BusinessHomeActivity extends AppCompatActivity {
 
         // Add Listener in calendar
         calendar.setOnDateChangeListener(
-            new CalendarView
-                    .OnDateChangeListener() {
-                // In this Listener have one method
-                // and in this method we will
-                // get the value of DAYS, MONTH, YEAR
-                @Override
-                public void onSelectedDayChange(
-                        CalendarView view,
-                        int year,
-                        int month,
-                        int dayOfMonth)
-                {
-                    // this will serve as a key in the future
-                    // in order to extract the appointments from the database.
-                    String Date
-                            = username + ":"+ dayOfMonth + "-"
-                            + (month + 1) + "-" + year;
+                new CalendarView
+                        .OnDateChangeListener() {
+                    // In this Listener have one method
+                    // and in this method we will
+                    // get the value of DAYS, MONTH, YEAR
+                    @Override
+                    public void onSelectedDayChange(
+                            CalendarView view,
+                            int year,
+                            int month,
+                            int dayOfMonth) {
+                        // this will serve as a key in the future
+                        // in order to extract the appointments from the database.
+                        String Date
+                                = username + ":" + dayOfMonth + "-"
+                                + (month + 1) + "-" + year;
 
-                    // set this date in TextView for Display
-                    date_view.setText(Date);
-                }
-            });
+                        // set this date in TextView for Display
+                        date_view.setText(Date);
+                    }
+                });
     }
 }

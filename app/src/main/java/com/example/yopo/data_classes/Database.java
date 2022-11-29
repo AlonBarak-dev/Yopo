@@ -74,7 +74,7 @@ public class Database {
      * @return A HashMap with the users data, keys are attributes and values are attribute values
      */
     public HashMap<String, Object> get_client_info(String client_username) {
-//        HashMap client_data
+        HashMap<String, Object> client_data = null;
 
         Task<QuerySnapshot> task = db.collection("clients")
                 .whereEqualTo("username", client_username)
@@ -92,11 +92,13 @@ public class Database {
                     }
                 });
 
-        while (!task.isComplete()) {
-
+        while (!task.isComplete() && !task.isCanceled()) {
         }
-
-        return null;
+        if (task.isComplete()) {
+            client_data = (HashMap<String, Object>) task.getResult().getDocuments().get(0).getData();
+            Log.d("ClientData", "" + client_data);
+        }
+        return client_data;
     }
 
 

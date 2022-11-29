@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/appointment_sched_title"
+        android:layout_width="262dp"
+        android:layout_height="39dp"
+        android:text="Business Calendar"
+        android:textAlignment="center"
+        android:textColor="@color/title_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
+
+    <CalendarView
+        android:id="@+id/Calendar_business_home_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="111dp" />
+
+    <TextView
+        android:id="@+id/appointment_sched_sub_title"
+        android:layout_width="171dp"
+        android:layout_height="18dp"
+        android:text="Select a Date:"
+        android:textAlignment="center"
+        android:textColor="@color/title_color"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/Calendar_business_home_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appointment_sched_title" />
+
+    <Spinner
+        android:id="@+id/avaliable_hours_spinner"
+        android:layout_width="321dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="44dp"
+        android:contentDescription="@string/hours"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Calendar_business_home_layout"
+        app:layout_constraintVertical_bias="0.612" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

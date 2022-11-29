@@ -206,7 +206,7 @@ public class Database {
      * @param username
      * @param Date
      * @param isClient := tells whether to check on clients or business.
-     * @return
+     * @return a list of appointments
      */
     public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient){
 
@@ -261,8 +261,6 @@ public class Database {
         }
 
         return list_of_appointments;
-
-
     }
 
 

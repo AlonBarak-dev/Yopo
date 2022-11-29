@@ -68,4 +68,7 @@
     <string name="forward"><![CDATA[->]]></string>
     <string name="edit">edit</string>
 
+    <!--> these are string for the Appointment schedule page <!-->
+    <string name="hours">spinner_hours</string>
+
 </resources>

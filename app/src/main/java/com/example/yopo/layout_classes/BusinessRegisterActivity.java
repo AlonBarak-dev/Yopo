@@ -40,7 +40,7 @@ public class BusinessRegisterActivity extends AppCompatActivity {
         home_num = findViewById(R.id.home_number);
         floor = findViewById(R.id.floor_number);
         phone_number = findViewById(R.id.phone_number);
-        categories = findViewById(R.id.categories);
+        categories = findViewById(R.id.avaliable_hours_spinner);
         sub_categories = findViewById(R.id.sub_categories);
         register_button = findViewById(R.id.register_button);
         business_description = findViewById(R.id.business_description);

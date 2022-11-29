@@ -46,7 +46,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/home_number"
         android:layout_width="162dp"
-        android:layout_height="47dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="1dp"
         android:hint="@string/home_number"
         android:textColorHint="#757575"
@@ -125,7 +125,7 @@
         android:inputType="phone"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/categories"
+        app:layout_constraintBottom_toTopOf="@+id/avaliable_hours_spinner"
         app:layout_constraintEnd_toEndOf="@+id/floor_number"
         app:layout_constraintStart_toEndOf="@+id/floor_number"
         app:layout_constraintTop_toBottomOf="@+id/floor_number" />
@@ -150,9 +150,9 @@
         app:layout_constraintTop_toBottomOf="@+id/sub_categories" />
 
     <Spinner
-        android:id="@+id/categories"
+        android:id="@+id/avaliable_hours_spinner"
         android:layout_width="321dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="44dp"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="15dp"
@@ -164,13 +164,13 @@
     <Spinner
         android:id="@+id/sub_categories"
         android:layout_width="322dp"
-        android:layout_height="42dp"
+        android:layout_height="48dp"
         android:layout_marginStart="44dp"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/business_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categories" />
+        app:layout_constraintTop_toBottomOf="@+id/avaliable_hours_spinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

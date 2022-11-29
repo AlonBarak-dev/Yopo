@@ -1,15 +1,11 @@
 package com.example.yopo.layout_classes;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import android.os.Bundle;
-import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +29,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
 
         logout = findViewById(R.id.logout_button_business);
         edit_schedule = findViewById(R.id.edit_schedule_business_button);
-        calendar = findViewById(R.id.Calendar_business_home_layout);
+        calendar = findViewById(R.id.calendar_dates_scehdule);
         date_view = findViewById(R.id.date_info_business_home);
         // extract the database object which is a singleton
         database = Database.getInstance();

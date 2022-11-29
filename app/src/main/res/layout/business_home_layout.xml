@@ -32,7 +32,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <CalendarView
-        android:id="@+id/Calendar_business_home_layout"
+        android:id="@+id/calendar_dates_scehdule"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"

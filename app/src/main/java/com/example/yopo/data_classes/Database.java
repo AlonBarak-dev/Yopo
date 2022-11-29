@@ -10,13 +10,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
-
-import io.grpc.util.TransmitStatusRuntimeExceptionInterceptor;
 
 /**
  * A Singleton class for interfacing with the database
@@ -77,7 +74,9 @@ public class Database {
      * @return A HashMap with the users data, keys are attributes and values are attribute values
      */
     public HashMap<String, Object> get_client_info(String client_username) {
-        return (HashMap<String, Object>) db.collection("clients")
+//        HashMap client_data
+
+        Task<QuerySnapshot> task = db.collection("clients")
                 .whereEqualTo("username", client_username)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -91,6 +90,14 @@ public class Database {
                             Log.w("DB", "Error getting documents.", task.getException());
                         }
                     }
-                }).getResult().getDocuments().get(0).getData();
+                });
+
+        while (!task.isComplete()) {
+
+        }
+
+        return null;
     }
+
+
 }

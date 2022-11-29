@@ -3,9 +3,11 @@ package com.example.yopo.layout_classes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 
 import android.widget.CalendarView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +16,17 @@ import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
 import com.example.yopo.data_classes.Session;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class BusinessHomeActivity extends AppCompatActivity {
 
     private ImageButton logout;
     private ImageButton edit_schedule;
     private CalendarView calendar;
     private TextView date_view;
+    private Spinner appointments;
+    private String selected_date;
 
     private Database database;
     private Session session;
@@ -33,6 +40,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
         edit_schedule = findViewById(R.id.edit_schedule_business_button);
         calendar = findViewById(R.id.calendar_dates_scehdule);
         date_view = findViewById(R.id.date_info_business_home);
+        appointments = findViewById(R.id.appointments_business_spinner);
         // extract the database object which is a singleton
         database = Database.getInstance();
 
@@ -74,12 +82,27 @@ public class BusinessHomeActivity extends AppCompatActivity {
                             int dayOfMonth) {
                         // this will serve as a key in the future
                         // in order to extract the appointments from the database.
-                        String Date
-                                = username + ":" + dayOfMonth + "-"
-                                + (month + 1) + "-" + year;
+                        selected_date
+                                = dayOfMonth + "/"
+                                + (month + 1) + "/" + year;
 
                         // set this date in TextView for Display
-                        date_view.setText(Date);
+                        date_view.setText(selected_date);
+
+                        List<HashMap<String, Object>> appointments_list = database.get_appointment_info(username, selected_date, false);
+                        String[] appointment_info_list = new String[appointments_list.size()];
+                        int counter = 0;
+                        for (HashMap<String, Object> appointment : appointments_list){
+                            String app = appointment.get("client_username") + "-" + appointment.get("date")
+                                    + "-" + appointment.get("time");
+                            appointment_info_list[counter] = app;
+                            counter++;
+                        }
+
+                        ArrayAdapter<String> appointments_adapter = new ArrayAdapter<String>(BusinessHomeActivity.this,
+                                android.R.layout.simple_spinner_item, appointment_info_list);
+
+                        appointments.setAdapter(appointments_adapter);
                     }
                 });
     }

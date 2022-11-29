@@ -15,6 +15,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -210,11 +211,12 @@ public class Database {
      */
     public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient){
 
-        List<HashMap<String, Object>> list_of_appointments = null;
+        List<HashMap<String, Object>> list_of_appointments = new LinkedList<>();
         Task<QuerySnapshot> task = null;
         if (isClient) {
             task = db.collection("appointments")
                     .whereEqualTo("client_username", username)
+                    .whereEqualTo("date", Date)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -232,6 +234,7 @@ public class Database {
         else{
             task = db.collection("appointments")
                     .whereEqualTo("business_username", username)
+                    .whereEqualTo("date", Date)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override

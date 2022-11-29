@@ -30,6 +30,8 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
     private Spinner hours;
     private Button save;
 
+    private String selected_date;
+
     private Session session;
     private Database database;
 
@@ -41,6 +43,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
 
         calendar = findViewById(R.id.calendar_dates_schedule);
         hours = findViewById(R.id.avaliable_hours_spinner);
+        save = findViewById(R.id.save_appointment_button);
         database = Database.getInstance();
 
         String[] list_of_hours = new String[24];
@@ -65,7 +68,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
 
                 // this will serve as a key in the future
                 // in order to extract the appointments from the database.
-                String Date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                selected_date = dayOfMonth + "/" + (month + 1) + "/" + year;
 
                 for(int i = 0; i < 24; i++){
                     String start_time = i + ":00";
@@ -77,7 +80,6 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                 ArrayAdapter<String> hours_adapter = new ArrayAdapter<String>(ClientAppointmentScheduleActivity.this,
                         android.R.layout.simple_spinner_item, list_of_hours);
 
-
                 hours.setAdapter(hours_adapter);
             }
         });
@@ -85,8 +87,22 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // TODO add treatment type and users Names.
 
-                HashMap<String, Object> new_appointment = new HashMap<>();
+                if (selected_date != null){
+                    HashMap<String, Object> new_appointment = new HashMap<>();
+                    new_appointment.put("client_username", client_username);
+                    new_appointment.put("business_username", business_username);
+                    new_appointment.put("date", selected_date);
+                    new_appointment.put("time", hours.getSelectedItem());
+                    if(database.add_new_appointment(new_appointment)){
+                        Toast.makeText(ClientAppointmentScheduleActivity.this, "Appointment set successfully!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(ClientAppointmentScheduleActivity.this, "Please choose date", Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }

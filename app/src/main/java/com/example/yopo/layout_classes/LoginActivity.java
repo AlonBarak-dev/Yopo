@@ -10,7 +10,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
+import com.example.yopo.data_classes.Database;
 import com.example.yopo.data_classes.LoginValidation;
+
+import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class LoginActivity extends AppCompatActivity{
@@ -19,6 +23,7 @@ public class LoginActivity extends AppCompatActivity{
     private EditText username, password;
     private Button login_button;
     private CheckBox business_box;
+    private Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,8 @@ public class LoginActivity extends AppCompatActivity{
         login_button = findViewById(R.id.login_button);
         business_box = findViewById(R.id.login_checkBox);
 
+        database = Database.getInstance();
+
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,18 +46,34 @@ public class LoginActivity extends AppCompatActivity{
                 LoginValidation parser = new LoginValidation(username.getText().toString(), password.getText().toString());
                 // TODO add login functionalities and use validation from database
                 if (parser.is_valid()){
-                    // the input values are good
-                    Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
-
                     if (business_box.isChecked()){
-                        // Business profile - TODO validate using firebase
-                        Intent i = new Intent(LoginActivity.this, BusinessHomeActivity.class);
-                        startActivity(i);
+
+                        // make sure the user exists in the database -> username to password
+                        HashMap<String, Object> user = database.get_business_info(username.getText().toString());
+                        if (user.get("password").toString().equals(password.getText().toString())){
+                            Intent i = new Intent(LoginActivity.this, BusinessHomeActivity.class);
+                            i.putExtra("username", username.getText().toString());
+                            // the input values are good
+                            Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+                            startActivity(i);
+                        }
+                        else{
+                            Toast.makeText(LoginActivity.this, "Username/Password is wrong!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else{
-                        // User profile - TODO validate using firebase
-                        Intent i = new Intent(LoginActivity.this, ClientHomeActivity.class);
-                        startActivity(i);
+                        // User profile
+                        HashMap<String, Object> user = database.get_client_info(username.getText().toString());
+                        if (user.get("password").toString().equals(password.getText().toString())){
+                            Intent i = new Intent(LoginActivity.this, ClientHomeActivity.class);
+                            i.putExtra("username", username.getText().toString());
+                            // the input values are good
+                            Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+                            startActivity(i);
+                        }
+                        else{
+                            Toast.makeText(LoginActivity.this, "Username/Password is wrong!", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 } else {

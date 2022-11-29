@@ -62,22 +62,16 @@ public class BusinessHomeActivity extends AppCompatActivity {
         calendar.setOnDateChangeListener(
             new CalendarView
                     .OnDateChangeListener() {
-                @Override
-
                 // In this Listener have one method
                 // and in this method we will
-                // get the value of DAYS, MONTH, YEARS
+                // get the value of DAYS, MONTH, YEAR
+                @Override
                 public void onSelectedDayChange(
                         CalendarView view,
                         int year,
                         int month,
                         int dayOfMonth)
                 {
-
-                    // Store the value of date with
-                    // format in String type Variable
-                    // Add 1 in month because month
-                    // index is start with 0.
                     // this will serve as a key in the future
                     // in order to extract the appointments from the database.
                     String Date

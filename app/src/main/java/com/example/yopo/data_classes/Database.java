@@ -103,6 +103,31 @@ public class Database {
 
 
     /**
+     * This function added a new business user to the database given a Hashmap,
+     * where the strings are the key and the objects are the values.
+     */
+    public boolean add_new_business(HashMap<String, Object> client_data) {
+        // Add a new document with a generated ID
+        db.collection("business")
+                .add(client_data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("DB", "Client document added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("DB", "Error adding document", e);
+                    }
+                });
+
+        return true;
+    }
+
+
+    /**
      * This function retrieves client info from the database using its username
      *
      * @param business_username The username of the client

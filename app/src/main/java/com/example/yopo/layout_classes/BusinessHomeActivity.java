@@ -37,6 +37,8 @@ public class BusinessHomeActivity extends AppCompatActivity {
         date_view = findViewById(R.id.date_info_business_home);
         // extract the database object which is a singleton
         database = Database.getInstance();
+        // get user info to use in database
+        String username = getIntent().getStringExtra("username");
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +81,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
                     // this will serve as a key in the future
                     // in order to extract the appointments from the database.
                     String Date
-                            = dayOfMonth + "-"
+                            = username + ":"+ dayOfMonth + "-"
                             + (month + 1) + "-" + year;
 
                     // set this date in TextView for Display

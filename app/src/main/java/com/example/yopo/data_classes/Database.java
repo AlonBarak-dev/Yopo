@@ -102,4 +102,39 @@ public class Database {
     }
 
 
+    /**
+     * This function retrieves client info from the database using its username
+     *
+     * @param business_username The username of the client
+     * @return A HashMap with the users data, keys are attributes and values are attribute values
+     */
+    public HashMap<String, Object> get_business_info(String business_username) {
+        HashMap<String, Object> business_data = null;
+
+        Task<QuerySnapshot> task = db.collection("business")
+                .whereEqualTo("username", business_username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("DB", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w("DB", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+        while (!task.isComplete() && !task.isCanceled()) {
+        }
+        if (task.isComplete()) {
+            business_data = (HashMap<String, Object>) task.getResult().getDocuments().get(0).getData();
+            Log.d("ClientData", "" + business_data);
+        }
+        return business_data;
+    }
+
+
 }

@@ -44,7 +44,12 @@ public class ClientSearchActivity extends AppCompatActivity {
 
                 // get business by the given name
                 String search_query_name = search_bar.getText().toString();
-                database.get_business_info(search_query_name);
+                HashMap<String, Object> business_info = database.get_business_info(search_query_name);
+
+                // validate
+                if (business_info != null) {
+
+                }
             }
         });
 

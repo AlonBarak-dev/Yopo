@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import android.widget.CalendarView;
@@ -26,6 +27,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
     private CalendarView calendar;
     private TextView date_view;
     private Spinner appointments;
+    private Button profile_button;
     private String selected_date;
 
     private Database database;
@@ -41,6 +43,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
         calendar = findViewById(R.id.calendar_dates_scehdule);
         date_view = findViewById(R.id.date_info_business_home);
         appointments = findViewById(R.id.appointments_business_spinner);
+        profile_button = findViewById(R.id.home_2_profile_button);
         // extract the database object which is a singleton
         database = Database.getInstance();
 
@@ -63,6 +66,14 @@ public class BusinessHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to the edit screen where the user can edit it schedule.
                 Intent i = new Intent(BusinessHomeActivity.this, BusinessScheduleActivity.class);
+                startActivity(i);
+            }
+        });
+
+        profile_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(BusinessHomeActivity.this, BusinessProfileActivity.class);
                 startActivity(i);
             }
         });

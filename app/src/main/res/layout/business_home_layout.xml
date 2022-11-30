@@ -75,6 +75,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
+    <Button
+        android:id="@+id/home_2_profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="666dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

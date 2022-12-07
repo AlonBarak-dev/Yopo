@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -135,8 +134,9 @@ public class BusinessRegisterActivity extends AppCompatActivity {
 
                     // add to session
                     session.add_session_attribute("first_step_register_data", business_data);
+                    session.add_session_attribute("business_register_parser", parser);
 
-                    Intent i = new Intent(BusinessRegisterActivity.this, BusinessPriceListActivity.class);
+                    Intent i = new Intent(BusinessRegisterActivity.this, BusinessRegisterPriceListActivity.class);
                     startActivity(i);
 //
 //                    // add to the database

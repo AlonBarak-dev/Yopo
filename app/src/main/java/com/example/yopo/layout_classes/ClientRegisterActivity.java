@@ -44,7 +44,7 @@ public class ClientRegisterActivity extends AppCompatActivity {
         phone_number = findViewById(R.id.phone_number);
 
         // buttons
-        register_button = findViewById(R.id.register_button);
+        register_button = findViewById(R.id.next_register_business);
 
         // set event to button click
         register_button.setOnClickListener(new View.OnClickListener() {

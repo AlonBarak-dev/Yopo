@@ -325,4 +325,81 @@ public class Database {
         return business_data;
     }
 
+    /**
+     * This method adds a new service to the "Services" collection in the database.
+     * {username : String, Service: String, price: String}
+     * @param service contains the business username and the service description
+     */
+    public boolean add_new_service(HashMap<String, Object> service){
+
+        db.collection("services")
+                .add(service)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("DB", "Service document added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("DB", "Error adding document", e);
+                    }
+                });
+
+        return true;
+
+    }
+
+    /**
+     * This method retrieve the list of all business's services.
+     * @param username ths business username
+     * @return the list of all services
+     */
+    public List<HashMap<String, Object>> get_services(String username){
+        List<HashMap<String, Object>> list_of_services = null;
+        Task<QuerySnapshot> task = null;
+
+        task = db.collection("services")
+                .whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("DB", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w("DB", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+
+        while (!task.isComplete() && !task.isCanceled()) {
+        }
+        if (task.isComplete()) {
+            if (!task.getResult().isEmpty()) {
+                HashMap<String, Object> service_data;
+                for (DocumentSnapshot dic : task.getResult().getDocuments()) {
+                    service_data = (HashMap<String, Object>) dic.getData();
+                    list_of_services.add(service_data);
+                    Log.d("ServiceData", "" + service_data);
+                }
+            }
+        }
+
+        return list_of_services;
+    }
+
+
+
+
+
+
+
+
+
+
 }

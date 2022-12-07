@@ -29,6 +29,31 @@ public class Database {
         db = FirebaseFirestore.getInstance();
     }
 
+
+    /**
+     * Check if a username exists in the database
+     *
+     * @param username   the username to check
+     * @param collection the collection in which to check for the username
+     * @return True if the username is taken, else False
+     */
+    private boolean username_exists(String username, String collection) {
+        Task<QuerySnapshot> query = db.collection(collection).whereEqualTo("username", username).get();
+
+        while (!query.isComplete() && !query.isCanceled()) {
+        }
+
+        if (query.isComplete()) {
+            QuerySnapshot snapshot = query.getResult();
+            if (!snapshot.isEmpty())
+                Log.i("UsernameValidation", "Username already exists");
+
+            return !snapshot.isEmpty();
+        }
+
+        return false;
+    }
+
     /**
      * Get the database instance
      *
@@ -50,27 +75,30 @@ public class Database {
      * @return True if successfully added the new user to the database, else False
      */
     public boolean add_new_client(HashMap<String, Object> client_data) {
-        // Add a new document with a generated ID
-        Task<DocumentReference> task = db.collection("clients")
-                .add(client_data)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("DB", "Client document added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("DB", "Error adding document", e);
-                    }
-                });
+        if (!this.username_exists((String) client_data.get("username"), "clients")) {
+            // Add a new document with a generated ID
+            Task<DocumentReference> task = db.collection("clients")
+                    .add(client_data)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("DB", "Client document added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("DB", "Error adding document", e);
+                        }
+                    });
 
 
-        while (!task.isComplete() && !task.isCanceled()) {
+            while (!task.isComplete() && !task.isCanceled()) {
+            }
+
+            return !task.isCanceled();
         }
-
-        return !task.isCanceled();
+        return false;
     }
 
     /**
@@ -116,9 +144,43 @@ public class Database {
      * where the strings are the key and the objects are the values.
      */
     public boolean add_new_business(HashMap<String, Object> client_data) {
-        // Add a new document with a generated ID
-        db.collection("business")
-                .add(client_data)
+        if (!username_exists((String) client_data.get("username"), "business")) {
+            // Add a new document with a generated ID
+            db.collection("business")
+                    .add(client_data)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("DB", "Client document added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("DB", "Error adding document", e);
+                        }
+                    });
+
+            return true;
+        }
+        return false;
+    }
+
+
+
+    /**
+     * This function allows a client to set a new appointment at a desired business
+     *
+     * @param appointment := A HashMap that contains all the needed information about the
+     *                    new appointment. such as:
+     *                    client username, client name, business username, business username,
+     *                    Date, Time and type of treatment.
+     */
+
+    public boolean add_new_appointment(HashMap<String, Object> appointment) {
+
+        db.collection("appointments")
+                .add(appointment)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -135,6 +197,67 @@ public class Database {
         return true;
     }
 
+    /**
+     * This function retrieves a list of all appointments on @Date for @username.
+     *
+     * @param username
+     * @param Date
+     * @param isClient := tells whether to check on clients or business.
+     * @return a list of appointments
+     */
+    public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient) {
+        List<HashMap<String, Object>> list_of_appointments = null;
+        Task<QuerySnapshot> task = null;
+        if (isClient) {
+            task = db.collection("appointments")
+                    .whereEqualTo("client_username", username)
+                    .whereEqualTo("date", Date)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("DB", document.getId() + " => " + document.getData());
+                                }
+                            } else {
+                                Log.w("DB", "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+        } else {
+            task = db.collection("appointments")
+                    .whereEqualTo("business_username", username)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("DB", document.getId() + " => " + document.getData());
+                                }
+                            } else {
+                                Log.w("DB", "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+        }
+
+        while (!task.isComplete() && !task.isCanceled()) {
+        }
+        if (task.isComplete()) {
+            if (!task.getResult().isEmpty()) {
+                HashMap<String, Object> appointment_data;
+                for (DocumentSnapshot dic : task.getResult().getDocuments()) {
+                    appointment_data = (HashMap<String, Object>) dic.getData();
+                    list_of_appointments.add(appointment_data);
+                    Log.d("ClientData", "" + appointment_data);
+                }
+            }
+        }
+
+        return list_of_appointments;
+    }
 
     /**
      * This function retrieves client info from the database using its username
@@ -172,24 +295,49 @@ public class Database {
         return business_data;
     }
 
+    public HashMap<String, Object> get_business_info_by_name(String business_username) {
+        HashMap<String, Object> business_data = null;
+
+        Task<QuerySnapshot> task = db.collection("business")
+                .whereEqualTo("business_name", business_username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("DB", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w("DB", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+        while (!task.isComplete() && !task.isCanceled()) {
+        }
+        if (task.isComplete()) {
+            if (!task.getResult().isEmpty()) {
+                business_data = (HashMap<String, Object>) task.getResult().getDocuments().get(0).getData();
+                Log.d("ClientData", "" + business_data);
+            }
+        }
+        return business_data;
+    }
 
     /**
-     * This function allows a client to set a new appointment at a desired business
-     *
-     * @param appointment := A HashMap that contains all the needed information about the
-     *                    new appointment. such as:
-     *                    client username, client name, business username, business username,
-     *                    Date, Time and type of treatment.
+     * This method adds a new service to the "Services" collection in the database.
+     * {username : String, Service: String, price: String}
+     * @param service contains the business username and the service description
      */
+    public boolean add_new_service(HashMap<String, Object> service){
 
-    public boolean add_new_appointment(HashMap<String, Object> appointment){
-
-        db.collection("appointments")
-                .add(appointment)
+        db.collection("services")
+                .add(service)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d("DB", "Client document added with ID: " + documentReference.getId());
+                        Log.d("DB", "Service document added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -200,71 +348,52 @@ public class Database {
                 });
 
         return true;
+
     }
 
     /**
-     * This function retrieves a list of all appointments on @Date for @username.
-     * @param username
-     * @param Date
-     * @param isClient := tells whether to check on clients or business.
-     * @return a list of appointments
+     * This method retrieve the list of all business's services.
+     * @param username ths business username
+     * @return the list of all services
      */
-    public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient){
-
-        List<HashMap<String, Object>> list_of_appointments = new LinkedList<>();
+    public List<HashMap<String, Object>> get_services(String username){
+        List<HashMap<String, Object>> list_of_services = null;
         Task<QuerySnapshot> task = null;
-        if (isClient) {
-            task = db.collection("appointments")
-                    .whereEqualTo("client_username", username)
-                    .whereEqualTo("date", Date)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("DB", document.getId() + " => " + document.getData());
-                                }
-                            } else {
-                                Log.w("DB", "Error getting documents.", task.getException());
+
+        task = db.collection("services")
+                .whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("DB", document.getId() + " => " + document.getData());
                             }
+                        } else {
+                            Log.w("DB", "Error getting documents.", task.getException());
                         }
-                    });
-        }
-        else{
-            task = db.collection("appointments")
-                    .whereEqualTo("business_username", username)
-                    .whereEqualTo("date", Date)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("DB", document.getId() + " => " + document.getData());
-                                }
-                            } else {
-                                Log.w("DB", "Error getting documents.", task.getException());
-                            }
-                        }
-                    });
-        }
+                    }
+                });
+
 
         while (!task.isComplete() && !task.isCanceled()) {
         }
         if (task.isComplete()) {
             if (!task.getResult().isEmpty()) {
-                HashMap<String, Object> appointment_data;
+                HashMap<String, Object> service_data;
                 for (DocumentSnapshot dic : task.getResult().getDocuments()) {
-                    appointment_data = (HashMap<String, Object>) dic.getData();
-                    list_of_appointments.add(appointment_data);
-                    Log.d("ClientData", "" + appointment_data);
+                    service_data = (HashMap<String, Object>) dic.getData();
+                    list_of_services.add(service_data);
+                    Log.d("ServiceData", "" + service_data);
                 }
             }
         }
 
-        return list_of_appointments;
+        return list_of_services;
     }
+
+
 
 
 

@@ -3,15 +3,16 @@ package com.example.yopo.data_classes;
 import android.widget.EditText;
 
 public class BusinessRegisterValidator {
-    private String username, password, email, city, street, home_num, floor, phone_number, business_description;
+    private String username, password, email, city, street, home_num, floor, phone_number, business_description, business_name;
     private String category, sub_category;
     private boolean error;
     private String error_string;
 
-    public BusinessRegisterValidator(String username, String password, String email, String city, String street, String home_num, String floor, String phone_num) {
+    public BusinessRegisterValidator(String username, String password, String email, String city, String street, String home_num, String floor, String phone_num, String business_name) {
         // values to check
         this.username = username;
         this.password = password;
+        this.business_name = business_name;
         this.email = email;
         this.city = city;
         this.street = street;
@@ -26,6 +27,11 @@ public class BusinessRegisterValidator {
 
     public boolean is_valid() {
         // TODO update validation
+        if (this.business_name.isEmpty()){
+            this.error = true;
+            this.error_string = "Must enter Business Name!";
+            return false;
+        }
         if (this.username.isEmpty()) {
             this.error = true;
             this.error_string = "Must enter username!";

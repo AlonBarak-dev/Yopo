@@ -17,15 +17,16 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.example.yopo.R;
 import com.example.yopo.data_classes.BusinessRegisterValidator;
 import com.example.yopo.data_classes.Database;
-
+import com.example.yopo.data_classes.Session;
 import java.util.HashMap;
 
 public class BusinessRegisterActivity extends AppCompatActivity {
 
-    private EditText username, password, email, city, street, home_num, floor, phone_number, business_description;
+    private EditText username, password, email, city, street, home_num, floor, phone_number, business_description, business_name;
     private Spinner categories, sub_categories;
-    private Button register_button;
+    private Button next_button;
     private Database database;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +43,14 @@ public class BusinessRegisterActivity extends AppCompatActivity {
         phone_number = findViewById(R.id.phone_number);
         categories = findViewById(R.id.avaliable_hours_spinner);
         sub_categories = findViewById(R.id.sub_categories);
-        register_button = findViewById(R.id.register_button);
+        next_button = findViewById(R.id.next_register_business);
         business_description = findViewById(R.id.business_description);
+        business_name = findViewById(R.id.business_register_name);
 
 
         database = Database.getInstance();
+
+        session = Session.getInstance();
 
 
         // Create a static (XML) ArrayAdapter using the string array and a default spinner
@@ -104,16 +108,19 @@ public class BusinessRegisterActivity extends AppCompatActivity {
             }
         });
 
-        register_button.setOnClickListener(new View.OnClickListener() {
+        next_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BusinessRegisterActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
-                BusinessRegisterValidator parser = new BusinessRegisterValidator(username.getText().toString(), password.getText().toString(), email.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString(), phone_number.getText().toString());
+                Toast.makeText(BusinessRegisterActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
+                BusinessRegisterValidator parser = new BusinessRegisterValidator(username.getText().toString(), password.getText().toString(), email.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString(), phone_number.getText().toString(), business_name.getText().toString());
 
                 // change to next page if successful
                 if (parser.is_valid()) {
+
+
                     // Create a new Hashmap for the new business user
                     HashMap<String, Object> business_data = new HashMap<>();
+                    business_data.put("business_name", business_name.getText().toString());
                     business_data.put("username", username.getText().toString());
                     business_data.put("password", password.getText().toString());
                     business_data.put("email", email.getText().toString());
@@ -126,24 +133,30 @@ public class BusinessRegisterActivity extends AppCompatActivity {
                     business_data.put("category", categories.getSelectedItem().toString());
                     business_data.put("subcategory", sub_categories.getSelectedItem().toString());
 
-                    // add to the database
-                    boolean success = database.add_new_business(business_data);
-                    Log.d("ClientReg", "Success Status: " + success);
+                    // add to session
+                    session.add_session_attribute("first_step_register_data", business_data);
 
-                    if (success) {
-                        Toast.makeText(BusinessRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(BusinessRegisterActivity.this, BusinessHomeActivity.class);
-                        i.putExtra("username", username.getText().toString());
-//                    String first_name_str = first_name.getText().toString();
-//                    i.putExtra("first_name", first_name_str);
-                        startActivity(i);
-                    } else {
-                        Log.w("ClientReg", "Registration Failed");
-                        Toast.makeText(BusinessRegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
-                    }
+                    Intent i = new Intent(BusinessRegisterActivity.this, BusinessPriceListActivity.class);
+                    startActivity(i);
+//
+//                    // add to the database
+//                    boolean success = database.add_new_business(business_data);
+//                    Log.d("ClientReg", "Success Status: " + success);
+//
+//                    if (success) {
+//                        Toast.makeText(BusinessRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
+//                        Intent i = new Intent(BusinessRegisterActivity.this, BusinessHomeActivity.class);
+//                        i.putExtra("username", username.getText().toString());
+////                    String first_name_str = first_name.getText().toString();
+////                    i.putExtra("first_name", first_name_str);
+//                        startActivity(i);
+//                    } else {
+//                        Log.w("ClientReg", "Registration Failed");
+//                        Toast.makeText(BusinessRegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+//                    }
 
                 } else {
-                    Toast.makeText(BusinessRegisterActivity.this, "Register Failed due to invalid inputs!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BusinessRegisterActivity.this, "This step Failed due to invalid inputs!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

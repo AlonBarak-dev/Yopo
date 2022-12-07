@@ -8,9 +8,113 @@
     tools:layout_editor_absoluteY="-80dp">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/city"
+        android:id="@+id/username"
         android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="12dp"
+        android:hint="@string/username"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/business_description"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="19dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="bottom"
+        android:hint="Business Description"
+        android:inputType="textAutoComplete|textAutoCorrect"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/next_register_business"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sub_categories" />
+
+    <Spinner
+        android:id="@+id/sub_categories"
+        android:layout_width="322dp"
         android:layout_height="48dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/business_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avaliable_hours_spinner"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Spinner
+        android:id="@+id/avaliable_hours_spinner"
+        android:layout_width="321dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/sub_categories"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_number"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/phone_number"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/phone"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/avaliable_hours_spinner"
+        app:layout_constraintEnd_toEndOf="@+id/floor_number"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toEndOf="@+id/floor_number"
+        app:layout_constraintTop_toBottomOf="@+id/floor_number" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/floor_number"
+        android:layout_width="161dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="15dp"
+        android:hint="@string/floor_number"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/phone_number"
+        app:layout_constraintEnd_toStartOf="@+id/street"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/city"
+        app:layout_constraintTop_toBottomOf="@+id/street" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/home_number"
+        android:layout_width="157dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="1dp"
+        android:hint="@string/home_number"
+        android:textColorHint="#757575"
+        app:layout_constraintBaseline_toBaselineOf="@+id/floor_number"
+        app:layout_constraintEnd_toEndOf="@+id/street" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/city"
+        android:layout_width="159dp"
+        android:layout_height="50dp"
         android:layout_marginStart="44dp"
         android:hint="@string/city_field"
         android:textColorHint="#757575"
@@ -31,47 +135,10 @@
         app:layout_constraintStart_toEndOf="@+id/city"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/floor_number"
-        android:layout_width="161dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="15dp"
-        android:hint="@string/floor_number"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/phone_number"
-        app:layout_constraintEnd_toStartOf="@+id/street"
-        app:layout_constraintStart_toStartOf="@+id/city"
-        app:layout_constraintTop_toBottomOf="@+id/street" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/home_number"
-        android:layout_width="162dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="1dp"
-        android:hint="@string/home_number"
-        android:textColorHint="#757575"
-        app:layout_constraintBaseline_toBaselineOf="@+id/floor_number"
-        app:layout_constraintEnd_toEndOf="@+id/street" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/username"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="12dp"
-        android:hint="@string/username"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/email"
-        android:layout_width="322dp"
-        android:layout_height="49dp"
+        android:layout_width="324dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:autofillHints=""
         android:ems="10"
@@ -79,22 +146,10 @@
         android:inputType="textEmailAddress"
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/street"
-        app:layout_constraintEnd_toEndOf="@+id/city"
-        app:layout_constraintStart_toEndOf="@+id/city"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
-
-    <Button
-        android:id="@+id/register_button"
-        android:layout_width="144dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="27dp"
-        android:background="#9F1919"
-        android:text="@string/register_button"
-        android:textColor="#4A148C"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/business_description" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <EditText
         android:id="@+id/password"
@@ -111,66 +166,35 @@
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
-    <EditText
-        android:id="@+id/phone_number"
-        android:layout_width="323dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/phone"
-        android:inputType="phone"
-        android:minHeight="48dp"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/avaliable_hours_spinner"
-        app:layout_constraintEnd_toEndOf="@+id/floor_number"
-        app:layout_constraintStart_toEndOf="@+id/floor_number"
-        app:layout_constraintTop_toBottomOf="@+id/floor_number" />
-
-    <EditText
-        android:id="@+id/business_description"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/next_register_business"
+        android:layout_width="144dp"
         android:layout_height="0dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="19dp"
-        android:autofillHints=""
+        android:layout_marginBottom="27dp"
+        android:background="#9F1919"
+        android:text="@string/next"
+        android:textColor="#FDFAFD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/business_description" />
+
+    <EditText
+        android:id="@+id/business_register_name"
+        android:layout_width="325dp"
+        android:layout_height="62dp"
         android:ems="10"
-        android:gravity="bottom"
-        android:hint="Business Description"
-        android:inputType="textAutoComplete|textAutoCorrect"
+        android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/register_button"
+        android:text="Business Name"
+        app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sub_categories" />
-
-    <Spinner
-        android:id="@+id/avaliable_hours_spinner"
-        android:layout_width="321dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/sub_categories"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_number" />
-
-    <Spinner
-        android:id="@+id/sub_categories"
-        android:layout_width="322dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/business_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avaliable_hours_spinner" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

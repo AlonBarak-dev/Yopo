@@ -17,7 +17,7 @@ public class ClientProfileActivity extends AppCompatActivity {
     private Database database;
     private Session session;
 
-    private TextView name, username, email, client_address, today_appointments;
+    private TextView name, username, email, client_address, today_appointments, phone_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +27,10 @@ public class ClientProfileActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
+        phone_number = findViewById(R.id.phone_number);
         client_address = findViewById(R.id.client_address);
         today_appointments = findViewById(R.id.today_appointments_num);
+
 
         // extract database and session
         database = Database.getInstance();
@@ -44,6 +46,10 @@ public class ClientProfileActivity extends AppCompatActivity {
 
         email.setText(
                 client_info.get("email").toString()
+        );
+
+        phone_number.setText(
+                client_info.get("phone_number").toString()
         );
 
         client_address.setText(

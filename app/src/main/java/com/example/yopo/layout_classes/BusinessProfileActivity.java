@@ -20,7 +20,7 @@ public class BusinessProfileActivity extends AppCompatActivity {
     private Database database;
     private Session session;
 
-    private TextView username, email, business_address, categories, today_appointments, total_appointments;
+    private TextView username, email, business_address, categories, today_appointments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,6 @@ public class BusinessProfileActivity extends AppCompatActivity {
         business_address = findViewById(R.id.business_address);
         categories = findViewById(R.id.category);
         today_appointments = findViewById(R.id.today_appointments_num);
-        total_appointments = findViewById(R.id.total_appointments_num);
 
 
         // extract database and session
@@ -69,10 +68,6 @@ public class BusinessProfileActivity extends AppCompatActivity {
 
         today_appointments.setText(
                 "" + database.count_appointments_on_date(username.getText().toString(), currDate, false)
-        );
-
-        total_appointments.setText(
-                "" + database.count_appointments_total(username.getText().toString(), false)
         );
 
 

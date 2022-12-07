@@ -67,5 +67,13 @@ public class ClientHomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        profile_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ClientHomeActivity.this, ClientProfileActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

@@ -32,6 +32,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -58,47 +59,25 @@
                 android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="170dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Today\nAppointments"
+                        android:text="Today Appointments"
+                        android:gravity="center"
                         android:textColor="#000"
-                        android:textSize="17dp" />
+                        android:textSize="25dp" />
 
                     <TextView
+                        android:id="@+id/today_appointments_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5"
-                        android:textColor="#2196F3"
-                        android:textSize="27dp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total\nAppointments"
-                        android:textColor="#000"
-                        android:textSize="17dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="342"
                         android:textColor="#2196F3"
                         android:textSize="27dp"
                         android:textStyle="bold" />
@@ -190,7 +169,7 @@
             <!--                android:layout_height="45dp"-->
             <!--                android:src="@drawable/ic_baseline_location_on_24"/>-->
             <TextView
-                android:id="@+id/business_address"
+                android:id="@+id/client_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="City - Street - Number - Floor"

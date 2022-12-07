@@ -61,19 +61,21 @@ public class ClientCalendarActivity extends AppCompatActivity{
                     date_view.setText(selected_date);
 
                     List<HashMap<String, Object>> appointments_list = database.get_appointment_info(session.get_session_attribute("username").toString(), selected_date, true);
-                    String[] appointment_info_list = new String[appointments_list.size()];
-                    int counter = 0;
-                    for (HashMap<String, Object> appointment : appointments_list){
-                        String app = appointment.get("business_username") + "-" + appointment.get("date")
-                                + "-" + appointment.get("time");
-                        appointment_info_list[counter] = app;
-                        counter++;
+                    if (appointments_list != null){
+                        String[] appointment_info_list = new String[appointments_list.size()];
+                        int counter = 0;
+                        for (HashMap<String, Object> appointment : appointments_list){
+                            String app = appointment.get("business_username") + "-" + appointment.get("date")
+                                    + "-" + appointment.get("time");
+                            appointment_info_list[counter] = app;
+                            counter++;
+                        }
+
+                        ArrayAdapter<String> appointments_adapter = new ArrayAdapter<String>(ClientCalendarActivity.this,
+                                android.R.layout.simple_spinner_item, appointment_info_list);
+
+                        appointments.setAdapter(appointments_adapter);
                     }
-
-                    ArrayAdapter<String> appointments_adapter = new ArrayAdapter<String>(ClientCalendarActivity.this,
-                            android.R.layout.simple_spinner_item, appointment_info_list);
-
-                    appointments.setAdapter(appointments_adapter);
                 }
             });
     }

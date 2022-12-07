@@ -14,19 +14,13 @@ import com.example.yopo.data_classes.Session;
 
 import java.util.HashMap;
 import java.util.Calendar;
-import java.util.List;
 
 public class BusinessProfileActivity extends AppCompatActivity {
 
     private Database database;
     private Session session;
 
-    private TextView username;
-    private TextView email;
-    private TextView business_address;
-    private TextView categories;
-    private TextView today_appointments;
-
+    private TextView username, email, business_address, categories, today_appointments, total_appointments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +31,8 @@ public class BusinessProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         business_address = findViewById(R.id.business_address);
         categories = findViewById(R.id.category);
+        today_appointments = findViewById(R.id.today_appointments_num);
+        total_appointments = findViewById(R.id.total_appointments_num);
 
 
         // extract database and session
@@ -67,13 +63,17 @@ public class BusinessProfileActivity extends AppCompatActivity {
                 business_info.get("subcategory")
         );
 
-//        String currDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) +"/"+
-//                          Calendar.getInstance().get(Calendar.MONTH) +"/"+
-//                          Calendar.getInstance().get(Calendar.YEAR);
-//        Log.i("BusinessProfileActivity", currDate);
-//        List<HashMap<String, Object>> appointments = database.get_appointment_info(username.getText().toString(), currDate, false);
-//        Log.i("BusinessProfileActivity", appointments.toString());
+        String currDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) +"/"+
+                          (Calendar.getInstance().get(Calendar.MONTH)+1) +"/"+
+                          Calendar.getInstance().get(Calendar.YEAR);
 
+        today_appointments.setText(
+                "" + database.count_appointments_on_date(username.getText().toString(), currDate, false)
+        );
+
+        total_appointments.setText(
+                "" + database.count_appointments_total(username.getText().toString(), false)
+        );
 
 
 

@@ -228,6 +228,7 @@ public class Database {
         } else {
             task = db.collection("appointments")
                     .whereEqualTo("business_username", username)
+                    .whereEqualTo("date", Date)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -393,7 +394,61 @@ public class Database {
         return list_of_services;
     }
 
+    /***
+     * This function counts appointments for a certain user in a specific day
+     * @param username
+     * @param Date
+     * @param isClient
+     * @return number of appointments
+     */
+    public int count_appointments_on_date(String username, String Date, boolean isClient)
+    {
+        List<HashMap<String, Object>> appointments = get_appointment_info(username, Date, isClient);
+        if (appointments == null)
+            return 0;
+        else
+            return appointments.size();
+    }
 
+    /***
+     * This function counts appointments for a certain user
+     * @param username
+     * @param isClient
+     * @return number of appointments
+     */
+    public int count_appointments_total(String username, boolean isClient)
+    {
+        int num_of_appointments = 0;
+        Task<QuerySnapshot> task = null;
+        String type_username = isClient? "client_business" : "business_username";
+
+        task = db.collection("appointments")
+                .whereEqualTo(type_username, username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("DB", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w("DB", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        while (!task.isComplete() && !task.isCanceled()) {}
+
+        if (task.isComplete()) {
+            if (!task.getResult().isEmpty()) {
+                for (DocumentSnapshot dic : task.getResult().getDocuments()) {
+                    num_of_appointments++;
+                }
+            }
+        }
+
+        return num_of_appointments;
+    }
 
 
 

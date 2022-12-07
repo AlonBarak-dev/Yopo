@@ -35,18 +35,23 @@ public class Database {
      *
      * @param username   the username to check
      * @param collection the collection in which to check for the username
-     * @return True if the username is not taken, else False
+     * @return True if the username is taken, else False
      */
     private boolean username_exists(String username, String collection) {
-        try {
-            Task<QuerySnapshot> query = db.collection(collection).whereEqualTo("username", username).get();
-            query.wait();
-            QuerySnapshot snapshot = query.getResult();
-            return snapshot.isEmpty();
-        } catch (InterruptedException e) {
-            System.out.println("Username validation failed!");
-            return false;
+        Task<QuerySnapshot> query = db.collection(collection).whereEqualTo("username", username).get();
+
+        while (!query.isComplete() && !query.isCanceled()) {
         }
+
+        if (query.isComplete()) {
+            QuerySnapshot snapshot = query.getResult();
+            if (!snapshot.isEmpty())
+                Log.i("UsernameValidation", "Username already exists");
+
+            return !snapshot.isEmpty();
+        }
+
+        return false;
     }
 
     /**
@@ -70,7 +75,6 @@ public class Database {
      * @return True if successfully added the new user to the database, else False
      */
     public boolean add_new_client(HashMap<String, Object> client_data) {
-
         if (!this.username_exists((String) client_data.get("username"), "clients")) {
             // Add a new document with a generated ID
             Task<DocumentReference> task = db.collection("clients")
@@ -140,23 +144,26 @@ public class Database {
      * where the strings are the key and the objects are the values.
      */
     public boolean add_new_business(HashMap<String, Object> client_data) {
-        // Add a new document with a generated ID
-        db.collection("business")
-                .add(client_data)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("DB", "Client document added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("DB", "Error adding document", e);
-                    }
-                });
+        if (!username_exists((String) client_data.get("username"), "business")) {
+            // Add a new document with a generated ID
+            db.collection("business")
+                    .add(client_data)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("DB", "Client document added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("DB", "Error adding document", e);
+                        }
+                    });
 
-        return true;
+            return true;
+        }
+        return false;
     }
 
 
@@ -228,6 +235,7 @@ public class Database {
 
     /**
      * This function retrieves a list of all appointments on @Date for @username.
+     *
      * @param username
      * @param Date
      * @param isClient := tells whether to check on clients or business.

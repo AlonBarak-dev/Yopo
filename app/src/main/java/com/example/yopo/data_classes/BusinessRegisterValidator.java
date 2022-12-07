@@ -75,6 +75,37 @@ public class BusinessRegisterValidator {
         return !this.error;
     }
 
+    public boolean price_list_is_valid(String service1, String price1, String service2, String price2,
+                                       String service3, String price3, String service4, String price4, String service5, String price5) {
+
+        if (service1.isEmpty()) {
+            this.error_string = "Must at least 1 service!";
+            return false;
+        }
+        if ((!service1.isEmpty() && price1.isEmpty()) ||(service1.isEmpty() && !price1.isEmpty())) {
+            this.error_string = "Service must have a price!";
+            return false;
+        }
+        if ((!service2.isEmpty() && price2.isEmpty()) ||(service2.isEmpty() && !price2.isEmpty())) {
+            this.error_string = "Service must have a price!";
+            return false;
+        }
+        if ((!service3.isEmpty() && price3.isEmpty()) ||(service3.isEmpty() && !price3.isEmpty())) {
+            this.error_string = "Service must have a price!";
+            return false;
+        }
+        if ((!service4.isEmpty() && price4.isEmpty()) ||(service4.isEmpty() && !price4.isEmpty())) {
+            this.error_string = "Service must have a price!";
+            return false;
+        }
+        if ((!service5.isEmpty() && price5.isEmpty()) ||(service5.isEmpty() && !price5.isEmpty())) {
+            this.error_string = "Service must have a price!";
+            return false;
+        }
+        return true;
+    }
+
+
     public String get_error_string() {
         return this.error_string;
     }

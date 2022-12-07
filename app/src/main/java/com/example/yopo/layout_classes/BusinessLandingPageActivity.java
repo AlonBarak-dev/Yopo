@@ -46,7 +46,7 @@ public class BusinessLandingPageActivity extends AppCompatActivity {
 
         // set fields to correct information
         // TODO use business name instead
-        business_name.setText((String) business_data.get("username"));
+        business_name.setText((String) business_data.get("business_name"));
         business_description.setText((String) business_data.get("description"));
 
         // set event to button click

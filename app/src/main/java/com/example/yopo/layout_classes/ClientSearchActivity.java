@@ -45,7 +45,7 @@ public class ClientSearchActivity extends AppCompatActivity {
                 // get business by the given name
                 // TODO use business name instead of username
                 String search_query_name = search_bar.getEditText().getText().toString();
-                HashMap<String, Object> business_info = database.get_business_info(search_query_name);
+                HashMap<String, Object> business_info = database.get_business_info_by_name(search_query_name);
 
                 // validate
                 if (business_info != null) {

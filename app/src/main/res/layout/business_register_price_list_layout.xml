@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".layout_classes.BusinessRegisterPriceListActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-18dp">
+
+    <EditText
+        android:id="@+id/service1"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginEnd="6dp"
+        android:hint="Service"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/service1price"
+        app:layout_constraintEnd_toStartOf="@+id/service1price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service1title" />
+
+    <EditText
+        android:id="@+id/service1price"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginBottom="17dp"
+        android:hint="Price"
+        android:inputType="number"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/service2title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/service1"
+        app:layout_constraintTop_toBottomOf="@+id/service1title" />
+
+    <TextView
+        android:id="@+id/service1title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:text="Service 1:"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/service1price"
+        app:layout_constraintStart_toStartOf="@+id/service1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/service2"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginEnd="6dp"
+        android:hint="Service"
+        app:layout_constraintBottom_toBottomOf="@+id/service2price"
+        app:layout_constraintEnd_toStartOf="@+id/service2price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service2title" />
+
+    <EditText
+        android:id="@+id/service2price"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginBottom="15dp"
+        android:hint="Price"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/service3title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/service2"
+        app:layout_constraintTop_toBottomOf="@+id/service2title" />
+
+    <TextView
+        android:id="@+id/service2title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service 2:"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/service2price"
+        app:layout_constraintStart_toStartOf="@+id/service2"
+        app:layout_constraintTop_toBottomOf="@+id/service1price" />
+
+    <EditText
+        android:id="@+id/service3"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginEnd="6dp"
+        android:hint="Service"
+        app:layout_constraintBottom_toBottomOf="@+id/service3price"
+        app:layout_constraintEnd_toStartOf="@+id/service3price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service3title" />
+
+    <EditText
+        android:id="@+id/service3price"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginBottom="21dp"
+        android:hint="Price"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/service4title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/service3"
+        app:layout_constraintTop_toBottomOf="@+id/service3title" />
+
+    <TextView
+        android:id="@+id/service3title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service 3:"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/service3price"
+        app:layout_constraintStart_toStartOf="@+id/service3"
+        app:layout_constraintTop_toBottomOf="@+id/service2price" />
+
+    <EditText
+        android:id="@+id/service4"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginEnd="6dp"
+        android:hint="Service"
+        app:layout_constraintBottom_toBottomOf="@+id/service4price"
+        app:layout_constraintEnd_toStartOf="@+id/service4price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service4title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/service4price"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginBottom="21dp"
+        android:hint="Price"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/service5title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/service4"
+        app:layout_constraintTop_toBottomOf="@+id/service4title" />
+
+    <TextView
+        android:id="@+id/service4title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service 4:"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/service4price"
+        app:layout_constraintStart_toStartOf="@+id/service4"
+        app:layout_constraintTop_toBottomOf="@+id/service3price" />
+
+    <EditText
+        android:id="@+id/service5"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginEnd="6dp"
+        android:hint="Service"
+        app:layout_constraintBottom_toBottomOf="@+id/service5price"
+        app:layout_constraintEnd_toStartOf="@+id/service5price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service5title" />
+
+    <EditText
+        android:id="@+id/service5price"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginBottom="146dp"
+        android:hint="Price"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/business_register_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/service5"
+        app:layout_constraintTop_toBottomOf="@+id/service5title" />
+
+    <TextView
+        android:id="@+id/service5title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service 5:"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/service5price"
+        app:layout_constraintStart_toStartOf="@+id/service5"
+        app:layout_constraintTop_toBottomOf="@+id/service4price" />
+
+    <Button
+        android:id="@+id/business_register_button"
+        android:layout_width="123dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="39dp"
+        android:text="@string/register_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service5price" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

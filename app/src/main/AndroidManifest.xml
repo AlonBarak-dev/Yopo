@@ -124,7 +124,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".layout_classes.BusinessPriceListActivity"
+            android:name=".layout_classes.BusinessRegisterPriceListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

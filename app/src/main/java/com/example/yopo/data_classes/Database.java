@@ -15,6 +15,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -227,7 +228,6 @@ public class Database {
 
     /**
      * This function retrieves a list of all appointments on @Date for @username.
-     *
      * @param username
      * @param Date
      * @param isClient := tells whether to check on clients or business.
@@ -239,6 +239,7 @@ public class Database {
         if (isClient) {
             task = db.collection("appointments")
                     .whereEqualTo("client_username", username)
+                    .whereEqualTo("date", Date)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override

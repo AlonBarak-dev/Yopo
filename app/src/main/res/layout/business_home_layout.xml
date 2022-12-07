@@ -39,6 +39,19 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="111dp" />
 
+    <Spinner
+        android:id="@+id/appointments_business_spinner"
+        android:layout_width="321dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="44dp"
+        android:contentDescription="@string/hours"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_info_business_home"
+        app:layout_constraintVertical_bias="0.068" />
+
     <TextView
         android:id="@+id/date_info_business_home"
         android:layout_width="145dp"
@@ -61,6 +74,14 @@
         app:layout_constraintStart_toEndOf="@+id/logout_button_business"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <Button
+        android:id="@+id/home_2_profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="666dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

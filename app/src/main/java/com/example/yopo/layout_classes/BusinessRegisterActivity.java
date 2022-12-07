@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 public class BusinessRegisterActivity extends AppCompatActivity {
 
-    private EditText username, password, email, city, street, home_num, floor, phone_number, business_description;
+    private EditText username, password, email, city, street, home_num, floor, phone_number, business_description, business_name;
     private Spinner categories, sub_categories;
     private Button register_button;
     private Database database;
@@ -44,6 +44,7 @@ public class BusinessRegisterActivity extends AppCompatActivity {
         sub_categories = findViewById(R.id.sub_categories);
         register_button = findViewById(R.id.register_button);
         business_description = findViewById(R.id.business_description);
+        business_name = findViewById(R.id.business_register_name);
 
 
         database = Database.getInstance();
@@ -108,12 +109,13 @@ public class BusinessRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(BusinessRegisterActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
-                BusinessRegisterValidator parser = new BusinessRegisterValidator(username.getText().toString(), password.getText().toString(), email.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString(), phone_number.getText().toString());
+                BusinessRegisterValidator parser = new BusinessRegisterValidator(username.getText().toString(), password.getText().toString(), email.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString(), phone_number.getText().toString(), business_name.getText().toString());
 
                 // change to next page if successful
                 if (parser.is_valid()) {
                     // Create a new Hashmap for the new business user
                     HashMap<String, Object> business_data = new HashMap<>();
+                    business_data.put("business_name", business_name.getText().toString());
                     business_data.put("username", username.getText().toString());
                     business_data.put("password", password.getText().toString());
                     business_data.put("email", email.getText().toString());

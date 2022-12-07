@@ -174,7 +174,7 @@ public class Database {
      * @param appointment := A HashMap that contains all the needed information about the
      *                    new appointment. such as:
      *                    client username, client name, business username, business username,
-     *                    Date, Time and type of treatment.
+     *                    Date, Time and type of service.
      */
 
     public boolean add_new_appointment(HashMap<String, Object> appointment) {
@@ -352,6 +352,7 @@ public class Database {
         return true;
 
     }
+
 
     /**
      * This method retrieve the list of all business's services.

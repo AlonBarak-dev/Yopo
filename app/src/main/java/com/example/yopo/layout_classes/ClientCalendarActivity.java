@@ -66,7 +66,7 @@ public class ClientCalendarActivity extends AppCompatActivity{
                         int counter = 0;
                         for (HashMap<String, Object> appointment : appointments_list){
                             String app = appointment.get("business_username") + "-" + appointment.get("date")
-                                    + "-" + appointment.get("time");
+                                    + "-" + appointment.get("time")+ "-" + appointment.get("service");
                             appointment_info_list[counter] = app;
                             counter++;
                         }

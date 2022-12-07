@@ -28,6 +28,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
 
     private CalendarView calendar;
     private Spinner hours;
+    private Spinner services;
     private Button save;
 
     private String selected_date;
@@ -43,6 +44,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
 
         calendar = findViewById(R.id.calendar_dates_schedule);
         hours = findViewById(R.id.avaliable_hours_spinner);
+        services = findViewById(R.id.service_spinner_sched);
         save = findViewById(R.id.save_appointment_button);
         database = Database.getInstance();
 
@@ -52,6 +54,24 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
         session = Session.getInstance();
         String client_username = (String) session.get_session_attribute("username");
         String business_username = (String) session.get_session_attribute("business_username");
+
+
+        List<HashMap<String, Object>> list_of_services = database.get_services(business_username);
+        if (list_of_services != null){
+            String[] services_strings = new String[list_of_services.size()];
+            int counter = 0;
+            for (HashMap<String, Object> service: list_of_services){
+                String serv_str = service.get("service") + " : " + service.get("price");
+                services_strings[counter] = serv_str;
+                counter++;
+            }
+
+            ArrayAdapter<String> services_adapter = new ArrayAdapter<String>(ClientAppointmentScheduleActivity.this,
+                    android.R.layout.simple_spinner_item, services_strings);
+
+            services.setAdapter(services_adapter);
+        }
+
 
         // Add Listener in calendar
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -95,6 +115,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                     new_appointment.put("business_username", business_username);
                     new_appointment.put("date", selected_date);
                     new_appointment.put("time", hours.getSelectedItem());
+                    new_appointment.put("service", services.getSelectedItem());
                     if(database.add_new_appointment(new_appointment)){
                         Toast.makeText(ClientAppointmentScheduleActivity.this, "Appointment set successfully!", Toast.LENGTH_SHORT).show();
                     }

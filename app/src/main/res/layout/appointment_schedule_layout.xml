@@ -30,6 +30,21 @@
         tools:layout_editor_absoluteY="111dp" />
 
     <TextView
+        android:id="@+id/select_service_sched_text"
+        android:layout_width="171dp"
+        android:layout_height="18dp"
+        android:text="Select a Service:"
+        android:textAlignment="center"
+        android:textColor="@color/title_color"
+        android:textStyle="bold|italic"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/calendar_dates_schedule"
+        app:layout_constraintVertical_bias="0.678" />
+
+    <TextView
         android:id="@+id/appointment_sched_sub_title"
         android:layout_width="171dp"
         android:layout_height="18dp"
@@ -81,6 +96,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avaliable_hours_spinner"
         app:layout_constraintVertical_bias="0.808" />
+
+    <Spinner
+        android:id="@+id/service_spinner_sched"
+        android:layout_width="321dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/save_appointment_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -296,4 +296,39 @@ public class Database {
     }
 
 
+    /**
+     * This method adds a new service to the "Services" collection in the database.
+     * @param service contains the business username and the service description
+     */
+    public boolean add_new_service(HashMap<String, Object> service){
+
+        db.collection("services")
+                .add(service)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("DB", "Service document added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("DB", "Error adding document", e);
+                    }
+                });
+
+        return true;
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 }

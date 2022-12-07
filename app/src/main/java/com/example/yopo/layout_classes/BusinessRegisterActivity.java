@@ -123,6 +123,8 @@ public class BusinessRegisterActivity extends AppCompatActivity {
                     business_data.put("floor", floor.getText().toString());
                     business_data.put("phone", phone_number.getText().toString());
                     business_data.put("description", business_description.getText().toString());
+                    business_data.put("category", categories.getSelectedItem().toString());
+                    business_data.put("subcategory", sub_categories.getSelectedItem().toString());
 
                     // add to the database
                     boolean success = database.add_new_business(business_data);

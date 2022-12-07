@@ -69,27 +69,31 @@ public class Database {
      * @return True if successfully added the new user to the database, else False
      */
     public boolean add_new_client(HashMap<String, Object> client_data) {
-        // Add a new document with a generated ID
-        Task<DocumentReference> task = db.collection("clients")
-                .add(client_data)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("DB", "Client document added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("DB", "Error adding document", e);
-                    }
-                });
+
+        if (!this.username_exists((String) client_data.get("username"), "clients")) {
+            // Add a new document with a generated ID
+            Task<DocumentReference> task = db.collection("clients")
+                    .add(client_data)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("DB", "Client document added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("DB", "Error adding document", e);
+                        }
+                    });
 
 
-        while (!task.isComplete() && !task.isCanceled()) {
+            while (!task.isComplete() && !task.isCanceled()) {
+            }
+
+            return !task.isCanceled();
         }
-
-        return !task.isCanceled();
+        return false;
     }
 
     /**

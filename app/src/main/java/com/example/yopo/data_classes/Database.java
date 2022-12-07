@@ -28,6 +28,26 @@ public class Database {
         db = FirebaseFirestore.getInstance();
     }
 
+
+    /**
+     * Check if a username exists in the database
+     *
+     * @param username   the username to check
+     * @param collection the collection in which to check for the username
+     * @return True if the username is not taken, else False
+     */
+    private boolean username_exists(String username, String collection) {
+        try {
+            Task<QuerySnapshot> query = db.collection(collection).whereEqualTo("username", username).get();
+            query.wait();
+            QuerySnapshot snapshot = query.getResult();
+            return snapshot.isEmpty();
+        } catch (InterruptedException e) {
+            System.out.println("Username validation failed!");
+            return false;
+        }
+    }
+
     /**
      * Get the database instance
      *
@@ -181,7 +201,7 @@ public class Database {
      *                    Date, Time and type of treatment.
      */
 
-    public boolean add_new_appointment(HashMap<String, Object> appointment){
+    public boolean add_new_appointment(HashMap<String, Object> appointment) {
 
         db.collection("appointments")
                 .add(appointment)
@@ -203,13 +223,13 @@ public class Database {
 
     /**
      * This function retrieves a list of all appointments on @Date for @username.
+     *
      * @param username
      * @param Date
      * @param isClient := tells whether to check on clients or business.
      * @return a list of appointments
      */
-    public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient){
-
+    public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient) {
         List<HashMap<String, Object>> list_of_appointments = null;
         Task<QuerySnapshot> task = null;
         if (isClient) {
@@ -228,8 +248,7 @@ public class Database {
                             }
                         }
                     });
-        }
-        else{
+        } else {
             task = db.collection("appointments")
                     .whereEqualTo("business_username", username)
                     .get()
@@ -262,12 +281,6 @@ public class Database {
 
         return list_of_appointments;
     }
-
-
-
-
-
-
 
 
 }

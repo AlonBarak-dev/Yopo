@@ -37,7 +37,7 @@
         android:inputType="textAutoComplete|textAutoCorrect"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/register_button"
+        app:layout_constraintBottom_toTopOf="@+id/next_register_business"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -171,13 +171,13 @@
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
-        android:id="@+id/register_button"
+        android:id="@+id/next_register_business"
         android:layout_width="144dp"
         android:layout_height="0dp"
         android:layout_marginBottom="27dp"
         android:background="#9F1919"
-        android:text="@string/register_button"
-        android:textColor="#E1BEE7"
+        android:text="@string/next"
+        android:textColor="#FDFAFD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"

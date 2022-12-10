@@ -21,7 +21,7 @@ public class BusinessLandingPageActivity extends AppCompatActivity {
     private Session session;
 
     private TextView business_name, business_description;
-    private Button schedule_button;
+    private Button schedule_button, services_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class BusinessLandingPageActivity extends AppCompatActivity {
         business_name = findViewById(R.id.business_name);
         business_description = findViewById(R.id.business_description_text);
         schedule_button = findViewById(R.id.schedule_button);
+        services_button = findViewById(R.id.services_button);
 
         // set fields to correct information
         // TODO use business name instead
@@ -58,5 +59,13 @@ public class BusinessLandingPageActivity extends AppCompatActivity {
             }
         });
 
+        // set event to button click
+        services_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(BusinessLandingPageActivity.this, BusinessPriceListActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

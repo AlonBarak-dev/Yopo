@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/card_text_left_right_margin"
+            android:layout_marginTop="@dimen/card_text_top_bottom_margin"
+            android:layout_marginEnd="@dimen/card_text_left_right_margin"
+            android:layout_marginBottom="@dimen/card_text_top_bottom_margin"
+            android:text="@string/service_title" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/card_text_left_right_margin"
+            android:layout_marginTop="@dimen/card_text_top_bottom_margin"
+            android:layout_marginEnd="@dimen/card_text_left_right_margin"
+            android:layout_marginBottom="@dimen/card_text_top_bottom_margin"
+            android:text="@string/price_title" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

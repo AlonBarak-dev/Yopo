@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Yopo"
         tools:targetApi="31">
         <activity
-            android:name=".PriceListActivity"
+            android:name=".layout_classes.BusinessPriceListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

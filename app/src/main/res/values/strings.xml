@@ -72,4 +72,11 @@
     <!--> these are string for the Appointment schedule page <!-->
     <string name="hours">spinner_hours</string>
 
+    <!--> these are string for the business price list page <!-->
+    <string name="price_list_title">Price List</string>
+
+    <!-- this is for the card layout -->
+    <string name="service_title">Service</string>
+    <string name="price_title">Price</string>
+
 </resources>

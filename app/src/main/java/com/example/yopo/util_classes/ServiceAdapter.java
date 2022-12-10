@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yopo.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<Service> services;
+    private List<Service> services;
 
     // View holder class for initializing of your views such as TextView and Imageview
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -30,7 +29,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         }
     }
 
-    public ServiceAdapter(Context context, ArrayList<Service> services) {
+    public ServiceAdapter(Context context, List<Service> services) {
         this.context = context;
         this.services = services;
     }
@@ -39,7 +38,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     @NonNull
     @Override
     public ServiceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.price_list_card_layout, parent, false);
         return new ViewHolder(view);
     }
 

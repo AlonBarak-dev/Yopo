@@ -90,12 +90,42 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                 // in order to extract the appointments from the database.
                 selected_date = dayOfMonth + "/" + (month + 1) + "/" + year;
 
-                for(int i = 0; i < 24; i++){
-                    String start_time = i + ":00";
-                    String end_time = ((i+1) % 24) + ":00";
-                    String full_time = start_time + "--" + end_time;
-                    list_of_hours[i] = full_time;
+                List<HashMap<String, Object>> taken_appointments = database.get_appointment_info(business_username, selected_date, false);
+                if (taken_appointments != null){
+                    String[] taken_hours = new String[taken_appointments.size()];
+                    int counter = 0;
+                    for(HashMap<String, Object> appointment : taken_appointments){
+                        Log.d("appointment", appointment.toString());
+                        taken_hours[counter] = (String) appointment.get("time");
+                        counter++;
+                    }
+
+
+                    for(int i = 0; i < 24; i++){
+                        String start_time = i + ":00";
+                        String end_time = ((i+1) % 24) + ":00";
+                        String full_time = start_time + "--" + end_time;
+                        boolean free_hour = true;
+                        for(int j = 0; j < taken_appointments.size(); j++){
+                            if (full_time.equals(taken_hours[j])){
+                                free_hour = false;
+                            }
+                        }
+                        if (free_hour)
+                            list_of_hours[i] = full_time;
+                        else
+                            list_of_hours[i] = "Taken: " + full_time;
+                    }
                 }
+                else{
+                    for(int i = 0; i < 24; i++){
+                        String start_time = i + ":00";
+                        String end_time = ((i+1) % 24) + ":00";
+                        String full_time = start_time + "--" + end_time;
+                        list_of_hours[i] = full_time;
+                    }
+                }
+
 
                 ArrayAdapter<String> hours_adapter = new ArrayAdapter<String>(ClientAppointmentScheduleActivity.this,
                         android.R.layout.simple_spinner_item, list_of_hours);
@@ -114,7 +144,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                     new_appointment.put("client_username", client_username);
                     new_appointment.put("business_username", business_username);
                     new_appointment.put("date", selected_date);
-                    new_appointment.put("time", hours.getSelectedItem());
+                    new_appointment.put("time", hours.getSelectedItem().toString());
                     new_appointment.put("service", services.getSelectedItem());
                     if(database.add_new_appointment(new_appointment)){
                         Toast.makeText(ClientAppointmentScheduleActivity.this, "Appointment set successfully!", Toast.LENGTH_SHORT).show();

@@ -139,7 +139,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
             public void onClick(View view) {
                 // TODO add treatment type and users Names.
 
-                if (selected_date != null){
+                if (selected_date != null && !hours.getSelectedItem().toString().contains("Taken")){
                     HashMap<String, Object> new_appointment = new HashMap<>();
                     new_appointment.put("client_username", client_username);
                     new_appointment.put("business_username", business_username);
@@ -151,7 +151,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                     }
                 }
                 else{
-                    Toast.makeText(ClientAppointmentScheduleActivity.this, "Please choose date", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientAppointmentScheduleActivity.this, "Please choose available date and hour!", Toast.LENGTH_SHORT).show();
                 }
 
 

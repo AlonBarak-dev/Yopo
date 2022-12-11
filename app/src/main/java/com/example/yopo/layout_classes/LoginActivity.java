@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity{
                             // the input values are good
                             Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
                             startActivity(i);
+                            finish();
                         }
                         else{
                             Toast.makeText(LoginActivity.this, "Username/Password is wrong!", Toast.LENGTH_SHORT).show();
@@ -67,6 +68,7 @@ public class LoginActivity extends AppCompatActivity{
                             // the input values are good
                             Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
                             startActivity(i);
+                            finish();
                         }
                         else{
                             Toast.makeText(LoginActivity.this, "Username/Password is wrong!", Toast.LENGTH_SHORT).show();

@@ -101,6 +101,7 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
                     Intent i = new Intent(BusinessRegisterPriceListActivity.this, BusinessHomeActivity.class);
                     i.putExtra("username", (String)business_data.get("username"));
                     startActivity(i);
+                    finish();
                 }
                 else {
                     Log.w("ClientReg", "Registration Failed");
@@ -108,11 +109,5 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
-
-
     }
 }

@@ -81,6 +81,7 @@ public class ClientRegisterActivity extends AppCompatActivity {
                         Intent i = new Intent(ClientRegisterActivity.this, ClientHomeActivity.class);
                         i.putExtra("username", username.getText().toString());
                         startActivity(i);
+                        finish();
                     } else {
                         Log.w("ClientReg", "Registration Failed");
                         Toast.makeText(ClientRegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();

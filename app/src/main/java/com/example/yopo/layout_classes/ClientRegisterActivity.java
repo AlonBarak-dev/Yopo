@@ -51,7 +51,6 @@ public class ClientRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ClientRegisterActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
-                //TODO expand register functionalities and validation
                 ClientRegisterValidator parser = new ClientRegisterValidator(username.getText().toString(), password.getText().toString(), first_name.getText().toString(), last_name.getText().toString(), email.getText().toString(), birth_date.getText().toString(), city.getText().toString(), street.getText().toString(), home_num.getText().toString(), floor.getText().toString(), phone_number.getText().toString());
 
                 // change to next page if successful

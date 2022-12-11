@@ -139,22 +139,6 @@ public class BusinessRegisterActivity extends AppCompatActivity {
 
                     Intent i = new Intent(BusinessRegisterActivity.this, BusinessRegisterPriceListActivity.class);
                     startActivity(i);
-//
-//                    // add to the database
-//                    boolean success = database.add_new_business(business_data);
-//                    Log.d("ClientReg", "Success Status: " + success);
-//
-//                    if (success) {
-//                        Toast.makeText(BusinessRegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
-//                        Intent i = new Intent(BusinessRegisterActivity.this, BusinessHomeActivity.class);
-//                        i.putExtra("username", username.getText().toString());
-////                    String first_name_str = first_name.getText().toString();
-////                    i.putExtra("first_name", first_name_str);
-//                        startActivity(i);
-//                    } else {
-//                        Log.w("ClientReg", "Registration Failed");
-//                        Toast.makeText(BusinessRegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
-//                    }
 
                 } else {
                     Toast.makeText(BusinessRegisterActivity.this, "This step Failed due to invalid inputs!", Toast.LENGTH_SHORT).show();

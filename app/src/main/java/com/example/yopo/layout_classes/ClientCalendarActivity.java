@@ -59,7 +59,7 @@ public class ClientCalendarActivity extends AppCompatActivity{
 
                     // set this date in TextView for Display
                     date_view.setText(selected_date);
-
+                    // retrieve the appointments for the selected day
                     List<HashMap<String, Object>> appointments_list = database.get_appointment_info(session.get_session_attribute("username").toString(), selected_date, true);
                     if (appointments_list != null){
                         String[] appointment_info_list = new String[appointments_list.size()];

@@ -51,9 +51,9 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
         price4 = findViewById(R.id.service4price);
         price5 = findViewById(R.id.service5price);
 
+        // extract the data from the previous stage.
         HashMap<String, Object> business_data = (HashMap<String, Object>) session.get_session_attribute("first_step_register_data");
         BusinessRegisterValidator parser = (BusinessRegisterValidator) session.get_session_attribute("business_register_parser");
-
 
 
         register_button.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +82,7 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
                     Log.d("ClientReg", "Success Status: " + business_added);
                     HashMap<String, Object> service;
                     for (int i = 0; i < 5; i++) {
+                        // save each service with its price and business username
                         service = new HashMap<>();
                         service.put("username", business_data.get("username"));
                         service.put("service", services[i]);
@@ -95,7 +96,7 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
                         }
                     }
                 }
-
+                // in case the addition went through move to the business home page, else print error message
                 if (business_added && services_added) {
                     Toast.makeText(BusinessRegisterPriceListActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(BusinessRegisterPriceListActivity.this, BusinessHomeActivity.class);

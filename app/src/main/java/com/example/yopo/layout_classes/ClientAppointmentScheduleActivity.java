@@ -55,7 +55,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
         String client_username = (String) session.get_session_attribute("username");
         String business_username = (String) session.get_session_attribute("business_username");
 
-
+        // retrieve the services of the desired business and present them in a spinner
         List<HashMap<String, Object>> list_of_services = database.get_services(business_username);
         if (list_of_services != null){
             String[] services_strings = new String[list_of_services.size()];
@@ -89,7 +89,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                 // this will serve as a key in the future
                 // in order to extract the appointments from the database.
                 selected_date = dayOfMonth + "/" + (month + 1) + "/" + year;
-
+                // retrieve the business appointments for the selected day and look for taken slots.
                 List<HashMap<String, Object>> taken_appointments = database.get_appointment_info(business_username, selected_date, false);
                 if (taken_appointments != null){
                     String[] taken_hours = new String[taken_appointments.size()];
@@ -100,7 +100,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                         counter++;
                     }
 
-
+                    // add taken appointments as Taken: <time>
                     for(int i = 0; i < 24; i++){
                         String start_time = i + ":00";
                         String end_time = ((i+1) % 24) + ":00";
@@ -126,7 +126,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                     }
                 }
 
-
+                // init the spinner for hours
                 ArrayAdapter<String> hours_adapter = new ArrayAdapter<String>(ClientAppointmentScheduleActivity.this,
                         android.R.layout.simple_spinner_item, list_of_hours);
 
@@ -138,7 +138,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 // TODO add treatment type and users Names.
-
+                // save the appointment to the Database
                 if (selected_date != null && !hours.getSelectedItem().toString().contains("Taken")){
                     HashMap<String, Object> new_appointment = new HashMap<>();
                     new_appointment.put("client_username", client_username);

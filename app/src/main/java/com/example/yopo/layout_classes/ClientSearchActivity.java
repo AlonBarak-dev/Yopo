@@ -1,6 +1,8 @@
 package com.example.yopo.layout_classes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +16,21 @@ import android.widget.Toast;
 import com.example.yopo.R;
 import com.example.yopo.data_classes.ClientRegisterValidator;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Session;
+import com.example.yopo.util_classes.BusinessesAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class ClientSearchActivity extends AppCompatActivity {
     private TextInputLayout search_bar;
     private ImageButton search_button;
+    private RecyclerView search_view;
+
     private Database database;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +40,13 @@ public class ClientSearchActivity extends AppCompatActivity {
         // get database
         database = Database.getInstance();
 
+        // get session
+        session = Session.getInstance();
+
         // get the field variables
         search_button = findViewById(R.id.search_button);
         search_bar = findViewById(R.id.search_bar);
+        search_view = findViewById(R.id.search_view);
 
         // set event to button click
         search_button.setOnClickListener(new View.OnClickListener() {
@@ -43,18 +55,27 @@ public class ClientSearchActivity extends AppCompatActivity {
                 Toast.makeText(ClientSearchActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
 
                 // get business by the given name
-                // TODO use business name instead of username
                 String search_query_name = search_bar.getEditText().getText().toString();
-                HashMap<String, Object> business_info = database.get_business_info_by_name(search_query_name);
+
+                // get list of businesses
+                List<HashMap<String, Object>> businesses = database.search_business(search_query_name);
+
+                // save list of businesses
+                session.add_session_attribute("list_of_businesses", businesses);
 
                 // validate
-                if (business_info != null) {
-                    Intent i = new Intent(ClientSearchActivity.this, BusinessLandingPageActivity.class);
-                    Toast.makeText(ClientSearchActivity.this, "Business Found!", Toast.LENGTH_SHORT).show();
-                    i.putExtra("business_username", (String) business_info.get("username"));
-                    startActivity(i);
-                }
-                else {
+                if (businesses != null) {
+                    // create adapter
+                    BusinessesAdapter adapter = new BusinessesAdapter(ClientSearchActivity.this, businesses);
+
+                    // create layout manager
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ClientSearchActivity.this, LinearLayoutManager.VERTICAL, false);
+
+                    // set layout manager and adapter
+                    search_view.setLayoutManager(linearLayoutManager);
+                    search_view.setAdapter(adapter);
+
+                } else {
                     Toast.makeText(ClientSearchActivity.this, "Business Not Found!", Toast.LENGTH_SHORT).show();
                 }
             }

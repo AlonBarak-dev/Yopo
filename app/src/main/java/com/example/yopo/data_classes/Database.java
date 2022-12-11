@@ -1,5 +1,6 @@
 package com.example.yopo.data_classes;
 
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -14,9 +15,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * A Singleton class for interfacing with the database
@@ -165,7 +169,6 @@ public class Database {
         }
         return false;
     }
-
 
 
     /**
@@ -330,9 +333,10 @@ public class Database {
     /**
      * This method adds a new service to the "Services" collection in the database.
      * {username : String, Service: String, price: String}
+     *
      * @param service contains the business username and the service description
      */
-    public boolean add_new_service(HashMap<String, Object> service){
+    public boolean add_new_service(HashMap<String, Object> service) {
 
         db.collection("services")
                 .add(service)
@@ -356,10 +360,11 @@ public class Database {
 
     /**
      * This method retrieve the list of all business's services.
+     *
      * @param username ths business username
      * @return the list of all services
      */
-    public List<HashMap<String, Object>> get_services(String username){
+    public List<HashMap<String, Object>> get_services(String username) {
         List<HashMap<String, Object>> list_of_services = null;
         Task<QuerySnapshot> task = null;
 
@@ -404,8 +409,7 @@ public class Database {
      * @param isClient
      * @return number of appointments
      */
-    public int count_appointments_on_date(String username, String Date, boolean isClient)
-    {
+    public int count_appointments_on_date(String username, String Date, boolean isClient) {
         List<HashMap<String, Object>> appointments = get_appointment_info(username, Date, isClient);
         if (appointments == null)
             return 0;
@@ -413,11 +417,60 @@ public class Database {
             return appointments.size();
     }
 
+    /**
+     * Get all the businesses in the 'businesses' collection
+     *
+     * @return A list of hashmaps, each hashmap represents a business
+     */
+    public List<HashMap<String, Object>> get_all_businesses() {
+        // an array to save the businesses data in
+        List<HashMap<String, Object>> business_list = null;
 
+        // get all businesses from the database
+        Task<QuerySnapshot> task = db.collection("business").get();
 
+        // wait for task to complete
+        while (!task.isComplete() && !task.isCanceled()) {
+        }
 
+        // if failed return null
+        if (!task.isComplete()) {
+            return null;
+        }
 
+        // get the results
+        business_list = new ArrayList<>();
+        List<DocumentSnapshot> doc_list = task.getResult().getDocuments();
+        for (DocumentSnapshot doc : doc_list) {
+            business_list.add((HashMap<String, Object>) doc.getData());
+        }
 
+        return business_list;
+    }
 
+    /**
+     * Get a list of businesses if their name contains 'businessName'
+     *
+     * @param businessName a string of the business name
+     * @return a list of businesses
+     */
+    public List<HashMap<String, Object>> search_business(String businessName) {
+        // a list for the fitting businesses
+        List<HashMap<String, Object>> businesses = null;
 
+        // get all businesses
+        List<HashMap<String, Object>> all_businesses = get_all_businesses();
+
+        // filter businesses
+        if (all_businesses != null) {
+            businesses = new ArrayList<>();
+            for (HashMap<String, Object> map : all_businesses) {
+                if (((String)map.get("business_name")).contains(businessName)) {
+                    businesses.add(map);
+                }
+            }
+        }
+
+        return businesses;
+    }
 }

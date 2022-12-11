@@ -75,5 +75,15 @@ public class ClientHomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        logout_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ClientHomeActivity.this, MainActivity.class);
+                // clear session when logging out
+                session.clear_session();
+                startActivity(i);
+            }
+        });
     }
 }

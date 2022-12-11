@@ -25,4 +25,8 @@ public class Session {
     public Object get_session_attribute(String key) {
         return this.session_data.get(key);
     }
+
+    public void clear_session(){
+        session = null;
+    }
 }

@@ -57,6 +57,8 @@ public class BusinessHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Logout from the profile -> back to Main page
                 Intent i = new Intent(BusinessHomeActivity.this, MainActivity.class);
+                // clear the session when logging out
+                session.clear_session();
                 startActivity(i);
             }
         });

@@ -76,6 +76,14 @@ public class ClientCalendarActivity extends AppCompatActivity{
 
                         appointments.setAdapter(appointments_adapter);
                     }
+                    else{
+                        String[] appointment_info_list = new String[1];
+                        appointment_info_list[0] = "No appointments";
+                        ArrayAdapter<String> appointments_adapter = new ArrayAdapter<String>(ClientCalendarActivity.this,
+                                android.R.layout.simple_spinner_item, appointment_info_list);
+
+                        appointments.setAdapter(appointments_adapter);
+                    }
                 }
             });
     }

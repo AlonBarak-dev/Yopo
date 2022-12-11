@@ -57,6 +57,8 @@ public class BusinessHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Logout from the profile -> back to Main page
                 Intent i = new Intent(BusinessHomeActivity.this, MainActivity.class);
+                // clear the session when logging out
+                session.clear_session();
                 startActivity(i);
             }
         });
@@ -111,6 +113,14 @@ public class BusinessHomeActivity extends AppCompatActivity {
                                 counter++;
                             }
 
+                            ArrayAdapter<String> appointments_adapter = new ArrayAdapter<String>(BusinessHomeActivity.this,
+                                    android.R.layout.simple_spinner_item, appointment_info_list);
+
+                            appointments.setAdapter(appointments_adapter);
+                        }
+                        else{
+                            String[] appointment_info_list = new String[1];
+                            appointment_info_list[0] = "No appointments";
                             ArrayAdapter<String> appointments_adapter = new ArrayAdapter<String>(BusinessHomeActivity.this,
                                     android.R.layout.simple_spinner_item, appointment_info_list);
 

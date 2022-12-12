@@ -44,6 +44,11 @@ public class ClientProfileActivity extends AppCompatActivity {
                 client_info.get("username").toString()
         );
 
+        name.setText(
+                client_info.get("first_name").toString() + " " +
+                client_info.get("last_name").toString()
+        );
+
         email.setText(
                 client_info.get("email").toString()
         );

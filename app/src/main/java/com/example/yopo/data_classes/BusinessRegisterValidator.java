@@ -57,6 +57,8 @@ public class BusinessRegisterValidator {
             this.error_string = "Must enter street!";
             return false;
         }
+
+
         if (this.home_num.isEmpty()) {
             this.error = true;
             this.error_string = "Must enter home number!";

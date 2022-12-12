@@ -2,6 +2,7 @@ package com.example.yopo.data_classes;
 
 import android.os.Build;
 import android.util.Log;
+import android.util.Patterns;
 
 import androidx.annotation.NonNull;
 
@@ -473,4 +474,9 @@ public class Database {
 
         return businesses;
     }
+
+    public boolean validate_email(String email_address){
+        return Patterns.EMAIL_ADDRESS.matcher(email_address).matches();
+    }
+
 }

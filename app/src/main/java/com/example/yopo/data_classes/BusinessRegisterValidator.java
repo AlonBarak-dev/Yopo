@@ -42,7 +42,7 @@ public class BusinessRegisterValidator {
             this.error_string = "Must enter password!";
             return false;
         }
-        if (this.email.isEmpty()) {
+        if (this.email.isEmpty() || !Database.getInstance().validate_email(this.email)) {
             this.error = true;
             this.error_string = "Must enter valid email!";
             return false;

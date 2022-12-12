@@ -300,11 +300,11 @@ public class Database {
         return business_data;
     }
 
-    public HashMap<String, Object> get_business_info_by_name(String business_username) {
+    public HashMap<String, Object> get_business_info_by_name(String business_name) {
         HashMap<String, Object> business_data = null;
 
         Task<QuerySnapshot> task = db.collection("business")
-                .whereEqualTo("business_name", business_username)
+                .whereEqualTo("business_name", business_name)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

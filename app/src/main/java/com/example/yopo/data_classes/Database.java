@@ -1,6 +1,5 @@
 package com.example.yopo.data_classes;
 
-import android.os.Build;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -10,18 +9,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.FieldPath;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * A Singleton class for interfacing with the database
@@ -43,20 +43,19 @@ public class Database {
      * @return True if the username is taken, else False
      */
     private boolean username_exists(String username, String collection) {
-        Task<QuerySnapshot> query = db.collection(collection).whereEqualTo("username", username).get();
+        DocumentReference userRef = db.collection("users").document(username);
 
-        while (!query.isComplete() && !query.isCanceled()) {
+        // Asynchronously retrieve the document
+        Task<DocumentSnapshot> task = userRef.get();
+
+        // wait for completion
+        while (!task.isComplete()) {
         }
 
-        if (query.isComplete()) {
-            QuerySnapshot snapshot = query.getResult();
-            if (!snapshot.isEmpty())
-                Log.i("UsernameValidation", "Username already exists");
+        // Block on the response to get the result
+        DocumentSnapshot document = task.getResult();
 
-            return !snapshot.isEmpty();
-        }
-
-        return false;
+        return document.exists();
     }
 
     /**
@@ -74,37 +73,29 @@ public class Database {
     /**
      * Add a new client to the database given a HashMap containing the users information,
      * where keys are attributes and values are attribute values
-     * <p>
      *
      * @param client_data A HashMap object
      * @return True if successfully added the new user to the database, else False
      */
     public boolean add_new_client(HashMap<String, Object> client_data) {
-        if (!this.username_exists((String) client_data.get("username"), "clients")) {
-            // Add a new document with a generated ID
-            Task<DocumentReference> task = db.collection("clients")
-                    .add(client_data)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d("DB", "Client document added with ID: " + documentReference.getId());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("DB", "Error adding document", e);
-                        }
-                    });
-
-
-            while (!task.isComplete() && !task.isCanceled()) {
-            }
-
-            return !task.isCanceled();
+        // check if the client exists
+        if (username_exists((String) client_data.get("username"), "clients")) {
+            return false;
         }
-        return false;
+
+        // add new user
+        DocumentReference userRef = db.collection("clients").document((String) client_data.get("username"));
+
+        // Write the data to the document
+        Task<Void> result = userRef.set(client_data);
+
+        // wait for completion
+        while (!result.isComplete()) {
+        }
+
+        return true;
     }
+
 
     /**
      * This function retrieves client info from the database using its username
@@ -113,34 +104,24 @@ public class Database {
      * @return A HashMap with the users data, keys are attributes and values are attribute values
      */
     public HashMap<String, Object> get_client_info(String client_username) {
-        HashMap<String, Object> client_data = null;
+        DocumentReference userRef = db.collection("clients").document(client_username);
 
-        Task<QuerySnapshot> task = db.collection("clients")
-                .whereEqualTo("username", client_username)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("DB", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w("DB", "Error getting documents.", task.getException());
-                        }
-                    }
-                });
+        // Asynchronously retrieve the document
+        Task<DocumentSnapshot> task = userRef.get();
 
-        while (!task.isComplete() && !task.isCanceled()) {
+        //Wait for task to finish
+        while (!task.isComplete()) {
         }
 
-        if (task.isComplete()) {
-            if (!task.getResult().isEmpty()) {
-                client_data = (HashMap<String, Object>) task.getResult().getDocuments().get(0).getData();
-                Log.d("ClientData", "" + client_data);
-            }
+        // Block on the response to get the result
+        DocumentSnapshot document = task.getResult();
+
+        // Check if the document exists
+        if (document.exists()) {
+            return (HashMap<String, Object>) document.getData();
+            // do something with the user data
         }
-        return client_data;
+        return null;
     }
 
 
@@ -148,34 +129,30 @@ public class Database {
      * This function added a new business user to the database given a Hashmap,
      * where the strings are the key and the objects are the values.
      */
-    public boolean add_new_business(HashMap<String, Object> client_data) {
-        if (!username_exists((String) client_data.get("username"), "business")) {
-            // Add a new document with a generated ID
-            db.collection("business")
-                    .add(client_data)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d("DB", "Client document added with ID: " + documentReference.getId());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("DB", "Error adding document", e);
-                        }
-                    });
-
-            return true;
+    public boolean add_new_business(HashMap<String, Object> business_data) {
+        // check if the client exists
+        if (username_exists((String) business_data.get("business_name"), "business")) {
+            return false;
         }
-        return false;
+
+        // add new user
+        DocumentReference userRef = db.collection("business").document((String) business_data.get("business_name"));
+
+        // Write the data to the document
+        Task<Void> result = userRef.set(business_data);
+
+        // wait for completion
+        while (!result.isComplete()) {
+        }
+
+        return true;
     }
 
 
     /**
      * This function allows a client to set a new appointment at a desired business
      *
-     * @param appointment := A HashMap that contains all the needed information about the
+     * @param appointment A HashMap that contains all the needed information about the
      *                    new appointment. such as:
      *                    client username, client name, business username, business username,
      *                    Date, Time and type of service.
@@ -206,7 +183,7 @@ public class Database {
      *
      * @param username
      * @param Date
-     * @param isClient := tells whether to check on clients or business.
+     * @param isClient tells whether to check on clients or business.
      * @return a list of appointments
      */
     public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient) {
@@ -302,33 +279,24 @@ public class Database {
     }
 
     public HashMap<String, Object> get_business_info_by_name(String business_name) {
-        HashMap<String, Object> business_data = null;
+        DocumentReference userRef = db.collection("business").document(business_name);
 
-        Task<QuerySnapshot> task = db.collection("business")
-                .whereEqualTo("business_name", business_name)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("DB", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w("DB", "Error getting documents.", task.getException());
-                        }
-                    }
-                });
+        // Asynchronously retrieve the document
+        Task<DocumentSnapshot> task = userRef.get();
 
-        while (!task.isComplete() && !task.isCanceled()) {
+        //Wait for task to finish
+        while (!task.isComplete()) {
         }
-        if (task.isComplete()) {
-            if (!task.getResult().isEmpty()) {
-                business_data = (HashMap<String, Object>) task.getResult().getDocuments().get(0).getData();
-                Log.d("ClientData", "" + business_data);
-            }
+
+        // Block on the response to get the result
+        DocumentSnapshot document = task.getResult();
+
+        // Check if the document exists
+        if (document.exists()) {
+            return (HashMap<String, Object>) document.getData();
+            // do something with the user data
         }
-        return business_data;
+        return null;
     }
 
     /**
@@ -456,26 +424,36 @@ public class Database {
      * @return a list of businesses
      */
     public List<HashMap<String, Object>> search_business(String businessName) {
-        // a list for the fitting businesses
-        List<HashMap<String, Object>> businesses = null;
+        // check that the name is not empty
+        if (businessName.isEmpty()) {
+            return null;
+        }
 
-        // get all businesses
-        List<HashMap<String, Object>> all_businesses = get_all_businesses();
+        // get all businesses with a similar name
+        CollectionReference usersRef = db.collection("business");
 
-        // filter businesses
-        if (all_businesses != null) {
-            businesses = new ArrayList<>();
-            for (HashMap<String, Object> map : all_businesses) {
-                if (((String)map.get("business_name")).contains(businessName)) {
-                    businesses.add(map);
-                }
-            }
+        Query query = usersRef.whereGreaterThanOrEqualTo(FieldPath.documentId(), businessName)
+                .whereLessThan(FieldPath.documentId(), businessName + "\uf8ff");
+
+        // Asynchronously retrieve the documents
+        Task<QuerySnapshot> querySnapshot = query.get();
+
+        // Wait for task to complete
+        while (!querySnapshot.isComplete()) {
+        }
+
+        // Block on the response to get the result
+        List<DocumentSnapshot> documents = querySnapshot.getResult().getDocuments();
+        List<HashMap<String, Object>> businesses = new ArrayList<>();
+        for (DocumentSnapshot document : documents) {
+            businesses.add((HashMap<String, Object>) document.getData());
+            Log.d("BusinessName", document.getId());
         }
 
         return businesses;
     }
 
-    public boolean validate_email(String email_address){
+    public boolean validate_email(String email_address) {
         return Patterns.EMAIL_ADDRESS.matcher(email_address).matches();
     }
 

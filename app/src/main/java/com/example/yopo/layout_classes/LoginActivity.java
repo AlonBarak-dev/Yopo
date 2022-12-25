@@ -1,4 +1,5 @@
 package com.example.yopo.layout_classes;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +15,9 @@ import com.example.yopo.data_classes.Database;
 import com.example.yopo.data_classes.LoginValidation;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity {
 
     // variables for the fields
     private EditText username, password;
@@ -43,34 +43,31 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this, "Login...", Toast.LENGTH_SHORT).show();
                 LoginValidation parser = new LoginValidation(username.getText().toString(), password.getText().toString());
-                if (parser.is_valid()){
-                    if (business_box.isChecked()){
+                if (parser.is_valid()) {
+                    if (business_box.isChecked()) {
                         // make sure the user exists in the database -> username to password
                         HashMap<String, Object> user = database.get_business_info(username.getText().toString());
-                        if (user != null && user.get("password").toString().equals(password.getText().toString())){
+                        if (user != null && user.get("password").toString().equals(password.getText().toString())) {
                             Intent i = new Intent(LoginActivity.this, BusinessHomeActivity.class);
                             i.putExtra("username", username.getText().toString());
                             // the input values are good
                             Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
                             startActivity(i);
                             finish();
-                        }
-                        else{
+                        } else {
                             Toast.makeText(LoginActivity.this, "Username/Password is wrong!", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                    else{
+                    } else {
                         // User profile
                         HashMap<String, Object> user = database.get_client_info(username.getText().toString());
-                        if (user != null && user.get("password").toString().equals(password.getText().toString())){
+                        if (user != null && user.get("password").toString().equals(password.getText().toString())) {
                             Intent i = new Intent(LoginActivity.this, ClientHomeActivity.class);
                             i.putExtra("username", username.getText().toString());
                             // the input values are good
                             Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
                             startActivity(i);
                             finish();
-                        }
-                        else{
+                        } else {
                             Toast.makeText(LoginActivity.this, "Username/Password is wrong!", Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -1,9 +1,9 @@
 package com.example.yopo.layout_classes;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
@@ -46,7 +46,7 @@ public class ClientProfileActivity extends AppCompatActivity {
 
         name.setText(
                 client_info.get("first_name").toString() + " " +
-                client_info.get("last_name").toString()
+                        client_info.get("last_name").toString()
         );
 
         email.setText(
@@ -59,13 +59,13 @@ public class ClientProfileActivity extends AppCompatActivity {
 
         client_address.setText(
                 client_info.get("city").toString() + "-" +
-                client_info.get("street").toString() + "-" +
-                client_info.get("home_num").toString() + "-" +
-                client_info.get("floor").toString()
+                        client_info.get("street").toString() + "-" +
+                        client_info.get("home_num").toString() + "-" +
+                        client_info.get("floor").toString()
         );
 
-        String currDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) +"/"+
-                (Calendar.getInstance().get(Calendar.MONTH)+1) +"/"+
+        String currDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/" +
+                (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" +
                 Calendar.getInstance().get(Calendar.YEAR);
 
         today_appointments.setText(

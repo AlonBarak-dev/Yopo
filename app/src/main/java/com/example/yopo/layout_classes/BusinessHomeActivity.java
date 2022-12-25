@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-
 import android.widget.CalendarView;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -103,10 +102,10 @@ public class BusinessHomeActivity extends AppCompatActivity {
                         date_view.setText(selected_date);
 
                         List<HashMap<String, Object>> appointments_list = database.get_appointment_info(username, selected_date, false);
-                        if (appointments_list != null){
+                        if (appointments_list != null) {
                             String[] appointment_info_list = new String[appointments_list.size()];
                             int counter = 0;
-                            for (HashMap<String, Object> appointment : appointments_list){
+                            for (HashMap<String, Object> appointment : appointments_list) {
                                 String client_name = database.get_client_info(appointment.get("client_username").toString()).get("first_name").toString();
                                 String app = client_name + "-" + appointment.get("date")
                                         + "-" + appointment.get("time") + "-" + appointment.get("service");
@@ -118,8 +117,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
                                     android.R.layout.simple_spinner_item, appointment_info_list);
 
                             appointments.setAdapter(appointments_adapter);
-                        }
-                        else{
+                        } else {
                             String[] appointment_info_list = new String[1];
                             appointment_info_list[0] = "No appointments";
                             ArrayAdapter<String> appointments_adapter = new ArrayAdapter<String>(BusinessHomeActivity.this,

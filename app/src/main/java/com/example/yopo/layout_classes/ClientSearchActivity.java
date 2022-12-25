@@ -1,24 +1,18 @@
 package com.example.yopo.layout_classes;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
 import com.example.yopo.R;
-import com.example.yopo.data_classes.ClientRegisterValidator;
 import com.example.yopo.data_classes.Database;
 import com.example.yopo.data_classes.Session;
 import com.example.yopo.util_classes.BusinessesAdapter;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;

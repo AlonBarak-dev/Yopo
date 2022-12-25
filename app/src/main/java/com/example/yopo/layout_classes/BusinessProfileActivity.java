@@ -1,19 +1,16 @@
 package com.example.yopo.layout_classes;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.yopo.R;
-
 import com.example.yopo.data_classes.Database;
-
 import com.example.yopo.data_classes.Session;
 
-import java.util.HashMap;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class BusinessProfileActivity extends AppCompatActivity {
 
@@ -53,9 +50,9 @@ public class BusinessProfileActivity extends AppCompatActivity {
 
         business_address.setText(
                 business_info.get("city").toString() + "-" +
-                business_info.get("street").toString() + "-" +
-                business_info.get("home_num").toString() + "-" +
-                business_info.get("floor").toString()
+                        business_info.get("street").toString() + "-" +
+                        business_info.get("home_num").toString() + "-" +
+                        business_info.get("floor").toString()
         );
 
         phone_number.setText(
@@ -64,23 +61,16 @@ public class BusinessProfileActivity extends AppCompatActivity {
 
         categories.setText(
                 business_info.get("category") + "-" +
-                business_info.get("subcategory")
+                        business_info.get("subcategory")
         );
 
-        String currDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) +"/"+
-                          (Calendar.getInstance().get(Calendar.MONTH)+1) +"/"+
-                          Calendar.getInstance().get(Calendar.YEAR);
+        String currDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/" +
+                (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" +
+                Calendar.getInstance().get(Calendar.YEAR);
 
         today_appointments.setText(
                 "" + database.count_appointments_on_date(username.getText().toString(), currDate, false)
         );
-
-
-
-
-
-
-
 
 
     }

@@ -1,11 +1,10 @@
 package com.example.yopo.layout_classes;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.provider.ContactsContract;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;

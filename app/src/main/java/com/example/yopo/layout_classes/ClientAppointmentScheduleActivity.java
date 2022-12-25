@@ -1,30 +1,25 @@
 package com.example.yopo.layout_classes;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
-import com.example.yopo.data_classes.BusinessRegisterValidator;
 import com.example.yopo.data_classes.Database;
 import com.example.yopo.data_classes.Session;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class ClientAppointmentScheduleActivity extends AppCompatActivity{
+public class ClientAppointmentScheduleActivity extends AppCompatActivity {
 
     private CalendarView calendar;
     private Spinner hours;
@@ -57,10 +52,10 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
 
         // retrieve the services of the desired business and present them in a spinner
         List<HashMap<String, Object>> list_of_services = database.get_services(business_username);
-        if (list_of_services != null){
+        if (list_of_services != null) {
             String[] services_strings = new String[list_of_services.size()];
             int counter = 0;
-            for (HashMap<String, Object> service: list_of_services){
+            for (HashMap<String, Object> service : list_of_services) {
                 String serv_str = service.get("service") + " : " + service.get("price");
                 services_strings[counter] = serv_str;
                 counter++;
@@ -83,31 +78,30 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                     CalendarView view,
                     int year,
                     int month,
-                    int dayOfMonth)
-            {
+                    int dayOfMonth) {
 
                 // this will serve as a key in the future
                 // in order to extract the appointments from the database.
                 selected_date = dayOfMonth + "/" + (month + 1) + "/" + year;
                 // retrieve the business appointments for the selected day and look for taken slots.
                 List<HashMap<String, Object>> taken_appointments = database.get_appointment_info(business_username, selected_date, false);
-                if (taken_appointments != null){
+                if (taken_appointments != null) {
                     String[] taken_hours = new String[taken_appointments.size()];
                     int counter = 0;
-                    for(HashMap<String, Object> appointment : taken_appointments){
+                    for (HashMap<String, Object> appointment : taken_appointments) {
                         Log.d("appointment", appointment.toString());
                         taken_hours[counter] = (String) appointment.get("time");
                         counter++;
                     }
 
                     // add taken appointments as Taken: <time>
-                    for(int i = 0; i < 24; i++){
+                    for (int i = 0; i < 24; i++) {
                         String start_time = i + ":00";
-                        String end_time = ((i+1) % 24) + ":00";
+                        String end_time = ((i + 1) % 24) + ":00";
                         String full_time = start_time + "--" + end_time;
                         boolean free_hour = true;
-                        for(int j = 0; j < taken_appointments.size(); j++){
-                            if (full_time.equals(taken_hours[j])){
+                        for (int j = 0; j < taken_appointments.size(); j++) {
+                            if (full_time.equals(taken_hours[j])) {
                                 free_hour = false;
                             }
                         }
@@ -116,11 +110,10 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
                         else
                             list_of_hours[i] = "Taken: " + full_time;
                     }
-                }
-                else{
-                    for(int i = 0; i < 24; i++){
+                } else {
+                    for (int i = 0; i < 24; i++) {
                         String start_time = i + ":00";
-                        String end_time = ((i+1) % 24) + ":00";
+                        String end_time = ((i + 1) % 24) + ":00";
                         String full_time = start_time + "--" + end_time;
                         list_of_hours[i] = full_time;
                     }
@@ -139,38 +132,26 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity{
             public void onClick(View view) {
                 // TODO add treatment type and users Names.
                 // save the appointment to the Database
-                if (selected_date != null && !hours.getSelectedItem().toString().contains("Taken")){
+                if (selected_date != null && !hours.getSelectedItem().toString().contains("Taken")) {
                     HashMap<String, Object> new_appointment = new HashMap<>();
                     new_appointment.put("client_username", client_username);
                     new_appointment.put("business_username", business_username);
                     new_appointment.put("date", selected_date);
                     new_appointment.put("time", hours.getSelectedItem().toString());
                     new_appointment.put("service", services.getSelectedItem());
-                    if(database.add_new_appointment(new_appointment)){
+                    if (database.add_new_appointment(new_appointment)) {
                         Toast.makeText(ClientAppointmentScheduleActivity.this, "Appointment set successfully!", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(ClientAppointmentScheduleActivity.this, "Please choose available date and hour!", Toast.LENGTH_SHORT).show();
                 }
-
 
 
             }
         });
 
 
-
-
-
-
     }
-
-
-
-
-
-
 
 
 }

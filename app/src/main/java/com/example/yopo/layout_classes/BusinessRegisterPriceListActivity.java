@@ -1,8 +1,6 @@
 package com.example.yopo.layout_classes;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.yopo.R;
 import com.example.yopo.data_classes.BusinessRegisterValidator;
 import com.example.yopo.data_classes.Database;
 import com.example.yopo.data_classes.Session;
+
 import java.util.HashMap;
 
 public class BusinessRegisterPriceListActivity extends AppCompatActivity {
@@ -26,9 +27,6 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
     private Database database;
 
     private TextView service1, price1, service2, price2, service3, price3, service4, price4, service5, price5;
-
-
-
 
 
     @Override
@@ -61,22 +59,22 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO add price list validation and save to database
                 boolean is_valid = parser.price_list_is_valid(service1.getText().toString(), price1.getText().toString(),
-                                                                service2.getText().toString(), price2.getText().toString(),
-                                                                service3.getText().toString(), price3.getText().toString(),
-                                                                service4.getText().toString(), price4.getText().toString(),
-                                                                service5.getText().toString(), price5.getText().toString());
+                        service2.getText().toString(), price2.getText().toString(),
+                        service3.getText().toString(), price3.getText().toString(),
+                        service4.getText().toString(), price4.getText().toString(),
+                        service5.getText().toString(), price5.getText().toString());
 
                 String[] services = {service1.getText().toString(), service2.getText().toString(),
-                                     service3.getText().toString(), service4.getText().toString(), service5.getText().toString()};
+                        service3.getText().toString(), service4.getText().toString(), service5.getText().toString()};
 
                 String[] prices = {price1.getText().toString(), price2.getText().toString(),
-                                   price3.getText().toString(), price4.getText().toString(), price5.getText().toString()};
+                        price3.getText().toString(), price4.getText().toString(), price5.getText().toString()};
 
                 boolean business_added = false;
                 boolean services_added = true;
 
                 // validate user input and add to the database
-                if(is_valid) {
+                if (is_valid) {
                     // add to the database
                     business_added = database.add_new_business(business_data);
                     Log.d("ClientReg", "Success Status: " + business_added);
@@ -87,7 +85,7 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
                         service.put("username", business_data.get("username"));
                         service.put("service", services[i]);
                         service.put("price", prices[i]);
-                        if (((String)service.get("username")).isEmpty() || ((String)service.get("price")).isEmpty()) {
+                        if (((String) service.get("username")).isEmpty() || ((String) service.get("price")).isEmpty()) {
                             continue;
                         }
                         if (database.add_new_service(service) == false) { // add service to database
@@ -100,11 +98,10 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
                 if (business_added && services_added) {
                     Toast.makeText(BusinessRegisterPriceListActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(BusinessRegisterPriceListActivity.this, BusinessHomeActivity.class);
-                    i.putExtra("username", (String)business_data.get("username"));
+                    i.putExtra("username", (String) business_data.get("username"));
                     startActivity(i);
                     finish();
-                }
-                else {
+                } else {
                     Log.w("ClientReg", "Registration Failed");
                     Toast.makeText(BusinessRegisterPriceListActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                 }

@@ -307,20 +307,20 @@ public class Database {
      */
     public boolean add_new_service(HashMap<String, Object> service) {
 
-        db.collection("services")
-                .add(service)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("DB", "Service document added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("DB", "Error adding document", e);
-                    }
-                });
+        // check if the client exists
+        if (username_exists((String) service.get("service_id"), "services")) {
+            return false;
+        }
+
+        // add new user
+        DocumentReference userRef = db.collection("services").document((String) service.get("service_id"));
+
+        // Write the data to the document
+        Task<Void> result = userRef.set(service);
+
+        // wait for completion
+        while (!result.isComplete()) {
+        }
 
         return true;
 

@@ -1,5 +1,6 @@
 package com.example.yopo.layout_classes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -56,10 +57,12 @@ public class BusinessScheduleActivity extends AppCompatActivity {
             }
         });
 
+        // move to edit services layout
         edit_services.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(BusinessScheduleActivity.this, BusinessEditServicesActivity.class);
+                startActivity(i);
             }
         });
 

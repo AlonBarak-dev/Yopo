@@ -29,6 +29,7 @@ public class BusinessScheduleActivity extends AppCompatActivity {
         day_chooser = findViewById(R.id.day_chooser);
         day_viewer = findViewById(R.id.day_viewer);
         day_text = day_viewer.findViewById(R.id.day_text);
+        edit_services = findViewById(R.id.edit_services_button);
 
         // create an array adapter for the spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -54,6 +55,16 @@ public class BusinessScheduleActivity extends AppCompatActivity {
 
             }
         });
+
+        edit_services.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+
     }
 
 

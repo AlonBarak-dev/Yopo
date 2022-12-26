@@ -41,7 +41,7 @@ public class BusinessPriceListActivity extends AppCompatActivity {
         List<Service> services = new ArrayList<>();
         for (HashMap<String, Object> map : list_of_services) {
             try {
-                Service service = new Service((String) map.get("service"), Float.parseFloat((String) map.get("price")));
+                Service service = new Service((String) map.get("service"), Float.parseFloat((String) map.get("price")), (String) map.get("service_id"));
                 services.add(service);
             } catch (Exception ignored) {
 

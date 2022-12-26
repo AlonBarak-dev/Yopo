@@ -85,6 +85,7 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
                         service.put("username", business_data.get("username"));
                         service.put("service", services[i]);
                         service.put("price", prices[i]);
+                        service.put("service_id", business_data.get("username") + "-" + services[i]);
                         if (((String) service.get("username")).isEmpty() || ((String) service.get("price")).isEmpty()) {
                             continue;
                         }

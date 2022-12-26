@@ -10,7 +10,7 @@
         android:id="@+id/day_chooser"
         android:layout_width="347dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:contentDescription="@string/choose_day"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,14 +19,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/day_viewer"
-        android:layout_width="347dp"
-        android:layout_height="587dp"
+        android:layout_width="315dp"
+        android:layout_height="222dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_chooser">
+        app:layout_constraintTop_toBottomOf="@+id/day_chooser"
+        app:layout_constraintVertical_bias="0.065">
 
         <TextView
             android:id="@+id/day_text"
@@ -38,4 +40,44 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/edit_schedulr_business_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit schedule"
+        android:textColor="@color/title_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/day_chooser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/edit_services_business_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Edit Services"
+        android:textColor="@color/title_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/day_viewer"
+        app:layout_constraintVertical_bias="0.112" />
+
+    <Button
+        android:id="@+id/edit_services_button"
+        android:layout_width="229dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="4dp"
+        android:text="Edit services"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/day_viewer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

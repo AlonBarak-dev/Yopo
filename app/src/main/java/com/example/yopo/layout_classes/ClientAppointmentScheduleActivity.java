@@ -139,6 +139,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                     new_appointment.put("date", selected_date);
                     new_appointment.put("time", hours.getSelectedItem().toString());
                     new_appointment.put("service", business_username + "-" +services.getSelectedItem());    // service ID
+                    new_appointment.put("appointment_id", business_username + "-" + client_username + "-" + selected_date + "-" + hours.getSelectedItem().toString());  // appointment ID
                     if (database.add_new_appointment(new_appointment)) {
                         Toast.makeText(ClientAppointmentScheduleActivity.this, "Appointment set successfully!", Toast.LENGTH_SHORT).show();
                     }

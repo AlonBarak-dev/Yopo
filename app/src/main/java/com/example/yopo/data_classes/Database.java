@@ -160,20 +160,15 @@ public class Database {
 
     public boolean add_new_appointment(HashMap<String, Object> appointment) {
 
-        db.collection("appointments")
-                .add(appointment)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("DB", "Client document added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("DB", "Error adding document", e);
-                    }
-                });
+        // add new user
+        DocumentReference userRef = db.collection("appointments").document((String) appointment.get("appointment_id"));
+
+        // Write the data to the document
+        Task<Void> result = userRef.set(appointment);
+
+        // wait for completion
+        while (!result.isComplete()) {
+        }
 
         return true;
     }
@@ -326,6 +321,28 @@ public class Database {
 
     }
 
+    public HashMap<String, Object> get_service(String service_id){
+        DocumentReference userRef = db.collection("services").document(service_id);
+
+        // Asynchronously retrieve the document
+        Task<DocumentSnapshot> task = userRef.get();
+
+        //Wait for task to finish
+        while (!task.isComplete()) {
+        }
+
+        // Block on the response to get the result
+        DocumentSnapshot document = task.getResult();
+
+        // Check if the document exists
+        if (document.exists()) {
+            return (HashMap<String, Object>) document.getData();
+            // do something with the user data
+        }
+        return null;
+
+    }
+
 
     /**
      * This method retrieve the list of all business's services.
@@ -352,7 +369,6 @@ public class Database {
                         }
                     }
                 });
-
 
         while (!task.isComplete() && !task.isCanceled()) {
         }

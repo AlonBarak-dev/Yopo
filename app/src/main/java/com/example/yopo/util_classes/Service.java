@@ -4,6 +4,7 @@ public class Service {
     private String service;
     private float price;
 
+
     public Service(String service, float price) {
         this.service = service;
         this.price = price;

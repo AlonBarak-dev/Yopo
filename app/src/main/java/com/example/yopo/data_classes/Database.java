@@ -131,12 +131,12 @@ public class Database {
      */
     public boolean add_new_business(HashMap<String, Object> business_data) {
         // check if the client exists
-        if (username_exists((String) business_data.get("business_name"), "business")) {
+        if (username_exists((String) business_data.get("username"), "business")) {
             return false;
         }
 
         // add new user
-        DocumentReference userRef = db.collection("business").document((String) business_data.get("business_name"));
+        DocumentReference userRef = db.collection("business").document((String) business_data.get("username"));
 
         // Write the data to the document
         Task<Void> result = userRef.set(business_data);
@@ -249,10 +249,31 @@ public class Database {
      * @return A HashMap with the users data, keys are attributes and values are attribute values
      */
     public HashMap<String, Object> get_business_info(String business_username) {
+        DocumentReference userRef = db.collection("business").document(business_username);
+
+        // Asynchronously retrieve the document
+        Task<DocumentSnapshot> task = userRef.get();
+
+        //Wait for task to finish
+        while (!task.isComplete()) {
+        }
+
+        // Block on the response to get the result
+        DocumentSnapshot document = task.getResult();
+
+        // Check if the document exists
+        if (document.exists()) {
+            return (HashMap<String, Object>) document.getData();
+            // do something with the user data
+        }
+        return null;
+    }
+
+    public HashMap<String, Object> get_business_info_by_name(String business_name) {
         HashMap<String, Object> business_data = null;
 
         Task<QuerySnapshot> task = db.collection("business")
-                .whereEqualTo("username", business_username)
+                .whereEqualTo("business_name", business_name)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -276,27 +297,6 @@ public class Database {
             }
         }
         return business_data;
-    }
-
-    public HashMap<String, Object> get_business_info_by_name(String business_name) {
-        DocumentReference userRef = db.collection("business").document(business_name);
-
-        // Asynchronously retrieve the document
-        Task<DocumentSnapshot> task = userRef.get();
-
-        //Wait for task to finish
-        while (!task.isComplete()) {
-        }
-
-        // Block on the response to get the result
-        DocumentSnapshot document = task.getResult();
-
-        // Check if the document exists
-        if (document.exists()) {
-            return (HashMap<String, Object>) document.getData();
-            // do something with the user data
-        }
-        return null;
     }
 
     /**

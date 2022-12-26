@@ -108,7 +108,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
                             for (HashMap<String, Object> appointment : appointments_list) {
                                 String client_name = database.get_client_info(appointment.get("client_username").toString()).get("first_name").toString();
                                 String service_name = (String) database.get_service((String) appointment.get("service")).get("service");
-                                String app = client_name + " ordered: " + service_name + ", at:" + appointment.get("date")
+                                String app = client_name + " ordered: " + service_name + ", in:" + appointment.get("date")
                                         + " " + appointment.get("time");
                                 appointment_info_list[counter] = app;
                                 counter++;

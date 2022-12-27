@@ -134,7 +134,7 @@ public class BusinessScheduleActivity extends AppCompatActivity {
 
                     // Map the hours with the corresponding gloat values
                     HashMap<String, Object> hour_map = new HashMap<>();
-                    for (int j = 0; j < 12; ++j) {
+                    for (int j = 0; j < 24; ++j) {
                         hour_map.put(index_to_hour(j), false);
                     }
 

@@ -86,6 +86,8 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                 // this will serve as a key in the future
                 // in order to extract the appointments from the database.
                 selected_date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                HashMap<String, Object> open_hours = database.get_open_range_by_full_date(business_username, selected_date);
+
                 // retrieve the business appointments for the selected day and look for taken slots.
                 List<HashMap<String, Object>> taken_appointments = database.get_appointment_info(business_username, selected_date, false);
                 if (taken_appointments != null) {
@@ -108,17 +110,25 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                                 free_hour = false;
                             }
                         }
-                        if (free_hour)
-                            list_of_hours[i] = full_time;
+                        String key = (i < 10) ? "0" + i + "-00" : "" + i + "-00";
+                        if (open_hours != null && !(boolean)open_hours.get(key))
+                            list_of_hours[i] = "Closed: " + full_time;
+                        else if (free_hour)
+                            list_of_hours[i] = "Open: " + full_time;
                         else
                             list_of_hours[i] = "Taken: " + full_time;
                     }
                 } else {
                     for (int i = 0; i < 24; i++) {
+
                         String start_time = i + ":00";
                         String end_time = ((i + 1) % 24) + ":00";
                         String full_time = start_time + "--" + end_time;
-                        list_of_hours[i] = full_time;
+                        String key = (i < 10) ? "0" + i + "-00" : "" + i + "-00";
+                        if (open_hours != null && !(boolean)open_hours.get(key))
+                            list_of_hours[i] = "Closed: " + full_time;
+                        else
+                            list_of_hours[i] = "Open: " + full_time;
                     }
                 }
 
@@ -135,7 +145,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO add treatment type and users Names.
                 // save the appointment to the Database
-                if (selected_date != null && !hours.getSelectedItem().toString().contains("Taken")) {
+                if (selected_date != null && hours.getSelectedItem().toString().contains("Open")) {
                     HashMap<String, Object> new_appointment = new HashMap<>();
                     new_appointment.put("client_username", client_username);
                     new_appointment.put("business_username", business_username);

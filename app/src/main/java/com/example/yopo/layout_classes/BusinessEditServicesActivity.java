@@ -1,6 +1,7 @@
 package com.example.yopo.layout_classes;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,8 +44,23 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
         service_list = findViewById(R.id.service_list);
 
         // create a random array for testing
-        List<HashMap<String, Object>> list_of_services = database.get_services((String) session.get_session_attribute("business_username"));
+        List<HashMap<String, Object>> list_of_services = database.get_services((String) session.get_session_attribute("username"));
         List<Service> services = new ArrayList<>();
+
+        if (session.get_session_attribute("username") == null) {
+            Log.wtf("BusinessEditServices", "Session: username is null!");
+        }
+        else {
+            Log.v("BusinessEditServices", session.get_session_attribute("username").toString());
+        }
+
+        if (list_of_services == null) {
+            Log.wtf("BusinessEditServices", "list_of_services is null!");
+        }
+        else {
+            Log.v("BusinessEditServices", "list of services size: "+list_of_services.size());
+        }
+
         for (HashMap<String, Object> map : list_of_services) {
             try {
                 Service service = new Service((String) map.get("service"), Float.parseFloat((String) map.get("price")), (String) map.get("service_id"));

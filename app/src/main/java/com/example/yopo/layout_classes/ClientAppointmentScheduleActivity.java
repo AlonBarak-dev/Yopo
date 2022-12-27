@@ -150,7 +150,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                     new_appointment.put("client_username", client_username);
                     new_appointment.put("business_username", business_username);
                     new_appointment.put("date", selected_date);
-                    new_appointment.put("time", hours.getSelectedItem().toString());
+                    new_appointment.put("time", hours.getSelectedItem().toString().split(": ")[1]);
                     String service = services.getSelectedItem().toString().split(" :")[0];
                     new_appointment.put("service", business_username + "-" +service);    // service ID
                     String [] selected_date_id = selected_date.split("/");

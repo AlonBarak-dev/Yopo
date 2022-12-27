@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -34,10 +35,12 @@ import java.util.List;
 public class BusinessEditServicesActivity extends AppCompatActivity {
     // get variables
     private RecyclerView service_list;
+    private Button add_services_button;
 
     // database and session variables
     private Session session;
     private Database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,7 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
 
         // get recycler view
         service_list = findViewById(R.id.service_list);
+        add_services_button = findViewById(R.id.add_services_button);
 
         // create a random array for testing
         List<HashMap<String, Object>> list_of_services = database.get_services((String) session.get_session_attribute("username"));
@@ -86,9 +90,6 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
         service_list.setAdapter(adapter);
 
         // service list item click listener
-
-        // int mWidth = view.getResources().getDisplayMetrics().widthPixels;
-        // int mHeight= view.getResources().getDisplayMetrics().heightPixels;
         service_list.addOnItemTouchListener(new RecyclerTouchListener(service_list.getContext(), service_list, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -127,5 +128,13 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
                 });
             }
         }));
+
+        add_services_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(BusinessEditServicesActivity.this, BusinessEditServicesAddActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

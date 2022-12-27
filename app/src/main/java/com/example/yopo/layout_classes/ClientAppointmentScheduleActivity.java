@@ -15,6 +15,8 @@ import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
 import com.example.yopo.data_classes.Session;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
 
     private Session session;
     private Database database;
+
 
 
     @Override
@@ -140,7 +143,8 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                     new_appointment.put("time", hours.getSelectedItem().toString());
                     String service = services.getSelectedItem().toString().split(" :")[0];
                     new_appointment.put("service", business_username + "-" +service);    // service ID
-                    new_appointment.put("appointment_id", business_username + "-" + client_username);  // appointment ID
+                    String [] selected_date_id = selected_date.split("/");
+                    new_appointment.put("appointment_id", business_username + "-" + client_username + "-"  + selected_date_id[0] + "-" + selected_date_id[1] + "-" + selected_date_id[2] +"-"+ hours.getSelectedItem().toString());  // appointment ID
                     if (database.add_new_appointment(new_appointment)) {
                         Toast.makeText(ClientAppointmentScheduleActivity.this, "Appointment set successfully!", Toast.LENGTH_SHORT).show();
                     }

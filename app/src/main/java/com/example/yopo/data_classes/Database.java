@@ -1,5 +1,6 @@
 package com.example.yopo.data_classes;
 
+import android.icu.util.LocaleData;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -15,7 +16,11 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,9 +31,18 @@ import java.util.List;
 public class Database {
     private final FirebaseFirestore db;
     private static Database database = null;
+    private HashMap<Integer, String> day_of_week;
 
     private Database() {
         db = FirebaseFirestore.getInstance();
+        this.day_of_week = new HashMap<Integer, String>();
+        this.day_of_week.put(1, "Monday");
+        this.day_of_week.put(2, "Tuesday");
+        this.day_of_week.put(3, "Wednesday");
+        this.day_of_week.put(4, "Thursday");
+        this.day_of_week.put(5, "Friday");
+        this.day_of_week.put(6, "Saturday");
+        this.day_of_week.put(7, "Sunday");
     }
 
 
@@ -496,4 +510,20 @@ public class Database {
         // get the result
         return (HashMap<String, Object>) task.getResult().getData();
     }
+
+
+    public HashMap<String, Object> get_open_range_by_full_date(String username, String date){
+        String[] date_parts = date.split("/");
+        LocalDate date_obj = LocalDate.of(Integer.parseInt(date_parts[2]), Integer.parseInt(date_parts[1]), Integer.parseInt(date_parts[0]));
+        int day_int = getDayNumberNew(date_obj);
+        String day_str = this.day_of_week.get(day_int);
+        return this.get_open_range_by_day(username, day_str);
+    }
+
+    public static int getDayNumberNew(LocalDate date) {
+        DayOfWeek day = date.getDayOfWeek();
+        return day.getValue();
+    }
+
+
 }

@@ -44,7 +44,6 @@ public class BusinessLandingPageActivity extends AppCompatActivity {
         services_button = findViewById(R.id.services_button);
 
         // set fields to correct information
-        // TODO use business name instead
         business_name.setText((String) business_data.get("business_name"));
         business_description.setText((String) business_data.get("description"));
 

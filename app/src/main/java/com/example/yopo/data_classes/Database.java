@@ -6,8 +6,6 @@ import android.util.Patterns;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -16,7 +14,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.FieldPath;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -259,7 +256,6 @@ public class Database {
         // Check if the document exists
         if (document.exists()) {
             return (HashMap<String, Object>) document.getData();
-            // do something with the user data
         }
         return null;
     }
@@ -321,7 +317,7 @@ public class Database {
 
     }
 
-    public HashMap<String, Object> get_service(String service_id){
+    public HashMap<String, Object> get_service(String service_id) {
         DocumentReference userRef = db.collection("services").document(service_id);
 
         // Asynchronously retrieve the document
@@ -448,8 +444,8 @@ public class Database {
         // get all businesses with a similar name
         CollectionReference usersRef = db.collection("business");
 
-        Query query = usersRef.whereGreaterThanOrEqualTo(FieldPath.documentId(), businessName)
-                .whereLessThan(FieldPath.documentId(), businessName + "\uf8ff");
+        Query query = usersRef.whereGreaterThanOrEqualTo("business_name", businessName)
+                .whereLessThan("business_name", businessName + "\uf8ff");
 
         // Asynchronously retrieve the documents
         Task<QuerySnapshot> querySnapshot = query.get();

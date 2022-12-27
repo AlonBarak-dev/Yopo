@@ -469,4 +469,31 @@ public class Database {
         return Patterns.EMAIL_ADDRESS.matcher(email_address).matches();
     }
 
+    public boolean add_to_collection(HashMap<String, Object> data, String document_name, String collection) {
+        // add new data
+        DocumentReference userRef = db.collection(collection).document(document_name);
+
+        // Write the data to the document
+        Task<Void> result = userRef.set(data);
+
+        // wait for completion
+        while (!result.isComplete()) {
+        }
+
+        return true;
+    }
+
+    public HashMap<String, Object> get_open_range_by_day(String username, String day) {
+        DocumentReference userRef = db.collection("business_open_times").document(username + "-" + day);
+
+        // Asynchronously retrieve the document
+        Task<DocumentSnapshot> task = userRef.get();
+
+        //Wait for task to finish
+        while (!task.isComplete()) {
+        }
+
+        // get the result
+        return (HashMap<String, Object>) task.getResult().getData();
+    }
 }

@@ -2,20 +2,39 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#62def8"
-    app:layout_constraintBottom_toBottomOf="@+id/service_list"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="@+id/service_list"
-    app:layout_constraintTop_toTopOf="@+id/service_list">
+    android:background="#62def8">
 
     <TextView
+        android:id="@+id/delete_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_margin="30dp"
-        android:text="This is a popup window."
-        android:textSize="22sp" />
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="Delete Service?"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DELETE"
+        android:textSize="22sp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/delete_question"
+        app:layout_constraintEnd_toEndOf="@+id/delete_question"
+        app:layout_constraintStart_toStartOf="@+id/delete_question"
+        app:layout_constraintTop_toTopOf="@+id/delete_question" />
 
 </RelativeLayout>

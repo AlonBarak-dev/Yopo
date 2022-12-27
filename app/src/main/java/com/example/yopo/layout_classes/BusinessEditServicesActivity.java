@@ -1,5 +1,6 @@
 package com.example.yopo.layout_classes;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -92,6 +93,10 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
 
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
                 // code taken from: https://stackoverflow.com/questions/5944987/how-to-create-a-popup-window-popupwindow-in-android
 
                 // inflate the layout of the popup window
@@ -106,7 +111,10 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
                 final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
                 // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
+                // which view you pass in doesn't matter, it is only used for the window token
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    popupWindow.setElevation(30);
+                }
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
                 // dismiss the popup window when touched
@@ -117,10 +125,6 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
             }
         }));
     }

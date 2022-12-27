@@ -50,6 +50,7 @@
         <item>Saturday</item>
     </string-array>
     <string name="day">Day:</string>
+    <string name="apply_button_text">Apply</string>
 
     <!-- these are strings for the business landing page -->
     <string name="business_name">Name</string>
@@ -78,5 +79,36 @@
     <!-- this is for the card layout -->
     <string name="service_title">Service</string>
     <string name="price_title">Price</string>
+
+    <!-- this is for the range card layout -->
+    <string name="start_hour_text">choose starting hour</string>
+    <string name="end_hour_text">choose closing hour for that range</string>
+    <string name="new_range_text">New</string>
+    <string-array name="list_of_hours">
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+    </string-array>
 
 </resources>

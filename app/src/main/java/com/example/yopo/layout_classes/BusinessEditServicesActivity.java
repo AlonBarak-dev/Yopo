@@ -1,18 +1,19 @@
 package com.example.yopo.layout_classes;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,8 @@ import com.example.yopo.data_classes.Session;
 import com.example.yopo.util_classes.RecyclerTouchListener;
 import com.example.yopo.util_classes.Service;
 import com.example.yopo.util_classes.ServiceAdapter;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +38,7 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
     private Session session;
     private Database database;
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business_edit_services_layout);
 
@@ -52,16 +55,14 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
 
         if (session.get_session_attribute("username") == null) {
             Log.e("BusinessEditServices", "Session: username is null!");
-        }
-        else {
+        } else {
             Log.v("BusinessEditServices", session.get_session_attribute("username").toString());
         }
 
         if (list_of_services == null) {
             Log.e("BusinessEditServices", "list_of_services is null!");
-        }
-        else {
-            Log.v("BusinessEditServices", "list of services size: "+list_of_services.size());
+        } else {
+            Log.v("BusinessEditServices", "list of services size: " + list_of_services.size());
         }
 
         for (HashMap<String, Object> map : list_of_services) {
@@ -84,23 +85,43 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
         service_list.setAdapter(adapter);
 
         // service list item click listener
+
+        // int mWidth = view.getResources().getDisplayMetrics().widthPixels;
+        // int mHeight= view.getResources().getDisplayMetrics().heightPixels;
         service_list.addOnItemTouchListener(new RecyclerTouchListener(service_list.getContext(), service_list, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
 
+                // code taken from: https://stackoverflow.com/questions/5944987/how-to-create-a-popup-window-popupwindow-in-android
+
+                // inflate the layout of the popup window
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.popup_window_layout, null);
+
+                // create the popup window
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable = true; // lets taps outside the popup also dismiss it
+                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                // show the popup window
+                // which view you pass in doesn't matter, it is only used for the window tolken
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+                // dismiss the popup window when touched
+                popupView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
             }
 
             @Override
             public void onLongClick(View view, int position) {
-
             }
         }));
-
-
-
-
     }
-
-
-
 }

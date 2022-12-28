@@ -268,12 +268,45 @@ public class Server implements IServer {
 
     @Override
     public int count_appointments_on_date(String username, String Date, boolean isClient) {
-        return 0;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("Business username", username);
+        args.put("Date", Date);
+        args.put("isClient", isClient);
+        Message msg = new Message("Count Appointments on date", args);
+        int result = 0;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (Integer) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override
     public List<HashMap<String, Object>> get_all_businesses() {
-        return null;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        Message msg = new Message("Get all businesses", args);
+        List<HashMap<String, Object>> result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (List<HashMap<String, Object>>) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

@@ -35,9 +35,10 @@ public class Server implements IServer {
             this.day_of_week.put(5, "Friday");
             this.day_of_week.put(6, "Saturday");
             this.day_of_week.put(7, "Sunday");
+            Log.d("Server", "Connected Server");
         }
         catch (Exception e){
-            Log.d("Client", "Cant connect Server");
+            Log.d("Server", "Cant connect Server");
         }
     }
 

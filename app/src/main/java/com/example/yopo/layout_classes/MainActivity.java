@@ -8,11 +8,13 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
+import com.example.yopo.data_classes.Server;
 
 public class MainActivity extends AppCompatActivity {
     // field variables
     private Button register;
     private Button login;
+    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         register = findViewById(R.id.start_register);
         login = findViewById(R.id.start_login);
+        // create an instance of the server
+        server = Server.getInstance();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

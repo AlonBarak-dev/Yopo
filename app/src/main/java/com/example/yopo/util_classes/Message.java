@@ -1,8 +1,9 @@
 package com.example.yopo.util_classes;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Message {
+public class Message implements Serializable {
 
     private String ques;
     private HashMap<String, Object> args;

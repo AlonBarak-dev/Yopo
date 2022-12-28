@@ -1,6 +1,7 @@
 package com.example.yopo.data_classes;
 
 import android.util.Log;
+import android.util.Patterns;
 
 import com.example.yopo.interfaces.IServer;
 
@@ -332,12 +333,30 @@ public class Server implements IServer {
 
     @Override
     public boolean validate_email(String email_address) {
-        return false;
+        return Patterns.EMAIL_ADDRESS.matcher(email_address).matches();
     }
 
     @Override
     public boolean add_to_collection(HashMap<String, Object> data, String document_name, String collection) {
-        return false;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("Data", data);
+        args.put("Dosument name", document_name);
+        args.put("Collection name", collection);
+        Message msg = new Message("Add Service", args);
+        Boolean result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (Boolean) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result == null;
     }
 
     @Override

@@ -189,7 +189,21 @@ public class Server implements IServer {
 
     @Override
     public boolean add_new_service(HashMap<String, Object> service) {
-        return false;
+        Message msg = new Message("Add Service", service);
+        Boolean result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (Boolean) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result == null;
     }
 
     @Override

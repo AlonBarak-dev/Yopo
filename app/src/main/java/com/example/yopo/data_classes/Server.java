@@ -311,7 +311,23 @@ public class Server implements IServer {
 
     @Override
     public List<HashMap<String, Object>> search_business(String businessName) {
-        return null;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("Business username", businessName);
+        Message msg = new Message("Search Business", args);
+        List<HashMap<String, Object>> result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (List<HashMap<String, Object>>) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

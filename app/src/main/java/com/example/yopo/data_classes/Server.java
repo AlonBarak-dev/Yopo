@@ -81,7 +81,23 @@ public class Server implements IServer {
 
     @Override
     public HashMap<String, Object> get_client_info(String client_username) {
-        return null;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("username", client_username);
+        Message msg = new Message("Get Client", args);
+        HashMap<String, Object> result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (HashMap<String, Object>) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

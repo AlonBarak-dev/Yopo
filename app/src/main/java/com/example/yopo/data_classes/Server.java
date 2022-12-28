@@ -102,12 +102,41 @@ public class Server implements IServer {
 
     @Override
     public boolean add_new_business(HashMap<String, Object> business_data) {
-        return false;
+        Message msg = new Message("Add Business", business_data);
+        Boolean result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (Boolean) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result == null;
     }
 
     @Override
     public boolean add_new_appointment(HashMap<String, Object> appointment) {
-        return false;
+        Message msg = new Message("Add Appointment", appointment);
+        Boolean result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (Boolean) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result == null;
+
     }
 
     @Override
@@ -117,7 +146,23 @@ public class Server implements IServer {
 
     @Override
     public HashMap<String, Object> get_business_info(String business_username) {
-        return null;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("username", business_username);
+        Message msg = new Message("Get Business by username", args);
+        HashMap<String, Object> result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (HashMap<String, Object>) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

@@ -8,13 +8,14 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
-import com.example.yopo.data_classes.Server;
+import com.example.yopo.data_classes.AddToFirestoreTask;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     // field variables
     private Button register;
     private Button login;
-    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +24,18 @@ public class MainActivity extends AppCompatActivity {
 
         register = findViewById(R.id.start_register);
         login = findViewById(R.id.start_login);
-        // create an instance of the server
-        server = Server.getInstance();
+
+//        HashMap<String, Object> data = new HashMap<>();
+//        data.put("field1", "value1");
+//        data.put("field2", "value2");
+//
+//        AddToFirestoreTask task = new AddToFirestoreTask(data, "Test");
+//        task.execute();
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(i);
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
             }

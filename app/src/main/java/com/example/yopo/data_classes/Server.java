@@ -141,7 +141,25 @@ public class Server implements IServer {
 
     @Override
     public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient) {
-        return null;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("Business username", username);
+        args.put("Date", Date);
+        args.put("isClient", isClient);
+        Message msg = new Message("Get Appointment info", args);
+        List<HashMap<String, Object>> result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (List<HashMap<String, Object>>) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override
@@ -229,7 +247,23 @@ public class Server implements IServer {
 
     @Override
     public List<HashMap<String, Object>> get_services(String username) {
-        return null;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("Business username", username);
+        Message msg = new Message("Get Services", args);
+        List<HashMap<String, Object>> result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (List<HashMap<String, Object>>) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

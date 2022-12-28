@@ -24,6 +24,22 @@ public class BusinessRegisterValidator {
         this.error = false;
         this.error_string = "";
     }
+    public BusinessRegisterValidator() {
+        // values to check
+        this.username = null;
+        this.password = null;
+        this.business_name = null;
+        this.email = null;
+        this.city = null;
+        this.street = null;
+        this.home_num = null;
+        this.floor = null;
+        this.phone_number = null;
+
+        // for messaging
+        this.error = false;
+        this.error_string = "";
+    }
 
     public boolean is_valid() {
         // TODO update validation

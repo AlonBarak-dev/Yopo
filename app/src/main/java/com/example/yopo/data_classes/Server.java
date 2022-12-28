@@ -208,7 +208,23 @@ public class Server implements IServer {
 
     @Override
     public HashMap<String, Object> get_service(String service_id) {
-        return null;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("service id", service_id);
+        Message msg = new Message("Get Service", args);
+        HashMap<String, Object> result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (HashMap<String, Object>) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

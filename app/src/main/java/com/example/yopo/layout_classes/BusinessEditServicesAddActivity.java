@@ -88,7 +88,7 @@ public class BusinessEditServicesAddActivity extends AppCompatActivity {
                     }
                 }
                 // in case the addition went through move to the business home page, else print error message
-                if (services_added) {
+                if (is_valid && services_added) {
                     Toast.makeText(BusinessEditServicesAddActivity.this, "Services Added Successfully!", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(BusinessEditServicesAddActivity.this, BusinessHomeActivity.class);
                     i.putExtra("username", (String) session.get_session_attribute("username"));

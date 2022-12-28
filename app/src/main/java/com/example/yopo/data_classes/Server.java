@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.net.*;
 import java.io.*;
+import com.example.yopo.util_classes.Message;
 
 public class Server implements IServer {
 
@@ -37,9 +38,19 @@ public class Server implements IServer {
     }
 
 
-
     @Override
     public boolean username_exists(String username, String collection) {
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("collection", collection);
+        Message msg = new Message("Get Username", args);
+        try{
+            ObjectOutputStream stream = new ObjectOutputStream(this.socket.getOutputStream());
+            stream.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         return false;
     }
 

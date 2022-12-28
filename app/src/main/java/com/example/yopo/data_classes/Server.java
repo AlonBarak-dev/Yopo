@@ -5,6 +5,7 @@ import android.util.Patterns;
 
 import com.example.yopo.interfaces.IServer;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Server implements IServer {
     private static Socket socket = null;
     private PrintWriter out;
     private BufferedReader in;
+    private HashMap<Integer, String> day_of_week;
 
 
     private Server(){
@@ -25,6 +27,14 @@ public class Server implements IServer {
             this.socket = new Socket("127.0.0.1", 2000);
             this.out = new PrintWriter(this.socket.getOutputStream(), true);
             this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            this.day_of_week = new HashMap<Integer, String>();
+            this.day_of_week.put(1, "Monday");
+            this.day_of_week.put(2, "Tuesday");
+            this.day_of_week.put(3, "Wednesday");
+            this.day_of_week.put(4, "Thursday");
+            this.day_of_week.put(5, "Friday");
+            this.day_of_week.put(6, "Saturday");
+            this.day_of_week.put(7, "Sunday");
         }
         catch (Exception e){
             Log.d("Client", "Cant connect Server");
@@ -342,7 +352,7 @@ public class Server implements IServer {
         args.put("Data", data);
         args.put("Dosument name", document_name);
         args.put("Collection name", collection);
-        Message msg = new Message("Add Service", args);
+        Message msg = new Message("Add to collection", args);
         Boolean result = null;
         try{
             ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
@@ -361,16 +371,38 @@ public class Server implements IServer {
 
     @Override
     public HashMap<String, Object> get_open_range_by_day(String username, String day) {
-        return null;
+        HashMap<String, Object> args = new HashMap<String, Object>();
+        args.put("Business username", username);
+        args.put("Day", day);
+        Message msg = new Message("Get open range by day", args);
+        HashMap<String, Object> result = null;
+        try{
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (HashMap<String, Object>) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override
     public HashMap<String, Object> get_open_range_by_full_date(String username, String date) {
-        return null;
+        String[] date_parts = date.split("/");
+        LocalDate date_obj = LocalDate.of(Integer.parseInt(date_parts[2]), Integer.parseInt(date_parts[1]), Integer.parseInt(date_parts[0]));
+        int day_int = getDayNumberNew(date_obj);
+        String day_str = this.day_of_week.get(day_int);
+        return this.get_open_range_by_day(username, day_str);
     }
 
     @Override
     public int getDayNumberNew(LocalDate date) {
-        return 0;
+        DayOfWeek day = date.getDayOfWeek();
+        return day.getValue();
     }
 }

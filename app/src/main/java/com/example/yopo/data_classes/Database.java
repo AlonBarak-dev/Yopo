@@ -520,7 +520,7 @@ public class Database {
         return this.get_open_range_by_day(username, day_str);
     }
 
-    public static int getDayNumberNew(LocalDate date) {
+    public int getDayNumberNew(LocalDate date) {
         DayOfWeek day = date.getDayOfWeek();
         return day.getValue();
     }

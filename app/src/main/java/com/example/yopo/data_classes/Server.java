@@ -43,15 +43,22 @@ public class Server implements IServer {
         HashMap<String, Object> args = new HashMap<String, Object>();
         args.put("collection", collection);
         Message msg = new Message("Get Username", args);
+        HashMap<String, Object> result = null;
         try{
-            ObjectOutputStream stream = new ObjectOutputStream(this.socket.getOutputStream());
-            stream.writeObject(msg);
+            ObjectOutputStream stream_out = new ObjectOutputStream(this.socket.getOutputStream());
+            stream_out.writeObject(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        try{
+            ObjectInputStream stream_in = new ObjectInputStream(this.socket.getInputStream());
+            result = (HashMap<String, Object>) stream_in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result == null;
 
-        return false;
     }
 
     @Override

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 import com.example.yopo.util_classes.OpenRange;
 import com.example.yopo.util_classes.OpenRangeAdapter;
@@ -28,6 +29,7 @@ public class BusinessScheduleActivity extends AppCompatActivity {
     //data variables
     private Database database;
     private Session session;
+    private Server server;
 
     // field variables
     private Spinner day_chooser;
@@ -44,6 +46,7 @@ public class BusinessScheduleActivity extends AppCompatActivity {
         // Get database and session singletons
         database = Database.getInstance();
         session = Session.getInstance();
+        server = Server.getInstance();
 
         // get field variables
         day_chooser = findViewById(R.id.day_chooser);
@@ -152,7 +155,8 @@ public class BusinessScheduleActivity extends AppCompatActivity {
                     Log.d("HourMap", "Map: " + day_map.get(key));
 
                     // Add to database
-                    database.add_to_collection(day_map.get(key), key, "business_open_times");
+//                    database.add_to_collection(day_map.get(key), key, "business_open_times");
+                    server.add_to_collection(day_map.get(key), key, "business_open_times");
                 }
             }
         });

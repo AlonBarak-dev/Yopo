@@ -20,8 +20,13 @@ public class Server implements IServer {
     private static Server server = null;
 
 
-    private Server(){
+    private Server(){}
 
+    public static Server getInstance(){
+        if (server == null){
+            server = new Server();
+        }
+        return server;
     }
 
 

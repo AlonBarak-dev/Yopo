@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.yopo.R;
 import com.example.yopo.data_classes.BusinessRegisterValidator;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
     private Button register_button;
     private Session session;
     private Database database;
+    private Server server;
 
     private TextView service1, price1, service2, price2, service3, price3, service4, price4, service5, price5;
 
@@ -37,6 +39,7 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
         register_button = findViewById(R.id.business_register_button);
         session = Session.getInstance();
         database = Database.getInstance();
+        server = Server.getInstance();
 
         service1 = findViewById(R.id.service1);
         service2 = findViewById(R.id.service2);
@@ -76,7 +79,8 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
                 // validate user input and add to the database
                 if (is_valid) {
                     // add to the database
-                    business_added = database.add_new_business(business_data);
+//                    business_added = database.add_new_business(business_data);
+                    business_added = server.add_new_business(business_data);
                     Log.d("ClientReg", "Success Status: " + business_added);
                     HashMap<String, Object> service;
                     for (int i = 0; i < 5; i++) {
@@ -89,7 +93,7 @@ public class BusinessRegisterPriceListActivity extends AppCompatActivity {
                         if (((String) service.get("username")).isEmpty() || ((String) service.get("price")).isEmpty()) {
                             continue;
                         }
-                        if (database.add_new_service(service) == false) { // add service to database
+                        if (server.add_new_service(service) == false) { // add service to database
                             services_added = false;
                             break;
                         }

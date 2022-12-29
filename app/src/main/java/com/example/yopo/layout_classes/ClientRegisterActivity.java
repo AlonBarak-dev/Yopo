@@ -14,6 +14,7 @@ import com.example.yopo.R;
 import com.example.yopo.data_classes.AddToFirestoreTask;
 import com.example.yopo.data_classes.ClientRegisterValidator;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -24,6 +25,7 @@ public class ClientRegisterActivity extends AppCompatActivity {
     private EditText username, first_name, last_name, password, email, city, street, home_num, floor, birth_date, phone_number;
     private Button register_button;
     private Database database;
+    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class ClientRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.client_register_layout);
         // get database instance
         database = Database.getInstance();
+        // get server instance
+        server = Server.getInstance();
 
         // get field variables
         // text input
@@ -73,12 +77,11 @@ public class ClientRegisterActivity extends AppCompatActivity {
                     client_data.put("birthdate", birth_date.getText().toString());
                     client_data.put("phone_number", Integer.parseInt(phone_number.getText().toString()));
 
-//                    AddToFirestoreTask task = new AddToFirestoreTask(client_data, "clients", username.getText().toString());
-//                    task.execute();
 
                     // add to the database
-                    boolean success = database.add_new_client(client_data);
+//                    boolean success = database.add_new_client(client_data);
 //                    boolean success = true;
+                    boolean success = server.add_new_client(client_data);
                     Log.d("ClientReg", "Success Status: " + success);
 
                     if (success) {

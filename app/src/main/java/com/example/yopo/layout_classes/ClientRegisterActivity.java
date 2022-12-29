@@ -11,8 +11,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
+import com.example.yopo.data_classes.AddToFirestoreTask;
 import com.example.yopo.data_classes.ClientRegisterValidator;
 import com.example.yopo.data_classes.Database;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.HashMap;
 
@@ -70,8 +73,12 @@ public class ClientRegisterActivity extends AppCompatActivity {
                     client_data.put("birthdate", birth_date.getText().toString());
                     client_data.put("phone_number", Integer.parseInt(phone_number.getText().toString()));
 
+//                    AddToFirestoreTask task = new AddToFirestoreTask(client_data, "clients", username.getText().toString());
+//                    task.execute();
+
                     // add to the database
                     boolean success = database.add_new_client(client_data);
+//                    boolean success = true;
                     Log.d("ClientReg", "Success Status: " + success);
 
                     if (success) {

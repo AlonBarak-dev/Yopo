@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 //        HashMap<String, Object> data = new HashMap<>();
 //        data.put("field1", "value1");
 //        data.put("field2", "value2");
-//
-//        AddToFirestoreTask task = new AddToFirestoreTask(data, "Test");
+////
+//        AddToFirestoreTask task = new AddToFirestoreTask(data, "clients", "test-alon");
 //        task.execute();
 
 

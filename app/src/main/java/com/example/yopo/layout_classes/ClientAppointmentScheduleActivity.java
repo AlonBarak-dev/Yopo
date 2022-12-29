@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 
 import java.util.Calendar;
@@ -32,6 +33,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
 
     private Session session;
     private Database database;
+    private Server server;
 
 
 
@@ -44,7 +46,9 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
         hours = findViewById(R.id.avaliable_hours_spinner);
         services = findViewById(R.id.service_spinner_sched);
         save = findViewById(R.id.save_appointment_button);
+
         database = Database.getInstance();
+        server = Server.getInstance();
 
         String[] list_of_hours = new String[24];
 
@@ -155,7 +159,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                     new_appointment.put("service", business_username + "-" +service);    // service ID
                     String [] selected_date_id = selected_date.split("/");
                     new_appointment.put("appointment_id", business_username + "-" + client_username + "-"  + selected_date_id[0] + "-" + selected_date_id[1] + "-" + selected_date_id[2] +"-"+ hours.getSelectedItem().toString());  // appointment ID
-                    if (database.add_new_appointment(new_appointment)) {
+                    if (server.add_new_appointment(new_appointment)) {
                         Toast.makeText(ClientAppointmentScheduleActivity.this, "Appointment set successfully!", Toast.LENGTH_SHORT).show();
                     }
                 } else {

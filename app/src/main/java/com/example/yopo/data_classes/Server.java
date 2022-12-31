@@ -1,11 +1,14 @@
 package com.example.yopo.data_classes;
 
+import android.os.AsyncTask;
+
 import com.example.yopo.interfaces.IServer;
+import com.example.yopo.tasks.TaskFactory;
+import com.example.yopo.tasks.TaskType;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
-import android.os.AsyncTask;
 
 /*
 This class is an implementation of the IServer interface which is responsible for the
@@ -18,12 +21,14 @@ public class Server implements IServer {
 
 
     private static Server server = null;
+    private TaskFactory factory;
 
 
-    private Server(){}
+    private Server() {
+    }
 
-    public static Server getInstance(){
-        if (server == null){
+    public static Server getInstance() {
+        if (server == null) {
             server = new Server();
         }
         return server;
@@ -37,9 +42,7 @@ public class Server implements IServer {
 
     @Override
     public boolean add_new_client(HashMap<String, Object> client_data) {
-        AddToFirestoreTask task = new AddToFirestoreTask(client_data, "clients", (String) client_data.get("username"));
-        task.execute();
-        return true;
+        return add_to_collection(client_data, (String) client_data.get("username"), "clients");
     }
 
     @Override
@@ -49,23 +52,18 @@ public class Server implements IServer {
 
     @Override
     public boolean add_new_business(HashMap<String, Object> business_data) {
-        AddToFirestoreTask task = new AddToFirestoreTask(business_data, "business", (String) business_data.get("username"));
-        task.execute();
-        return true;
+        return add_to_collection(business_data, (String) business_data.get("username"), "business");
     }
 
     @Override
     public boolean add_new_appointment(HashMap<String, Object> appointment) {
-        AddToFirestoreTask task = new AddToFirestoreTask(appointment, "appointments", (String) appointment.get("appointment_id"));
-        task.execute();
-        return true;
+        return add_to_collection(appointment, (String) appointment.get("appointment_id"), "appointments");
     }
 
     @Override
     public boolean add_new_service(HashMap<String, Object> service) {
-        AddToFirestoreTask task = new AddToFirestoreTask(service, "services", (String) service.get("service_id"));
-        task.execute();
-        return true;    }
+        return add_to_collection(service, (String) service.get("service_id"), "services");
+    }
 
     @Override
     public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient) {
@@ -114,7 +112,7 @@ public class Server implements IServer {
 
     @Override
     public boolean add_to_collection(HashMap<String, Object> data, String document_name, String collection) {
-        AddToFirestoreTask task = new AddToFirestoreTask(data, collection, document_name);
+        AsyncTask task = factory.get_task(TaskType.ADD, collection, document_name, data);
         task.execute();
         return true;
     }

@@ -11,12 +11,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
-import com.example.yopo.data_classes.AddToFirestoreTask;
 import com.example.yopo.data_classes.ClientRegisterValidator;
 import com.example.yopo.data_classes.Database;
 import com.example.yopo.data_classes.Server;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.HashMap;
 

@@ -1,14 +1,16 @@
 package com.example.yopo.layout_classes;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
-import com.example.yopo.data_classes.AddToFirestoreTask;
+import com.example.yopo.tasks.GetByUsernameFromFirestoreTask;
 
 import java.util.HashMap;
 
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
 //        AddToFirestoreTask task = new AddToFirestoreTask(data, "clients", "test-alon");
 //        task.execute();
 
+        HashMap<String, Object> results = new HashMap<>();
+        AsyncTask t = new GetByUsernameFromFirestoreTask("eyal123", "clients", results).execute();
+
+        Log.d("Test", "Map: " + results);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

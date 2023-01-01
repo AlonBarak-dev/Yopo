@@ -79,7 +79,14 @@ public class Server implements IServer {
 
     @Override
     public HashMap<String, Object> get_business_info(String business_username) {
-        return null;
+        try {
+            AsyncTask<Void, Void, HashMap<String, HashMap<String, Object>>> task = factory.get_task(TaskType.GET, "business", business_username, null);
+            HashMap<String, HashMap<String, Object>> result = task.execute().get();
+            return result.get("data");
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     @Override
@@ -89,7 +96,14 @@ public class Server implements IServer {
 
     @Override
     public HashMap<String, Object> get_service(String service_id) {
-        return null;
+        try {
+            AsyncTask<Void, Void, HashMap<String, HashMap<String, Object>>> task = factory.get_task(TaskType.GET, "services", service_id, null);
+            HashMap<String, HashMap<String, Object>> result = task.execute().get();
+            return result.get("data");
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     @Override

@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         register = findViewById(R.id.start_register);
         login = findViewById(R.id.start_login);
 
-        server = Server.getInstance();
-        HashMap<String, Object> res = server.get_client_info("barak");
-        Log.d("TEST", (String) res.toString());
+//        server = Server.getInstance();
+//        HashMap<String, Object> res = server.get_service("alon-sike");
+//        Log.d("TEST", (String) res.toString());
 
 
         login.setOnClickListener(new View.OnClickListener() {

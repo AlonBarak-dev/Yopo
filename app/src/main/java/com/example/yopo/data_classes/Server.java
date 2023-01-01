@@ -1,6 +1,7 @@
 package com.example.yopo.data_classes;
 
 import android.os.AsyncTask;
+import android.util.Patterns;
 
 import com.example.yopo.interfaces.IServer;
 import com.example.yopo.tasks.TaskFactory;
@@ -161,7 +162,7 @@ public class Server implements IServer {
 
     @Override
     public boolean validate_email(String email_address) {
-        return false;
+        return Patterns.EMAIL_ADDRESS.matcher(email_address).matches();
     }
 
     @Override

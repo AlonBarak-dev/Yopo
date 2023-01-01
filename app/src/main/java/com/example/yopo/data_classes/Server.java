@@ -14,7 +14,6 @@ import java.util.List;
 This class is an implementation of the IServer interface which is responsible for the
 communication with the Firebase Server.
 This class is a Singleton class.
-//TODO add factory that will handle the Task creations
 //TODO implement the entire class
  */
 public class Server implements IServer {
@@ -25,6 +24,7 @@ public class Server implements IServer {
 
 
     private Server() {
+        factory = new TaskFactory();
     }
 
     public static Server getInstance() {
@@ -112,7 +112,7 @@ public class Server implements IServer {
 
     @Override
     public boolean add_to_collection(HashMap<String, Object> data, String document_name, String collection) {
-        AsyncTask task = factory.get_task(TaskType.ADD, collection, document_name, data);
+        AsyncTask<Void, Void, Void> task = factory.get_task(TaskType.ADD, collection, document_name, data);
         task.execute();
         return true;
     }

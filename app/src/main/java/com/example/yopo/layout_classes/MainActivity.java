@@ -27,17 +27,6 @@ public class MainActivity extends AppCompatActivity {
         register = findViewById(R.id.start_register);
         login = findViewById(R.id.start_login);
 
-//        HashMap<String, Object> data = new HashMap<>();
-//        data.put("field1", "value1");
-//        data.put("field2", "value2");
-////
-//        AddToFirestoreTask task = new AddToFirestoreTask(data, "clients", "test-alon");
-//        task.execute();
-
-        HashMap<String, Object> results = new HashMap<>();
-        AsyncTask t = new GetByUsernameFromFirestoreTask("eyal123", "clients", results).execute();
-
-        Log.d("Test", "Map: " + results);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

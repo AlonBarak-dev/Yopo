@@ -7,6 +7,7 @@ import com.example.yopo.interfaces.IServer;
 import com.example.yopo.tasks.TaskFactory;
 import com.example.yopo.tasks.TaskType;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -23,10 +24,19 @@ public class Server implements IServer {
 
     private static Server server = null;
     private TaskFactory factory;
+    private HashMap<Integer, String> day_of_week;
 
 
     private Server() {
         factory = new TaskFactory();
+        this.day_of_week = new HashMap<Integer, String>();
+        this.day_of_week.put(1, "Monday");
+        this.day_of_week.put(2, "Tuesday");
+        this.day_of_week.put(3, "Wednesday");
+        this.day_of_week.put(4, "Thursday");
+        this.day_of_week.put(5, "Friday");
+        this.day_of_week.put(6, "Saturday");
+        this.day_of_week.put(7, "Sunday");
     }
 
     public static Server getInstance() {
@@ -174,17 +184,29 @@ public class Server implements IServer {
 
     @Override
     public HashMap<String, Object> get_open_range_by_day(String username, String day) {
-        return null;
+        try {
+            AsyncTask<Void, Void, HashMap<String, HashMap<String, Object>>> task = factory.get_task(TaskType.GET, "business_open_times", username + "-" + day, null);
+            HashMap<String, HashMap<String, Object>> result = task.execute().get();
+            return result.get("data");
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     @Override
     public HashMap<String, Object> get_open_range_by_full_date(String username, String date) {
-        return null;
+        String[] date_parts = date.split("/");
+        LocalDate date_obj = LocalDate.of(Integer.parseInt(date_parts[2]), Integer.parseInt(date_parts[1]), Integer.parseInt(date_parts[0]));
+        int day_int = getDayNumberNew(date_obj);
+        String day_str = this.day_of_week.get(day_int);
+        return this.get_open_range_by_day(username, day_str);
     }
 
     @Override
     public int getDayNumberNew(LocalDate date) {
-        return 0;
+        DayOfWeek day = date.getDayOfWeek();
+        return day.getValue();
     }
 
 

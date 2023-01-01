@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.start_login);
 
         server = Server.getInstance();
-        List<HashMap<String, Object>> res = server.get_services("alon");
+        HashMap<String, Object> res = server.get_open_range_by_full_date("al", "3/1/2023");
         Log.d("TEST", (String) res.toString());
 //        HashMap<String, Object> res = server.get_service("alon-sike");
 //        Log.d("TEST", (String) res.toString());

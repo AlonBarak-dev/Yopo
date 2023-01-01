@@ -4,5 +4,6 @@ public enum TaskType {
     ADD,
     GET,
     GET_MANY,
-    SEARCH
+    SEARCH,
+    GET_NAME
 }

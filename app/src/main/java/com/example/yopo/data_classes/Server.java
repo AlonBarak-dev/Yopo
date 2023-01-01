@@ -118,7 +118,14 @@ public class Server implements IServer {
 
     @Override
     public HashMap<String, Object> get_business_info_by_name(String business_name) {
-        return null;
+        try {
+            AsyncTask<Void, Void, HashMap<String, HashMap<String, Object>>> task = factory.get_task(TaskType.GET_NAME, "business", business_name, null);
+            HashMap<String, HashMap<String, Object>> result = task.execute().get();
+            return result.get("data");
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     @Override

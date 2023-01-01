@@ -18,6 +18,8 @@ public class TaskFactory {
                 return new GetAppointmentsListTask(collection, document, (String) data.get("date"), (Boolean) data.get("is_client"));
             else if (collection.equals("services"))
                 return new GetServicesListTask(collection, document);
+        } else if (type == TaskType.GET_NAME){
+            return new GetByNameTask(document, collection);
         }
 
         return null;

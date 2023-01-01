@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
         server = Server.getInstance();
         HashMap<String, Object> res = server.get_open_range_by_full_date("al", "3/1/2023");
         Log.d("TEST", (String) res.toString());
-//        HashMap<String, Object> res = server.get_service("alon-sike");
-//        Log.d("TEST", (String) res.toString());
+
 
 
         login.setOnClickListener(new View.OnClickListener() {

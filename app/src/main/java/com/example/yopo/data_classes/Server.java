@@ -49,7 +49,10 @@ public class Server implements IServer {
 
     @Override
     public boolean username_exists(String username, String collection) {
-        return false;
+        if (collection.equals("clients"))
+            return get_client_info(username) != null;
+        else
+            return get_business_info(username) != null;
     }
 
     @Override

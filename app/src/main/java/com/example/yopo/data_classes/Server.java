@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 This class is an implementation of the IServer interface which is responsible for the
@@ -181,12 +182,15 @@ public class Server implements IServer {
         catch (Exception e){
             return null;
         }
-
     }
 
     @Override
     public List<HashMap<String, Object>> search_business(String businessName) {
-        return null;
+         return get_all_businesses()
+                 .stream()
+                 .filter(business -> business.get("business_name").toString()
+                         .contains(businessName))
+                 .collect(Collectors.toList());
     }
 
     @Override
@@ -237,7 +241,5 @@ public class Server implements IServer {
         }
         return result;
     }
-
-
 
 }

@@ -72,7 +72,7 @@ public class BusinessScheduleActivity extends AppCompatActivity {
 
             // Get data from database about this day
             String key = (String) session.get_session_attribute("username") + "-" + (String) day_chooser.getItemAtPosition(i);
-            HashMap<String, Object> data = database.get_open_range_by_day((String) session.get_session_attribute("username"), (String) day_chooser.getItemAtPosition(i));
+            HashMap<String, Object> data = server.get_open_range_by_day((String) session.get_session_attribute("username"), (String) day_chooser.getItemAtPosition(i));
 
             // update list from database, only if there is actuall data to work with
             if (data != null) {

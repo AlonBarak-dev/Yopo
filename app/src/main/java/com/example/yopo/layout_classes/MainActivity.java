@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     // field variables
     private Button register;
     private Button login;
-    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         register = findViewById(R.id.start_register);
         login = findViewById(R.id.start_login);
-
-        server = Server.getInstance();
-        HashMap<String, Object> res = server.get_open_range_by_full_date("al", "3/1/2023");
-        Log.d("TEST", (String) res.toString());
-
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

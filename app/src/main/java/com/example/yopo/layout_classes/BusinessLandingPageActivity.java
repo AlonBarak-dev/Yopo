@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 public class BusinessLandingPageActivity extends AppCompatActivity {
     private Database database;
     private Session session;
+    private Server server;
 
     private TextView business_name, business_description;
     private Button schedule_button, services_button;
@@ -35,7 +37,7 @@ public class BusinessLandingPageActivity extends AppCompatActivity {
         session.add_session_attribute("business_username", business_username);
 
         // get data from database about business
-        HashMap<String, Object> business_data = database.get_business_info(business_username);
+        HashMap<String, Object> business_data = server.get_business_info(business_username);
 
         // get field variables
         business_name = findViewById(R.id.business_name);

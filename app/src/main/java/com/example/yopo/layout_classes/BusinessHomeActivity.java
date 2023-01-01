@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 
 import java.util.HashMap;
@@ -31,6 +32,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
 
     private Database database;
     private Session session;
+    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
         profile_button = findViewById(R.id.home_2_profile_button);
         // extract the database object which is a singleton
         database = Database.getInstance();
+        server = Server.getInstance();
 
         // get user info to use in database
         String username = getIntent().getStringExtra("username");
@@ -101,13 +104,13 @@ public class BusinessHomeActivity extends AppCompatActivity {
                         // set this date in TextView for Display
                         date_view.setText(selected_date);
 
-                        List<HashMap<String, Object>> appointments_list = database.get_appointment_info(username, selected_date, false);
+                        List<HashMap<String, Object>> appointments_list = server.get_appointment_info(username, selected_date, false);
                         if (appointments_list != null) {
                             String[] appointment_info_list = new String[appointments_list.size()];
                             int counter = 0;
                             for (HashMap<String, Object> appointment : appointments_list) {
-                                String client_name = database.get_client_info(appointment.get("client_username").toString()).get("first_name").toString();
-                                String service_name = (String) database.get_service((String) appointment.get("service")).get("service");
+                                String client_name = server.get_client_info(appointment.get("client_username").toString()).get("first_name").toString();
+                                String service_name = (String) server.get_service((String) appointment.get("service")).get("service");
                                 String app = client_name + " ordered: " + service_name + ", in:" + appointment.get("date")
                                         + " " + appointment.get("time");
                                 appointment_info_list[counter] = app;

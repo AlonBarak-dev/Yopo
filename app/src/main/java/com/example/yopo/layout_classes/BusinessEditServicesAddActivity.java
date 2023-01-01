@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.yopo.R;
 import com.example.yopo.data_classes.BusinessRegisterValidator;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 
 import java.util.HashMap;
@@ -22,6 +23,7 @@ public class BusinessEditServicesAddActivity extends AppCompatActivity {
     private Button business_add_services_button;
     private Session session;
     private Database database;
+    private Server server;
 
     private TextView service1, price1, service2, price2, service3, price3, service4, price4, service5, price5;
 
@@ -34,6 +36,7 @@ public class BusinessEditServicesAddActivity extends AppCompatActivity {
         business_add_services_button = findViewById(R.id.business_add_services_button);
         session = Session.getInstance();
         database = Database.getInstance();
+        server = Server.getInstance();
 
         service1 = findViewById(R.id.service1);
         service2 = findViewById(R.id.service2);
@@ -81,7 +84,7 @@ public class BusinessEditServicesAddActivity extends AppCompatActivity {
                         if (((String) service.get("username")).isEmpty() || ((String) service.get("price")).isEmpty()) {
                             continue;
                         }
-                        if (database.add_new_service(service) == false) { // add service to database
+                        if (server.add_new_service(service) == false) { // add service to database
                             services_added = false;
                             break;
                         }

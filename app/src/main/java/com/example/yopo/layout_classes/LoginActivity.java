@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
 import com.example.yopo.data_classes.LoginValidation;
+import com.example.yopo.data_classes.Server;
 
 import java.util.HashMap;
 
@@ -24,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button login_button;
     private CheckBox business_box;
     private Database database;
+    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         business_box = findViewById(R.id.login_checkBox);
 
         database = Database.getInstance();
+        server = Server.getInstance();
 
 
         login_button.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (parser.is_valid()) {
                     if (business_box.isChecked()) {
                         // make sure the user exists in the database -> username to password
-                        HashMap<String, Object> user = database.get_business_info(username.getText().toString());
+                        HashMap<String, Object> user = server.get_business_info(username.getText().toString());
                         if (user != null && user.get("password").toString().equals(password.getText().toString())) {
                             Intent i = new Intent(LoginActivity.this, BusinessHomeActivity.class);
                             i.putExtra("username", username.getText().toString());
@@ -59,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else {
                         // User profile
-                        HashMap<String, Object> user = database.get_client_info(username.getText().toString());
+                        HashMap<String, Object> user = server.get_client_info(username.getText().toString());
                         if (user != null && user.get("password").toString().equals(password.getText().toString())) {
                             Intent i = new Intent(LoginActivity.this, ClientHomeActivity.class);
                             i.putExtra("username", username.getText().toString());

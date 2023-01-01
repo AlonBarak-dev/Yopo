@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class ClientHomeActivity extends AppCompatActivity {
     private Button search_button, calender_button, profile_button, logout_button;
     private Database database;
     private Session session;
+    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,8 @@ public class ClientHomeActivity extends AppCompatActivity {
 
         //get database instance
         database = Database.getInstance();
+
+        server = Server.getInstance();
 
         // get user info to use in database
         String username = getIntent().getStringExtra("username");
@@ -39,7 +43,7 @@ public class ClientHomeActivity extends AppCompatActivity {
         HashMap<String, Object> client_data = null;
         if (username != null) {
             Log.d("ClientHomeAct", "Username: " + username);
-            client_data = database.get_client_info(username);
+            client_data = server.get_client_info(username);
             Log.i("ClientHomeAct", "" + client_data);
         } else {
             // TODO redirect back to the login page

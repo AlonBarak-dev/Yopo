@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 import com.example.yopo.util_classes.BusinessesAdapter;
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,6 +25,7 @@ public class ClientSearchActivity extends AppCompatActivity {
     private RecyclerView search_view;
 
     private Database database;
+    private Server server;
     private Session session;
 
     @Override
@@ -33,6 +35,8 @@ public class ClientSearchActivity extends AppCompatActivity {
 
         // get database
         database = Database.getInstance();
+
+        server = Server.getInstance();
 
         // get session
         session = Session.getInstance();
@@ -52,7 +56,7 @@ public class ClientSearchActivity extends AppCompatActivity {
                 String search_query_name = search_bar.getEditText().getText().toString();
 
                 // get list of businesses
-                List<HashMap<String, Object>> businesses = database.search_business(search_query_name);
+                List<HashMap<String, Object>> businesses = server.search_business(search_query_name);
 
                 // save list of businesses
                 session.add_session_attribute("list_of_businesses", businesses);

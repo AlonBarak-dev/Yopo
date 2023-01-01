@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 
 import java.util.Calendar;
@@ -16,6 +17,7 @@ public class BusinessProfileActivity extends AppCompatActivity {
 
     private Database database;
     private Session session;
+    private Server server;
 
     private TextView username, email, business_address, categories, today_appointments, phone_number;
 
@@ -34,10 +36,11 @@ public class BusinessProfileActivity extends AppCompatActivity {
 
         // extract database and session
         database = Database.getInstance();
+        server = Server.getInstance();
         session = Session.getInstance();
 
         // get business document
-        HashMap<String, Object> business_info = database.get_business_info(session.get_session_attribute("username").toString());
+        HashMap<String, Object> business_info = server.get_business_info(session.get_session_attribute("username").toString());
 
         // show business details in layout
         username.setText(
@@ -69,7 +72,7 @@ public class BusinessProfileActivity extends AppCompatActivity {
                 Calendar.getInstance().get(Calendar.YEAR);
 
         today_appointments.setText(
-                "" + database.count_appointments_on_date(username.getText().toString(), currDate, false)
+                "" + server.count_appointments_on_date(username.getText().toString(), currDate, false)
         );
 
 

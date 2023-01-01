@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yopo.R;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 import com.example.yopo.util_classes.Service;
 import com.example.yopo.util_classes.ServiceAdapter;
@@ -23,6 +24,7 @@ public class BusinessPriceListActivity extends AppCompatActivity {
     // database and session variables
     private Session session;
     private Database database;
+    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +34,13 @@ public class BusinessPriceListActivity extends AppCompatActivity {
         // get database and session instances
         database = Database.getInstance();
         session = Session.getInstance();
+        server = Server.getInstance();
 
         // get recycler view
         price_list = findViewById(R.id.price_list);
 
         // create a random array for testing
-        List<HashMap<String, Object>> list_of_services = database.get_services((String) session.get_session_attribute("business_username"));
+        List<HashMap<String, Object>> list_of_services = server.get_services((String) session.get_session_attribute("business_username"));
         List<Service> services = new ArrayList<>();
         for (HashMap<String, Object> map : list_of_services) {
             try {

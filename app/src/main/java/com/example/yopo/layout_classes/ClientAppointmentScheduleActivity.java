@@ -58,7 +58,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
         String business_username = (String) session.get_session_attribute("business_username");
 
         // retrieve the services of the desired business and present them in a spinner
-        List<HashMap<String, Object>> list_of_services = database.get_services(business_username);
+        List<HashMap<String, Object>> list_of_services = server.get_services(business_username);
         if (list_of_services != null) {
             String[] services_strings = new String[list_of_services.size()];
             int counter = 0;
@@ -90,10 +90,10 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                 // this will serve as a key in the future
                 // in order to extract the appointments from the database.
                 selected_date = dayOfMonth + "/" + (month + 1) + "/" + year;
-                HashMap<String, Object> open_hours = database.get_open_range_by_full_date(business_username, selected_date);
+                HashMap<String, Object> open_hours = server.get_open_range_by_full_date(business_username, selected_date);
 
                 // retrieve the business appointments for the selected day and look for taken slots.
-                List<HashMap<String, Object>> taken_appointments = database.get_appointment_info(business_username, selected_date, false);
+                List<HashMap<String, Object>> taken_appointments = server.get_appointment_info(business_username, selected_date, false);
                 if (taken_appointments != null) {
                     String[] taken_hours = new String[taken_appointments.size()];
                     int counter = 0;

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.yopo.R;
 import com.example.yopo.data_classes.BusinessRegisterValidator;
 import com.example.yopo.data_classes.Database;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.data_classes.Session;
 
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class BusinessRegisterActivity extends AppCompatActivity {
     private Button next_button;
     private Database database;
     private Session session;
+    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class BusinessRegisterActivity extends AppCompatActivity {
 
 
         database = Database.getInstance();
-
+        server = Server.getInstance();
         session = Session.getInstance();
 
 

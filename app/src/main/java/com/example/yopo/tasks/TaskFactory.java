@@ -16,6 +16,8 @@ public class TaskFactory {
                 // add the fields of 'is_client' and 'date' to the data hashmap as "is_client" and "date"
                 // when calling this task and it will call the proper task
                 return new GetAppointmentsListTask(collection, document, (String) data.get("date"), (Boolean) data.get("is_client"));
+            else if (collection.equals("services"))
+                return new GetServicesListTask(collection, document);
         }
 
         return null;

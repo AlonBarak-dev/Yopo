@@ -120,9 +120,9 @@ public class Server implements IServer {
     @Override
     public HashMap<String, Object> get_business_info_by_name(String business_name) {
         try {
-            AsyncTask<Void, Void, HashMap<String, HashMap<String, Object>>> task = factory.get_task(TaskType.GET_NAME, "business", business_name, null);
-            HashMap<String, HashMap<String, Object>> result = task.execute().get();
-            return result.get("data");
+            AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>> task = factory.get_task(TaskType.GET_NAME, "business", business_name, null);
+            List<HashMap<String, HashMap<String, Object>>> result = task.execute().get();
+            return result.get(0).get("data");
         }
         catch (Exception e){
             return null;
@@ -186,11 +186,20 @@ public class Server implements IServer {
 
     @Override
     public List<HashMap<String, Object>> search_business(String businessName) {
-         return get_all_businesses()
-                 .stream()
-                 .filter(business -> business.get("business_name").toString()
-                         .contains(businessName))
-                 .collect(Collectors.toList());
+//         return get_all_businesses()
+//                 .stream()
+//                 .filter(business -> business.get("business_name").toString()
+//                         .contains(businessName))
+//                 .collect(Collectors.toList());
+        try{
+            AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>> task = factory.get_task(TaskType.SEARCH, "business",businessName, null);
+            List<HashMap<String, HashMap<String, Object>>> result = task.execute().get();
+            List<HashMap<String, Object>> ex_result = extractHashMap(result);
+            return ex_result;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     @Override

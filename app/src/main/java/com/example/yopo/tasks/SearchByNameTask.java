@@ -17,19 +17,19 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
-public class GetByNameTask extends AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>>{
-    private static final String FUNCTION_URL = "https://us-central1-yopo-6aaec.cloudfunctions.net/getBusinessByNameFromFirestore";
+public class SearchByNameTask extends AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>>{
+    private static final String FUNCTION_URL = "https://us-central1-yopo-6aaec.cloudfunctions.net/getBusinessBySubNameFromFirestore";
 
     private String username;  // document key to be removed to Firestore
     private String collectionPath;
 
-    public GetByNameTask(String data) {
+    public SearchByNameTask(String data) {
         this.username = data;
     }
 
 
     // For a given username
-    public GetByNameTask(String data, String collectionPath) {
+    public SearchByNameTask(String data, String collectionPath) {
         this.username = data;
         this.collectionPath = collectionPath;
     }

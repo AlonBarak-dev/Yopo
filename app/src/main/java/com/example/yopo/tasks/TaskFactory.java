@@ -22,6 +22,8 @@ public class TaskFactory {
             return new GetByNameTask(document, collection);
         } else if (type == TaskType.GET_ALL){
             return new GetCollectionTask(collection);
+        } else if (type == TaskType.SEARCH){
+            return new SearchByNameTask(collection, document);
         }
 
         return null;

@@ -134,7 +134,19 @@ public class Server implements IServer {
 
     @Override
     public int count_appointments_on_date(String username, String Date, boolean isClient) {
-        return 0;
+        try {
+            HashMap<String, Object> info = new HashMap<String, Object>();
+            info.put("date", Date);
+            info.put("is_client", isClient);
+            AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>> task = factory.get_task(TaskType.GET_MANY, "appointments", username, info);
+            List<HashMap<String, HashMap<String, Object>>> result = task.execute().get();
+            List<HashMap<String, Object>> ex_result = extractHashMap(result);
+            return ex_result.size();
+
+        }
+        catch (Exception e){
+            return 0;
+        }
     }
 
     @Override

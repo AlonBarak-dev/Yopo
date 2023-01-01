@@ -20,6 +20,8 @@ public class TaskFactory {
                 return new GetServicesListTask(collection, document);
         } else if (type == TaskType.GET_NAME){
             return new GetByNameTask(document, collection);
+        } else if (type == TaskType.GET_ALL){
+            return new GetCollectionTask(collection);
         }
 
         return null;

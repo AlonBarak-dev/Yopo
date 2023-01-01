@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
+import com.example.yopo.data_classes.Server;
 import com.example.yopo.tasks.GetByUsernameFromFirestoreTask;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     // field variables
     private Button register;
     private Button login;
+    private Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
         register = findViewById(R.id.start_register);
         login = findViewById(R.id.start_login);
+
+        server = Server.getInstance();
+        HashMap<String, Object> res = server.get_client_info("barak");
+        Log.d("TEST", (String) res.toString());
 
 
         login.setOnClickListener(new View.OnClickListener() {

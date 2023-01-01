@@ -1,6 +1,7 @@
 package com.example.yopo.tasks;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -15,7 +16,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
-public class GetByUsernameFromFirestoreTask extends AsyncTask<Void, Void, HashMap<String, Object>>{
+public class GetByUsernameFromFirestoreTask extends AsyncTask<Void, Void, HashMap<String, HashMap<String, Object>>>{
     private static final String FUNCTION_URL = "https://us-central1-yopo-6aaec.cloudfunctions.net/getFromFirestore";
 
     private String username;  // document key to be removed to Firestore
@@ -33,7 +34,7 @@ public class GetByUsernameFromFirestoreTask extends AsyncTask<Void, Void, HashMa
     }
 
     @Override
-    protected HashMap<String, Object> doInBackground(Void... voids) {
+    protected HashMap<String, HashMap<String, Object>> doInBackground(Void... voids) {
         try {
             // define the query
             String query = String.format("collection=%s&document=%s",
@@ -48,8 +49,9 @@ public class GetByUsernameFromFirestoreTask extends AsyncTask<Void, Void, HashMa
             if (responseCode == 200) {
                 // read the response from the server and convert it to string
                 String response = readStream(connection.getInputStream());
+//                Log.d("TEST", response);
                 Gson gson = new Gson();
-                Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
+                Type type = new TypeToken<HashMap<String, HashMap<String, Object>>>(){}.getType();
                 // return the HashMap that the server returned
                 return gson.fromJson(response, type);
             }  else {

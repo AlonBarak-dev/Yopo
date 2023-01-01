@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GetCollectionTask extends AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>>{
-    private static final String FUNCTION_URL = "https://us-central1-yopo-6aaec.cloudfunctions.net/getBusinessByNameFromFirestore";
+    private static final String FUNCTION_URL = "https://us-central1-yopo-6aaec.cloudfunctions.net/getCollectionFromFirestore";
 
     private String collectionPath;
 

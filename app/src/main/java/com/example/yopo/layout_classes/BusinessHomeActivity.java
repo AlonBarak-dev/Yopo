@@ -105,7 +105,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
                         date_view.setText(selected_date);
 
                         List<HashMap<String, Object>> appointments_list = server.get_appointment_info(username, selected_date, false);
-                        if (appointments_list != null) {
+                        if (appointments_list != null && !appointments_list.isEmpty()) {
                             String[] appointment_info_list = new String[appointments_list.size()];
                             int counter = 0;
                             for (HashMap<String, Object> appointment : appointments_list) {

@@ -23,7 +23,7 @@ public class TaskFactory {
         } else if (type == TaskType.GET_ALL){
             return new GetCollectionTask(collection);
         } else if (type == TaskType.SEARCH){
-            return new SearchByNameTask(collection, document);
+            return new SearchByNameTask(document, collection);
         }
 
         return null;

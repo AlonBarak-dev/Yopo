@@ -62,7 +62,7 @@ public class ClientCalendarActivity extends AppCompatActivity {
                 date_view.setText(selected_date);
                 // retrieve the appointments for the selected day
                 List<HashMap<String, Object>> appointments_list = server.get_appointment_info(session.get_session_attribute("username").toString(), selected_date, true);
-                if (appointments_list != null) {
+                if (appointments_list != null && !appointments_list.isEmpty()) {
                     String[] appointment_info_list = new String[appointments_list.size()];
                     int counter = 0;
                     for (HashMap<String, Object> appointment : appointments_list) {

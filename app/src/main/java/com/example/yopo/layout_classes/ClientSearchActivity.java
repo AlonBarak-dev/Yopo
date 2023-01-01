@@ -62,7 +62,7 @@ public class ClientSearchActivity extends AppCompatActivity {
                 session.add_session_attribute("list_of_businesses", businesses);
 
                 // validate
-                if (businesses != null) {
+                if (businesses != null && !businesses.isEmpty()) {
                     // create adapter
                     BusinessesAdapter adapter = new BusinessesAdapter(ClientSearchActivity.this, businesses);
 

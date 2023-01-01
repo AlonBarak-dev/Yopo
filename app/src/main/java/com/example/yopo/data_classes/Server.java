@@ -1,6 +1,7 @@
 package com.example.yopo.data_classes;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.util.Patterns;
 
 import com.example.yopo.interfaces.IServer;
@@ -13,6 +14,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import kotlinx.coroutines.flow.internal.FlowExceptions_commonKt;
 
 /*
 This class is an implementation of the IServer interface which is responsible for the
@@ -192,9 +195,10 @@ public class Server implements IServer {
 //                         .contains(businessName))
 //                 .collect(Collectors.toList());
         try{
-            AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>> task = factory.get_task(TaskType.SEARCH, "business",businessName, null);
+            AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>> task = factory.get_task(TaskType.SEARCH, "business", businessName, null);
             List<HashMap<String, HashMap<String, Object>>> result = task.execute().get();
             List<HashMap<String, Object>> ex_result = extractHashMap(result);
+            Log.d("TEST", ex_result.toString());
             return ex_result;
         }
         catch (Exception e){
@@ -209,9 +213,13 @@ public class Server implements IServer {
 
     @Override
     public boolean add_to_collection(HashMap<String, Object> data, String document_name, String collection) {
-        AsyncTask<Void, Void, Void> task = factory.get_task(TaskType.ADD, collection, document_name, data);
-        task.execute();
-        return true;
+        try {
+            AsyncTask<Void, Void, Void> task = factory.get_task(TaskType.ADD, collection, document_name, data);
+            task.execute().get();
+            return true;
+        }
+        catch (Exception e) {return false;}
+
     }
 
     @Override

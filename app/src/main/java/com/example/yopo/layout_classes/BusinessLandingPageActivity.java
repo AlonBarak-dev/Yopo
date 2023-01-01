@@ -30,6 +30,7 @@ public class BusinessLandingPageActivity extends AppCompatActivity {
 
         // get database instance
         database = Database.getInstance();
+        server = Server.getInstance();
 
         // get intent info
         String business_username = getIntent().getStringExtra("business_username");

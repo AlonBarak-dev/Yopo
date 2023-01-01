@@ -8,6 +8,7 @@ import com.example.yopo.tasks.TaskType;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -74,7 +75,19 @@ public class Server implements IServer {
 
     @Override
     public List<HashMap<String, Object>> get_appointment_info(String username, String Date, boolean isClient) {
-        return null;
+        try {
+            HashMap<String, Object> info = new HashMap<String, Object>();
+            info.put("date", Date);
+            info.put("is_client", isClient);
+            AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>> task = factory.get_task(TaskType.GET_MANY, "appointments", username, info);
+            List<HashMap<String, HashMap<String, Object>>> result = task.execute().get();
+            List<HashMap<String, Object>> ex_result = extractHashMap(result);
+            return ex_result;
+
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     @Override
@@ -152,4 +165,17 @@ public class Server implements IServer {
     public int getDayNumberNew(LocalDate date) {
         return 0;
     }
+
+
+    private List<HashMap<String, Object>> extractHashMap(List<HashMap<String, HashMap<String, Object>>> appointments){
+        List<HashMap<String, Object>> result = new LinkedList<HashMap<String, Object>>();
+        for (HashMap<String, HashMap<String, Object>> item : appointments){
+            HashMap<String, Object> ex_item = item.get("doc");
+            result.add(ex_item);
+        }
+        return result;
+    }
+
+
+
 }

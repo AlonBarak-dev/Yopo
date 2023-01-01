@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 
-public class GetAppointmentsListTask extends AsyncTask<Void, Void, List<HashMap<String, Object>>> {
-    private static final String FUNCTION_URL = "https://us-central1-your-project-id.cloudfunctions.net/getDocumentData";
+public class GetAppointmentsListTask extends AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>> {
+    private static final String FUNCTION_URL = "https://us-central1-yopo-6aaec.cloudfunctions.net/getAppointmentsFromFirestore";
 
     private String collectionPath;  // Collection path
     private String username;
@@ -34,13 +34,13 @@ public class GetAppointmentsListTask extends AsyncTask<Void, Void, List<HashMap<
     }
 
     @Override
-    protected List<HashMap<String, Object>> doInBackground(Void... voids) {
+    protected List<HashMap<String, HashMap<String, Object>>> doInBackground(Void... voids) {
         try {
             String query = String.format("collection=%s&username=%s&date=%s&isclient=%s",
                     URLEncoder.encode(collectionPath, "UTF-8"),
                     URLEncoder.encode(username, "UTF-8"),
                     URLEncoder.encode(date, "UTF-8"),
-                    isClient);
+                    URLEncoder.encode(String.valueOf(isClient), "UTF-8"));
             URL url = new URL(FUNCTION_URL + "?" + query);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -49,7 +49,7 @@ public class GetAppointmentsListTask extends AsyncTask<Void, Void, List<HashMap<
             if (responseCode == 200) {
                 String response = readStream(connection.getInputStream());
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<HashMap<String, Object>>>(){}.getType();
+                Type type = new TypeToken<List<HashMap<String, HashMap<String, Object>>>>(){}.getType();
                 return gson.fromJson(response, type);
             } else {
                 throw new IOException("Error calling function: HTTP response code ${responseCode}");

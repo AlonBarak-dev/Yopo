@@ -14,6 +14,8 @@ import com.example.yopo.data_classes.Server;
 import com.example.yopo.tasks.GetByUsernameFromFirestoreTask;
 
 import java.util.HashMap;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     // field variables
@@ -29,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
         register = findViewById(R.id.start_register);
         login = findViewById(R.id.start_login);
 
-//        server = Server.getInstance();
+        server = Server.getInstance();
+        List<HashMap<String, Object>> res = server.get_appointment_info("al", "27/12/2022", false);
+        Log.d("TEST", (String) res.toString());
 //        HashMap<String, Object> res = server.get_service("alon-sike");
 //        Log.d("TEST", (String) res.toString());
 

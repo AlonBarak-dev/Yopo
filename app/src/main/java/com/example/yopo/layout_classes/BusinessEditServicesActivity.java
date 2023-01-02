@@ -127,8 +127,14 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(View view) {
+
+                        server.remove_service("services", list_of_services.get(position).get("service_id").toString());
                         Log.i("DELETE", "DELETE");
                         popupWindow.dismiss();
+                        finish();
+                        overridePendingTransition(0, 0);
+                        startActivity(getIntent());
+                        overridePendingTransition(0, 0);
                     }
                 });
             }

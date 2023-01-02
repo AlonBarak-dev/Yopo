@@ -18,14 +18,15 @@ public class TaskFactory {
                 return new GetAppointmentsListTask(collection, document, (String) data.get("date"), (Boolean) data.get("is_client"));
             else if (collection.equals("services"))
                 return new GetServicesListTask(collection, document);
-        } else if (type == TaskType.GET_NAME){
+        } else if (type == TaskType.GET_NAME) {
             return new GetByNameTask(document, collection);
-        } else if (type == TaskType.GET_ALL){
+        } else if (type == TaskType.GET_ALL) {
             return new GetCollectionTask(collection);
-        } else if (type == TaskType.SEARCH){
+        } else if (type == TaskType.SEARCH) {
             return new SearchByNameTask(document, collection);
+        } else if (type == TaskType.REMOVE) {
+            return new RemoveFromFirestoreTask("", collection, document);
         }
-
         return null;
     }
 }

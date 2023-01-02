@@ -26,6 +26,8 @@ public class TaskFactory {
             return new SearchByNameTask(document, collection);
         } else if (type == TaskType.REMOVE) {
             return new RemoveFromFirestoreTask("", collection, document);
+        } else if(type == TaskType.UPDATE) {
+            return new UpdateDocumentInFirestore(data, collection, document);
         }
         return null;
     }

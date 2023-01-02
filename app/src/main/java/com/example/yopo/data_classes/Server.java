@@ -259,4 +259,15 @@ public class Server implements IServer {
         return result;
     }
 
+    @Override
+    public boolean remove_service(String collection, String service_id) {
+        try {
+            AsyncTask<Void, Void, Void> task = factory.get_task(TaskType.REMOVE, collection, service_id, null);
+            task.execute().get();
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
 }

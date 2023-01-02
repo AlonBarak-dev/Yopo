@@ -44,4 +44,6 @@ public interface IServer {
 
     public int getDayNumberNew(LocalDate date);
 
+    public boolean remove_service(String collection, String service_id);
+
 }

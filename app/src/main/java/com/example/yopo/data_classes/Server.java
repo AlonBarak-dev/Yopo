@@ -265,8 +265,18 @@ public class Server implements IServer {
             AsyncTask<Void, Void, Void> task = factory.get_task(TaskType.REMOVE, collection, service_id, null);
             task.execute().get();
             return true;
+        } catch (Exception e) {
+            return false;
         }
-        catch (Exception e) {
+    }
+
+    @Override
+    public boolean update_document(String collection, String documentID, HashMap<String, Object> data) {
+        try {
+            AsyncTask<Void, Void, Void> task = factory.get_task(TaskType.UPDATE, collection, documentID, data);
+            task.execute().get();
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }

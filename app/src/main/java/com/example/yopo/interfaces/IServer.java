@@ -46,4 +46,6 @@ public interface IServer {
 
     public boolean remove_service(String collection, String service_id);
 
+    public boolean update_document(String collection, String documentID, HashMap<String, Object> data);
+
 }

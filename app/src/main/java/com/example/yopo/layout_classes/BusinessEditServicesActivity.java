@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -104,14 +105,14 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
                 // code taken from: https://stackoverflow.com/questions/5944987/how-to-create-a-popup-window-popupwindow-in-android
 
                 // inflate the layout of the popup window
-                LayoutInflater inflater = (LayoutInflater)
-                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window_layout, null);
+                TextView delete = popupView.findViewById(R.id.delete);
 
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true; // lets taps outside the popup also dismiss it
+                boolean focusable = true; // lets taps outside the popup to dismiss it
                 final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
                 // show the popup window
@@ -121,12 +122,13 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
                 }
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-                // dismiss the popup window when touched
-                popupView.setOnTouchListener(new View.OnTouchListener() {
+                // delete service and dismiss the popup window when 'DELETE' is clicked
+                delete.setOnClickListener(new View.OnClickListener() {
+
                     @Override
-                    public boolean onTouch(View v, MotionEvent event) {
+                    public void onClick(View view) {
+                        Log.i("DELETE", "DELETE");
                         popupWindow.dismiss();
-                        return true;
                     }
                 });
             }

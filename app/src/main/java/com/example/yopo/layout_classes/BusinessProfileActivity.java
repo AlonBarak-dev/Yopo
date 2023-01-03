@@ -1,6 +1,9 @@
 package com.example.yopo.layout_classes;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +23,7 @@ public class BusinessProfileActivity extends AppCompatActivity {
     private Server server;
 
     private TextView username, email, business_address, categories, today_appointments, phone_number;
+    private Button edit_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class BusinessProfileActivity extends AppCompatActivity {
         phone_number = findViewById(R.id.phone_number);
         categories = findViewById(R.id.category);
         today_appointments = findViewById(R.id.today_appointments_num);
+        edit_profile = findViewById(R.id.edit_profile);
 
 
         // extract database and session
@@ -75,6 +80,13 @@ public class BusinessProfileActivity extends AppCompatActivity {
                 "" + server.count_appointments_on_date(username.getText().toString(), currDate, false)
         );
 
+        edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(BusinessProfileActivity.this, BusinessEditProfile.class);
+                startActivity(i);
+            }
+        });
 
     }
 }

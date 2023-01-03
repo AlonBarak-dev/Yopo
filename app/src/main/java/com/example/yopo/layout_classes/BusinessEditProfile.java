@@ -51,8 +51,10 @@ public class BusinessEditProfile extends AppCompatActivity {
                 if (server.validate_email(email.getText().toString())) {
                     business_data.put("email", email.getText().toString());
                 } else {
-                    Toast.makeText(BusinessEditProfile.this, "Invalid email!", Toast.LENGTH_SHORT).show();
-                    return;
+                    if (!email.getText().toString().isEmpty()) {
+                        Toast.makeText(BusinessEditProfile.this, "Invalid email!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 if (!city.getText().toString().isEmpty()) {
                     business_data.put("city", city.getText().toString());
@@ -73,9 +75,14 @@ public class BusinessEditProfile extends AppCompatActivity {
                     business_data.put("description", business_description.getText().toString());
                 }
 
-                if (server.update_document("business", session.get_session_attribute("username").toString(), business_data)) {
+                if (business_data.size() == 0) {
+                    Toast.makeText(BusinessEditProfile.this, "No fields to update!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(BusinessEditProfile.this, BusinessProfileActivity.class);
+                    startActivity(i);
+                    finish();
+                } else if (server.update_document("business", session.get_session_attribute("username").toString(), business_data)) {
                     Toast.makeText(BusinessEditProfile.this, "Update successful!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(BusinessEditProfile.this, BusinessHomeActivity.class);
+                    Intent i = new Intent(BusinessEditProfile.this, BusinessProfileActivity.class);
                     startActivity(i);
                     finish();
                 } else {

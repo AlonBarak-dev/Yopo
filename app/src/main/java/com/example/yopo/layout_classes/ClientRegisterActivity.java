@@ -69,8 +69,8 @@ public class ClientRegisterActivity extends AppCompatActivity {
                     client_data.put("email", email.getText().toString());
                     client_data.put("city", city.getText().toString());
                     client_data.put("street", street.getText().toString());
-                    client_data.put("home_num", Integer.parseInt(home_num.getText().toString()));
-                    client_data.put("floor", Integer.parseInt(floor.getText().toString()));
+                    client_data.put("home_num", home_num.getText().toString());
+                    client_data.put("floor", floor.getText().toString());
                     client_data.put("birthdate", birth_date.getText().toString());
                     client_data.put("phone_number", phone_number.getText().toString());
 

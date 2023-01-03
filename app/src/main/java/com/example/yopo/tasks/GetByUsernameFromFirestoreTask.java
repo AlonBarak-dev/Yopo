@@ -54,11 +54,11 @@ public class GetByUsernameFromFirestoreTask extends AsyncTask<Void, Void, HashMa
                 Type type = new TypeToken<HashMap<String, HashMap<String, Object>>>(){}.getType();
                 // return the HashMap that the server returned
                 return gson.fromJson(response, type);
-            }  else {
-                throw new IOException("Error calling function: HTTP response code ${responseCode}");
+            } else {
+                throw new IOException("Error calling function: HTTP response code " + responseCode);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            // e.printStackTrace();
         }
         return null;
     }

@@ -72,13 +72,18 @@ public class BusinessScheduleActivity extends AppCompatActivity {
 
             // Get data from database about this day
             String key = (String) session.get_session_attribute("username") + "-" + (String) day_chooser.getItemAtPosition(i);
+            Log.d("get_open_range_by_day", "INITIATED");
             HashMap<String, Object> data = server.get_open_range_by_day((String) session.get_session_attribute("username"), (String) day_chooser.getItemAtPosition(i));
 
-            // update list from database, only if there is actuall data to work with
+            // update list from database, only if there is actual data to work with
             if (data != null) {
                 update_list(ranges_per_day.get(i), data);
             }
         }
+        Log.d("ranges", "setLayoutManager to null");
+        ranges.setLayoutManager(null);
+        Log.d("ranges", "setAdapter to null");
+        ranges.setAdapter(null);
 
         // Set on selection event listener for the "day_chooser" spinner
         day_chooser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -91,7 +96,9 @@ public class BusinessScheduleActivity extends AppCompatActivity {
                 // Create layout manager
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(BusinessScheduleActivity.this, LinearLayoutManager.VERTICAL, false);
 
+                Log.d("ranges", "setLayoutManager");
                 ranges.setLayoutManager(linearLayoutManager);
+                Log.d("ranges", "setAdapter");
                 ranges.setAdapter(range_adapter);
             }
 
@@ -156,6 +163,7 @@ public class BusinessScheduleActivity extends AppCompatActivity {
 
                     // Add to database
 //                    database.add_to_collection(day_map.get(key), key, "business_open_times");
+                    Log.d("add_to_collection","INITIATED");
                     server.add_to_collection(day_map.get(key), key, "business_open_times");
                 }
             }

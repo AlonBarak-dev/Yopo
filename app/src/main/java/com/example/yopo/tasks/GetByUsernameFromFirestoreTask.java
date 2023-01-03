@@ -58,7 +58,7 @@ public class GetByUsernameFromFirestoreTask extends AsyncTask<Void, Void, HashMa
                 throw new IOException("Error calling function: HTTP response code " + responseCode);
             }
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }

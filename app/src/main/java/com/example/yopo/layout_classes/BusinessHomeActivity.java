@@ -9,6 +9,7 @@ import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -58,6 +59,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Logout from the profile -> back to Main page
+                Toast.makeText(BusinessHomeActivity.this, "Logging Out...", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(BusinessHomeActivity.this, MainActivity.class);
                 // clear the session when logging out
                 session.clear_session();
@@ -69,6 +71,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Move to the edit screen where the user can edit it schedule.
+                Toast.makeText(BusinessHomeActivity.this, "Loading Schedule...", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(BusinessHomeActivity.this, BusinessScheduleActivity.class);
                 startActivity(i);
             }
@@ -77,6 +80,7 @@ public class BusinessHomeActivity extends AppCompatActivity {
         profile_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(BusinessHomeActivity.this, "Loading Profile...", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(BusinessHomeActivity.this, BusinessProfileActivity.class);
                 startActivity(i);
             }

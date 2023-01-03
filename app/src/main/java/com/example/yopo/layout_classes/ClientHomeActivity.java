@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -67,6 +68,7 @@ public class ClientHomeActivity extends AppCompatActivity {
         calender_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(ClientHomeActivity.this, "Loading Calendar...", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(ClientHomeActivity.this, ClientCalendarActivity.class);
                 startActivity(i);
             }
@@ -75,6 +77,7 @@ public class ClientHomeActivity extends AppCompatActivity {
         profile_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(ClientHomeActivity.this, "Loading Profile...", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(ClientHomeActivity.this, ClientProfileActivity.class);
                 startActivity(i);
             }
@@ -83,6 +86,7 @@ public class ClientHomeActivity extends AppCompatActivity {
         logout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(ClientHomeActivity.this, "Logging Out...", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(ClientHomeActivity.this, MainActivity.class);
                 // clear session when logging out
                 session.clear_session();

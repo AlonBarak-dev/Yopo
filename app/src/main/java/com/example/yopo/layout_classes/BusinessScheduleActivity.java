@@ -80,6 +80,8 @@ public class BusinessScheduleActivity extends AppCompatActivity {
                 update_list(ranges_per_day.get(i), data);
             }
         }
+
+        // init adapters to null
         Log.d("ranges", "setLayoutManager to null");
         ranges.setLayoutManager(null);
         Log.d("ranges", "setAdapter to null");

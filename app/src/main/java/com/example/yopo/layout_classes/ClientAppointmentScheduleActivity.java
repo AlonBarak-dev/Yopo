@@ -12,12 +12,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
-import com.example.yopo.data_classes.Database;
-import com.example.yopo.data_classes.Server;
+import com.example.yopo.data_classes.ServerFactory;
 import com.example.yopo.data_classes.Session;
+import com.example.yopo.interfaces.Server;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,49 +30,91 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
     private String selected_date;
 
     private Session session;
-    private Database database;
     private Server server;
 
-
+    private String[] list_of_hours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.appointment_schedule_layout);
 
+        list_of_hours = new String[24];
+        initializeServerAndSession();
+        initializeFields();
+        loadServicesToSpinner();
+        initializeButtonOnClickEvents();
+    }
+
+    private void initializeServerAndSession() {
+        try {
+            server = ServerFactory.getServer("firestore");
+        } catch (ClassNotFoundException e) {
+            Log.e("ServerFactory", e.toString());
+        }
+        session = Session.getInstance();
+    }
+
+    private void initializeFields() {
         calendar = findViewById(R.id.calendar_dates_schedule);
         hours = findViewById(R.id.avaliable_hours_spinner);
         services = findViewById(R.id.service_spinner_sched);
         save = findViewById(R.id.save_appointment_button);
+    }
 
-        database = Database.getInstance();
-        server = Server.getInstance();
+    private void createAndInsertNewAppointment(String client_username, String business_username) {
+        HashMap<String, Object> new_appointment = createNewAppointment(client_username, business_username);
 
-        String[] list_of_hours = new String[24];
+        if (server.add_new_appointment(new_appointment)) {
+            Toast.makeText(ClientAppointmentScheduleActivity.this, "Appointment set successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-        // get data from session
-        session = Session.getInstance();
-        String client_username = (String) session.get_session_attribute("username");
-        String business_username = (String) session.get_session_attribute("business_username");
+    private HashMap<String, Object> createNewAppointment(String client_username, String business_username) {
+        HashMap<String, Object> new_appointment = new HashMap<>();
+        new_appointment.put("client_username", client_username);
+        new_appointment.put("business_username", business_username);
+        new_appointment.put("date", selected_date);
+        new_appointment.put("time", hours.getSelectedItem().toString().split(": ")[1]);
+        String service = services.getSelectedItem().toString().split(" :")[0];
+        new_appointment.put("service", business_username + "-" + service);    // service ID
+        String[] selected_date_id = selected_date.split("/");
+        new_appointment.put("appointment_id", business_username + "-" + client_username + "-" + selected_date_id[0] + "-" + selected_date_id[1] + "-" + selected_date_id[2] + "-" + hours.getSelectedItem().toString());  // appointment ID
 
-        // retrieve the services of the desired business and present them in a spinner
-        List<HashMap<String, Object>> list_of_services = server.get_services(business_username);
-        if (list_of_services != null) {
-            String[] services_strings = new String[list_of_services.size()];
-            int counter = 0;
-            for (HashMap<String, Object> service : list_of_services) {
-                String serv_str = service.get("service") + " : " + service.get("price");
-                services_strings[counter] = serv_str;
-                counter++;
-            }
+        return new_appointment;
+    }
 
-            ArrayAdapter<String> services_adapter = new ArrayAdapter<String>(ClientAppointmentScheduleActivity.this,
-                    android.R.layout.simple_spinner_item, services_strings);
-
-            services.setAdapter(services_adapter);
+    private void initializeServicesSpinner(List<HashMap<String, Object>> list_of_services) {
+        String[] services_strings = new String[list_of_services.size()];
+        int counter = 0;
+        for (HashMap<String, Object> service : list_of_services) {
+            String serv_str = service.get("service") + " : " + service.get("price");
+            services_strings[counter] = serv_str;
+            counter++;
         }
 
+        ArrayAdapter<String> services_adapter = new ArrayAdapter<String>(ClientAppointmentScheduleActivity.this,
+                android.R.layout.simple_spinner_item, services_strings);
 
+        services.setAdapter(services_adapter);
+    }
+
+    private List<HashMap<String, Object>> getListOfServices() {
+        String business_username = (String) session.get_session_attribute("business_username");
+        List<HashMap<String, Object>> list_of_services = server.get_services(business_username);
+
+        return list_of_services;
+    }
+
+    private void loadServicesToSpinner() {
+        List<HashMap<String, Object>> list_of_services = getListOfServices();
+
+        if (list_of_services != null) {
+            initializeServicesSpinner(list_of_services);
+        }
+    }
+
+    private void initializeButtonOnClickEvents() {
         // Add Listener in calendar
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -86,6 +126,8 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                     int year,
                     int month,
                     int dayOfMonth) {
+
+                String business_username = (String) session.get_session_attribute("business_username");
 
                 // this will serve as a key in the future
                 // in order to extract the appointments from the database.
@@ -115,7 +157,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                             }
                         }
                         String key = (i < 10) ? "0" + i + "-00" : "" + i + "-00";
-                        if (open_hours != null && !(boolean)open_hours.get(key))
+                        if (open_hours != null && !(boolean) open_hours.get(key))
                             list_of_hours[i] = "Closed: " + full_time;
                         else if (free_hour)
                             list_of_hours[i] = "Open: " + full_time;
@@ -129,7 +171,7 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
                         String end_time = ((i + 1) % 24) + ":00";
                         String full_time = start_time + "--" + end_time;
                         String key = (i < 10) ? "0" + i + "-00" : "" + i + "-00";
-                        if (open_hours != null && !(boolean)open_hours.get(key))
+                        if (open_hours != null && !(boolean) open_hours.get(key))
                             list_of_hours[i] = "Closed: " + full_time;
                         else
                             list_of_hours[i] = "Open: " + full_time;
@@ -147,31 +189,15 @@ public class ClientAppointmentScheduleActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO add treatment type and users Names.
-                // save the appointment to the Database
+                String client_username = (String) session.get_session_attribute("username");
+                String business_username = (String) session.get_session_attribute("business_username");
+
                 if (selected_date != null && hours.getSelectedItem().toString().contains("Open")) {
-                    HashMap<String, Object> new_appointment = new HashMap<>();
-                    new_appointment.put("client_username", client_username);
-                    new_appointment.put("business_username", business_username);
-                    new_appointment.put("date", selected_date);
-                    new_appointment.put("time", hours.getSelectedItem().toString().split(": ")[1]);
-                    String service = services.getSelectedItem().toString().split(" :")[0];
-                    new_appointment.put("service", business_username + "-" +service);    // service ID
-                    String [] selected_date_id = selected_date.split("/");
-                    new_appointment.put("appointment_id", business_username + "-" + client_username + "-"  + selected_date_id[0] + "-" + selected_date_id[1] + "-" + selected_date_id[2] +"-"+ hours.getSelectedItem().toString());  // appointment ID
-                    if (server.add_new_appointment(new_appointment)) {
-                        Toast.makeText(ClientAppointmentScheduleActivity.this, "Appointment set successfully!", Toast.LENGTH_SHORT).show();
-                    }
+                    createAndInsertNewAppointment(client_username, business_username);
                 } else {
                     Toast.makeText(ClientAppointmentScheduleActivity.this, "Please choose available date and hour!", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
-
-
     }
-
-
 }

@@ -1,34 +1,29 @@
 package com.example.yopo.layout_classes;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yopo.R;
-import com.example.yopo.data_classes.Database;
-import com.example.yopo.data_classes.Server;
+import com.example.yopo.data_classes.FirebaseServer;
+import com.example.yopo.data_classes.ServerFactory;
 import com.example.yopo.data_classes.Session;
+import com.example.yopo.interfaces.Server;
 import com.example.yopo.util_classes.RecyclerTouchListener;
 import com.example.yopo.util_classes.Service;
 import com.example.yopo.util_classes.ServiceAdapter;
-
-import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +36,6 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
 
     // database and session variables
     private Session session;
-    private Database database;
     private Server server;
 
     @Override
@@ -49,16 +43,37 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business_edit_services_layout);
 
-        // get database and session instances
-        database = Database.getInstance();
-        session = Session.getInstance();
-        server = Server.getInstance();
+        initializeServerAnsSession();
+        initializeFields();
+        initializeRecycler();
+        initializeButtonsOnClickEvent();
+    }
 
-        // get recycler view
+    private void initializeServerAnsSession() {
+        try {
+            server = ServerFactory.getServer("firestore");
+        } catch (ClassNotFoundException e){
+            Log.e("ServerFactory", e.toString());
+        }
+        session = Session.getInstance();
+    }
+
+    private void initializeFields() {
         service_list = findViewById(R.id.service_list);
         add_services_button = findViewById(R.id.add_services_button);
+    }
 
-        // create a random array for testing
+    private void initializeButtonsOnClickEvent() {
+        add_services_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(BusinessEditServicesActivity.this, BusinessEditServicesAddActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    private List<Service> createListOfServices() {
         List<HashMap<String, Object>> list_of_services = server.get_services((String) session.get_session_attribute("username"));
         List<Service> services = new ArrayList<>();
 
@@ -83,21 +98,25 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
             }
         }
 
-        // create adapter
-        ServiceAdapter adapter = new ServiceAdapter(this, services);
+        return services;
+    }
 
-        // create layout manager
+    private void initializeRecycler() {
+        List<Service> services = createListOfServices();
+        ServiceAdapter adapter = new ServiceAdapter(this, services);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        // set layout manager and adapter
         service_list.setLayoutManager(linearLayoutManager);
         service_list.setAdapter(adapter);
+    }
+
+    private void initializeRecyclerOnClickEvents() {
+        List<HashMap<String, Object>> list_of_services = server.get_services((String) session.get_session_attribute("username"));
 
         // service list item click listener
         service_list.addOnItemTouchListener(new RecyclerTouchListener(service_list.getContext(), service_list, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-
             }
 
             @Override
@@ -110,10 +129,7 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
                 TextView delete = popupView.findViewById(R.id.delete);
 
                 // create the popup window
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true; // lets taps outside the popup to dismiss it
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+                final PopupWindow popupWindow = createPopupWindow(popupView);
 
                 // show the popup window
                 // which view you pass in doesn't matter, it is only used for the window token
@@ -124,10 +140,8 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
 
                 // delete service and dismiss the popup window when 'DELETE' is clicked
                 delete.setOnClickListener(new View.OnClickListener() {
-
                     @Override
                     public void onClick(View view) {
-
                         server.remove_service("services", list_of_services.get(position).get("service_id").toString());
                         Log.i("DELETE", "DELETE");
                         popupWindow.dismiss();
@@ -139,13 +153,14 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
                 });
             }
         }));
+    }
 
-        add_services_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(BusinessEditServicesActivity.this, BusinessEditServicesAddActivity.class);
-                startActivity(i);
-            }
-        });
+    private PopupWindow createPopupWindow(View popupView) {
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup to dismiss it
+
+        return new PopupWindow(popupView, width, height, focusable);
     }
 }

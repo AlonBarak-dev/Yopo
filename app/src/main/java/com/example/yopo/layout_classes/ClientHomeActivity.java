@@ -10,16 +10,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yopo.R;
-import com.example.yopo.data_classes.Database;
-import com.example.yopo.data_classes.Server;
+import com.example.yopo.data_classes.ServerFactory;
 import com.example.yopo.data_classes.Session;
-
-import java.util.HashMap;
+import com.example.yopo.interfaces.Server;
 
 public class ClientHomeActivity extends AppCompatActivity {
     // field variables
     private Button search_button, calender_button, profile_button, logout_button;
-    private Database database;
     private Session session;
     private Server server;
 
@@ -28,34 +25,31 @@ public class ClientHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_home_layout);
 
-        //get database instance
-        database = Database.getInstance();
+        initializeServerAndSession();
+        initializeFields();
+        initializeButtonsOnClickEvents();
+    }
 
-        server = Server.getInstance();
-
-        // get user info to use in database
-        String username = getIntent().getStringExtra("username");
-
-        // init session
-        session = Session.getInstance();
-        session.add_session_attribute("username", username);
-
-        // load user data
-        HashMap<String, Object> client_data = null;
-        if (username != null) {
-            Log.d("ClientHomeAct", "Username: " + username);
-            client_data = server.get_client_info(username);
-            Log.i("ClientHomeAct", "" + client_data);
-        } else {
-            // TODO redirect back to the login page
+    private void initializeServerAndSession() {
+        try {
+            server = ServerFactory.getServer("firestore");
+        } catch (ClassNotFoundException e) {
+            Log.e("ServerFactory", e.toString());
         }
 
-        // get fields
+        session = Session.getInstance();
+        String username = getIntent().getStringExtra("username");
+        session.add_session_attribute("username", username);
+    }
+
+    private void initializeFields() {
         search_button = findViewById(R.id.search);
         calender_button = findViewById(R.id.calender);
         profile_button = findViewById(R.id.profile);
         logout_button = findViewById(R.id.logout);
+    }
 
+    private void initializeButtonsOnClickEvents() {
         // set event listeners to the buttons
         // set event to button click
         search_button.setOnClickListener(new View.OnClickListener() {

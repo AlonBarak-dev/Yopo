@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Patterns;
 
-import com.example.yopo.interfaces.IServer;
 import com.example.yopo.tasks.TaskFactory;
 import com.example.yopo.tasks.TaskType;
 
@@ -13,9 +12,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import kotlinx.coroutines.flow.internal.FlowExceptions_commonKt;
 
 /*
 This class is an implementation of the IServer interface which is responsible for the
@@ -23,15 +19,14 @@ communication with the Firebase Server.
 This class is a Singleton class.
 //TODO implement the entire class
  */
-public class Server implements IServer {
+public class FirebaseServer implements com.example.yopo.interfaces.Server {
 
-
-    private static Server server = null;
+    private static FirebaseServer server = null;
     private TaskFactory factory;
     private HashMap<Integer, String> day_of_week;
 
 
-    private Server() {
+    private FirebaseServer() {
         factory = new TaskFactory();
         this.day_of_week = new HashMap<Integer, String>();
         this.day_of_week.put(1, "Monday");
@@ -43,9 +38,9 @@ public class Server implements IServer {
         this.day_of_week.put(7, "Sunday");
     }
 
-    public static Server getInstance() {
+    public static FirebaseServer getInstance() {
         if (server == null) {
-            server = new Server();
+            server = new FirebaseServer();
         }
         return server;
     }
@@ -189,11 +184,6 @@ public class Server implements IServer {
 
     @Override
     public List<HashMap<String, Object>> search_business(String businessName) {
-//         return get_all_businesses()
-//                 .stream()
-//                 .filter(business -> business.get("business_name").toString()
-//                         .contains(businessName))
-//                 .collect(Collectors.toList());
         try{
             AsyncTask<Void, Void, List<HashMap<String, HashMap<String, Object>>>> task = factory.get_task(TaskType.SEARCH, "business", businessName, null);
             List<HashMap<String, HashMap<String, Object>>> result = task.execute().get();

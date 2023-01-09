@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
-public interface IServer {
+public interface Server {
 
     public boolean username_exists(String username, String collection);
 

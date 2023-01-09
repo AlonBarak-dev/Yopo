@@ -18,9 +18,17 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
+
+        initializeFields();
+        initializeButtonOnClickEvents();
+    }
+
+    private void initializeFields() {
         client_button = findViewById(R.id.client_button);
         business_button = findViewById(R.id.business_button);
+    }
 
+    private void initializeButtonOnClickEvents() {
         client_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,8 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
         business_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                // TODO complete function
-//                Toast.makeText(RegisterActivity.this, "Not supported yet!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(RegisterActivity.this, BusinessRegisterActivity.class);
                 startActivity(i);
             }

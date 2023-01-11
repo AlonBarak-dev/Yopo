@@ -47,6 +47,7 @@ public class BusinessEditServicesActivity extends AppCompatActivity {
         initializeFields();
         initializeRecycler();
         initializeButtonsOnClickEvent();
+        initializeRecyclerOnClickEvents();
     }
 
     private void initializeServerAnsSession() {

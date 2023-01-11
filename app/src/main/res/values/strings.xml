@@ -81,8 +81,8 @@
     <string name="price_title">Price</string>
 
     <!-- this is for the range card layout -->
-    <string name="start_hour_text">choose starting hour</string>
-    <string name="end_hour_text">choose closing hour for that range</string>
+    <string name="start_hour_text">open from</string>
+    <string name="end_hour_text">to</string>
     <string name="new_range_text">New</string>
     <string-array name="list_of_hours">
         <item>00:00</item>
